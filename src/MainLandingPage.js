@@ -25,32 +25,33 @@ export default () => {
       <Features
         heading={
           <>
-            Amazing <HighlightedText>Features</HighlightedText>
+            Ashburn <HighlightedText>Features</HighlightedText>
           </>
         }
       />
       <FeatureStats />
 
       <MainFeature
-        subheading="Reliable"
-        heading="Highly Redundant Servers With Backup"
+        subheading="Solution"
+        heading="Services"
         imageSrc={serverRedundancyIllustrationImageSrc}
-        buttonRounded={false}
+        description="Ashburn Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape."
       />
       <MainFeature
-        subheading="Secure"
-        heading="State of the Art Computer Security"
+        subheading="Courses"
+        heading="E-learning"
         imageSrc={serverSecureIllustrationImageSrc}
-        buttonRounded={false}
         textOnLeft={false}
+        description="Ashburn e-learning pioneers accessible and interactive online education. Offering diverse courses, expert instructors, and user-friendly platforms, it empowers learners worldwide to acquire new skills, advance careers, and embrace lifelong learning, regardless of geographical constraints."
       />
       <MainFeature
         heading={
           <>
-            Cloud built by and for{" "}
+            Ashburn built by and for{" "}
             <HighlightedText>Professionals</HighlightedText>
           </>
         }
+        description="Ashburn Tech: Expertly Designed by and for Professionals. A purpose-driven ecosystem, tailored to empower industry leaders, startups, and experts, fostering collaboration, innovation, and success"
       />
       <Testimonial
         heading={
@@ -58,6 +59,7 @@ export default () => {
             Our Clients <HighlightedText>Love Us</HighlightedText>
           </>
         }
+        description="Ashburn Tech proudly serves a diverse clientele spanning startups, enterprises, tech innovators, and academic institutions. Our esteemed clients benefit from our cutting-edge services, fostering growth, innovation, and technological advancement."
       />
       <Pricing
         heading={
@@ -73,14 +75,14 @@ export default () => {
           </>
         }
       />
-      <Blog
-        subheading="Blog"
+      {/* <Blog
+        subheading=""
         heading={
           <>
             We love <HighlightedText>Writing</HighlightedText>
           </>
         }
-      />
+      /> */}
       <GetStarted />
       <Footer />
     </AnimationRevealPage>

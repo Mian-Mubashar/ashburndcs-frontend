@@ -26,9 +26,9 @@ export default ({
   subheading = "Interested in Ashburn ?",
   heading = "Join the closed beta now.",
   primaryLinkText = "Get Started",
-  primaryLinkUrl = "http://timerse.com",
+  primaryLinkUrl = "",
   secondaryLinkText = "Contact Us",
-  secondaryLinkUrl = "http://google.com",
+  secondaryLinkUrl = "",
   pushDownFooter = true
 }) => {
   return (

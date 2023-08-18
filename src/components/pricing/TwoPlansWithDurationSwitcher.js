@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
-import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
+import {
+  SectionHeading,
+  Subheading as SubheadingBase,
+} from "components/misc/Headings.js";
 import { SectionDescription } from "components/misc/Typography.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { Container, ContentWithPaddingXl } from "components/misc/Layouts.js";
@@ -17,14 +20,14 @@ const Description = tw(SectionDescription)`w-full text-center`;
 const PlanDurationSwitcher = tw.div`block w-full max-w-xs sm:inline-block sm:w-auto border-2 rounded-full px-1 py-1 mt-8`;
 const SwitchButton = styled.button`
   ${tw`w-1/2 sm:w-32 px-4 sm:px-8 py-3 rounded-full focus:outline-none text-sm font-bold text-gray-700 transition duration-300`}
-  ${props => props.active && tw`bg-primary-500 text-gray-100`}
+  ${(props) => props.active && tw`bg-primary-500 text-gray-100`}
 `;
 
 const PlansContainer = tw.div`flex justify-center flex-col md:flex-row items-center md:items-start relative`;
 const Plan = styled.div`
   ${tw`w-full max-w-72 mt-16 md:mr-12 md:last:mr-0 text-center px-8 rounded-lg relative text-gray-900 bg-white flex flex-col shadow-raised`}
 
-  ${props =>
+  ${(props) =>
     props.featured &&
     css`
       ${tw`border-2 border-gray-200 shadow-none`}
@@ -71,7 +74,7 @@ const DecoratorBlob2 = styled(SvgDecoratorBlob2)`
 export default ({
   subheading = "Pricing",
   heading = "Flexible Plans.",
-  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  description = "Ashburn Flexible Plans: Tailored to Your Needs. Choose from a range of customizable options, ensuring scalability, cost-efficiency, and seamless integration. Empowering your tech journey with versatility and innovation",
   plans = null,
   primaryButtonText = "Buy Now",
   planDurations = [
@@ -82,23 +85,30 @@ export default ({
     {
       text: "Year",
       switcherText: "Yearly",
-    }
-  ]
+    },
+  ],
 }) => {
   const defaultPlans = [
     {
-      name: "Free Plan",
-      durationPrices: ["$0", "$0"],
-      mainFeature: "For Personal Blogs",
-      features: ["30 Templates", "7 Landing Pages", "12 Internal Pages", "Basic Assistance"]
+      name: "Basic Plan",
+      durationPrices: ["$100", "$1000"],
+      mainFeature: "For Personal Solutions",
+      features: ["High-Speed Connectivity", "Robust Security","Support","","",""],
     },
     {
       name: "Pro Plan",
-      durationPrices: ["$49", "$499"],
+      durationPrices: ["$149", "$1499"],
       mainFeature: "Suited for Production Websites",
-      features: ["60 Templates", "8 Landing Pages", "22 Internal Pages", "Priority Assistance", "Lifetime Updates"],
-      featured: true
-    }
+      features: [
+        "High-Speed Connectivity",
+        "Robust Security",
+        "24/7 Support",
+        "Scalable Resources",
+        "Collaborative Ecosystem",
+        "Lifetime Updates",
+      ],
+      featured: true,
+    },
   ];
 
   if (!plans) plans = defaultPlans;
@@ -112,20 +122,30 @@ export default ({
           {subheading && <Subheading>{subheading}</Subheading>}
           <Heading>{heading}</Heading>
           {description && <Description>{description}</Description>}
-        <PlanDurationSwitcher>
-          {planDurations.map((planDuration, index) => (
-            <SwitchButton active={activeDurationIndex === index} key={index} onClick={() => setActiveDurationIndex(index)}>{planDuration.switcherText}</SwitchButton>
-          ))}
-        </PlanDurationSwitcher>
+          <PlanDurationSwitcher>
+            {planDurations.map((planDuration, index) => (
+              <SwitchButton
+                active={activeDurationIndex === index}
+                key={index}
+                onClick={() => setActiveDurationIndex(index)}
+              >
+                {planDuration.switcherText}
+              </SwitchButton>
+            ))}
+          </PlanDurationSwitcher>
         </HeaderContainer>
         <PlansContainer>
           {plans.map((plan, index) => (
             <Plan key={index} featured={plan.featured}>
               <PlanHeader>
                 <span className="priceAndDuration">
-                  <span className="price">{plan.durationPrices[activeDurationIndex]}</span>
+                  <span className="price">
+                    {plan.durationPrices[activeDurationIndex]}
+                  </span>
                   <span className="slash"> / </span>
-                  <span className="duration">{planDurations[activeDurationIndex].text}</span>
+                  <span className="duration">
+                    {planDurations[activeDurationIndex].text}
+                  </span>
                 </span>
                 <span className="name">{plan.name}</span>
                 <span className="mainFeature">{plan.mainFeature}</span>

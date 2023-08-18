@@ -18,20 +18,20 @@ const StatValue = tw.div`text-4xl sm:text-3xl md:text-4xl lg:text-5xl font-black
 
 export default ({
   subheading = "",
-  heading = "Over 9000 Projects Completed",
-  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  heading = "Over 100 Projects Completed",
+  description = "Successfully executed Ashburn Tech project: streamlined infrastructure, optimized connectivity, enhanced security, and vibrant tech ecosystem, resulting in unprecedented innovation and growth.  ",
   stats = [
     {
       key: "Clients",
-      value: "2500+",
+      value: "100+",
     },
     {
       key: "Revenue",
-      value: "$100M+",
+      value: "$1M+",
     },
     {
       key: "Employees",
-      value: "150+",
+      value: "10+",
     },
   ]
 }) => {
