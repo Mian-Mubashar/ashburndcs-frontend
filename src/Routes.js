@@ -104,6 +104,7 @@ import MainLandingPage from "MainLandingPage.js";
 import ThankYouPage from "ThankYouPage.js";
 // import Login from "Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import OurServices from "pages/OurServices";
 
 export default function AppRoutes() {
   // If you want to disable the animation just use the disabled `prop` like below on your page's component
@@ -125,6 +126,8 @@ export default function AppRoutes() {
           <Route path="/policy" element={<PrivacyPolicyPage />} />
           <Route path="/blog" element={<BlogIndexPage />} />
           <Route path="/price" element={<PricingPage />} />
+          <Route path="/services" element={<OurServices />} />
+
 
 
         </Routes>

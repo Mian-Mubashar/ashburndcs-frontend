@@ -72,7 +72,7 @@ export default ({
       <NavLink style={{ pointerEvents: "auto" }} onClick={() => navigate("/")}>
         Home
       </NavLink>
-      <NavLink onClick={() => navigate("/about-us")}>Our Services</NavLink>
+      <NavLink onClick={() => navigate("/services")}>Our Services</NavLink>
       <NavLink onClick={() => navigate("/about-us")}>Courses</NavLink>
       <NavLink onClick={() => navigate("/about-us")}>About Us</NavLink>
       <NavLink onClick={() => navigate("/contact-us")}>Contact Us</NavLink>
@@ -91,8 +91,9 @@ export default ({
       ) : (
         <PrimaryLink
           css={roundedHeaderButton && tw`rounded-full`}
-          onClick={() => {window.localStorage.clear()
-          navigate('/')
+          onClick={() => {
+            window.localStorage.clear();
+            navigate("/");
           }}
         >
           Sign Out
