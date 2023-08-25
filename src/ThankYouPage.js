@@ -32,13 +32,13 @@ export default () => {
   window.gtag("js", new Date());
   window.gtag("config", "UA-45799926-9");
 
-  const downloadUrl = "/treact-ui.zip"
-  React.useEffect(() => {
-    var iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    iframe.src = downloadUrl
-    document.body.appendChild(iframe);
-  }, [])
+  // const downloadUrl = "/treact-ui.zip"
+  // React.useEffect(() => {
+  //   var iframe = document.createElement("iframe");
+  //   iframe.style.display = "none";
+  //   iframe.src = downloadUrl
+  //   document.body.appendChild(iframe);
+  // }, [])
 
   return (
     <AnimationRevealPage disabled>
@@ -66,7 +66,7 @@ export default () => {
           </NavRow>
           <HeroRow>
             <Heading>Thank You!</Heading>
-            <Description tw="mt-12">Your Download Will Begin Shortly. If it does not, <NavLink href={downloadUrl} download>click this link</NavLink>.</Description>
+            <Description tw="mt-12">Your Download Will Begin Shortly. If it does not, </Description>
             <div tw="mt-12 text-center">
               I am working on another library similar to Ashburn, with <span tw="font-bold">more components</span> and a much <span tw="font-bold">better developer
               experience</span>.
