@@ -7,6 +7,7 @@ import ReliableIconImage from "images/reliable-icon.svg";
 import CustomizeIconImage from "images/customize-icon.svg";
 import serverSecureIllustrationImageSrc from "images/server-secure-illustration.svg";
 import serverRedundancyIllustrationImageSrc from "images/server-redundancy-illustration.svg";
+import education from "images/demo/3974536.jpg";
 
 const HighlightedText = tw.span`text-primary-500`;
 
@@ -51,17 +52,17 @@ export const FeatureCardsData = [
 
 export const MainFeatureData = [
   {
-    heading: "Services",
-    subheading: "Solution",
+    heading: "Resolving Issues for Seamless Operations",
+    subheading: "Data Center Troubleshooting",
     imageSrc: serverRedundancyIllustrationImageSrc,
     primaryButtonText: "More Info",
     textOnLeft: true,
     description:
-      "Ashburn Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
+      "Experience uninterrupted data center performance with Ashburn's expert troubleshooting services. Our skilled technicians diagnose, identify, and swiftly resolve issues, ensuring minimal downtime and optimal efficiency. From hardware glitches to network complexities, we've got you covered, keeping your critical infrastructure running smoothly. Trust us to navigate the intricacies of your data center, providing rapid solutions and proactive insights to prevent future disruptions. Your data center's reliability is our priority.",
   },
   {
-    heading: "Courses",
-    subheading: "E-learning",
+    heading: "Services",
+    subheading: "Solution",
     imageSrc: serverSecureIllustrationImageSrc,
     primaryButtonText: "More Info",
     textOnLeft: false,
@@ -69,15 +70,25 @@ export const MainFeatureData = [
       "Ashburn Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
   },
   {
-    heading: (
-      <>
-        Ashburn built by and for
-        <HighlightedText> Professionals </HighlightedText>
-      </>
-    ),
+    heading: "Courses",
+    subheading: "E-learning",
+    imageSrc: education,
+    primaryButtonText: "More Info",
+    textOnLeft: true,
     description:
-      "Ashburn Tech: Expertly Designed by and for Professionals. A purpose-driven ecosystem, tailored to empower industry leaders, startups, and experts, fostering collaboration, innovation, and success",
+      "Ashburn Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
   },
+
+  // {
+  //   heading: (
+  //     <>
+  //       Ashburn built by and for
+  //       <HighlightedText> Professionals </HighlightedText>
+  //     </>
+  //   ),
+  //   description:
+  //     "Ashburn Tech: Expertly Designed by and for Professionals. A purpose-driven ecosystem, tailored to empower industry leaders, startups, and experts, fostering collaboration, innovation, and success",
+  // },
 ];
 
 export const FeatureData = [
@@ -92,5 +103,3 @@ export const FeatureData = [
       "Ashburn Tech boasts ultra-fast connectivity, cutting-edge infrastructure, and a vibrant tech community, fostering innovation and collaboration for unparalleled success in the digital age.",
   },
 ];
-
-

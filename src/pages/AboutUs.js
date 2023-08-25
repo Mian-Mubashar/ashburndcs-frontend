@@ -10,11 +10,12 @@ import MainFeature1 from "components/features/TwoColWithButton.js";
 // import MainFeature3 from "components/features/TwoColSingleFeatureWithStats2.js";
 import Features from "components/features/ThreeColSimple.js";
 // import Features from "components/features/ThreeColWithSideImage.js";
-import TeamCardGrid from "components/cards/ProfileThreeColGrid.js";
+// import TeamCardGrid from "components/cards/ProfileThreeColGrid.js";
 
 import SupportIconImage from "images/support-icon.svg";
 import ShieldIconImage from "images/shield-icon.svg";
 import CustomerLoveIconImage from "images/simple-icon.svg";
+import { MainFeatureData } from "AppData/MainFeatureData";
 
 const Subheading = tw.span`uppercase tracking-wider text-sm`;
 export default () => {
@@ -22,48 +23,46 @@ export default () => {
     <AnimationRevealPage>
 
       <Header />
-      <MainFeature1
-        subheading={<Subheading>About Treact</Subheading>}
-        heading="We are a modern design agency."
-        buttonRounded={false}
-        primaryButtonText="See Portfolio"
-        imageSrc="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
-      />
-      
-      <MainFeature1
-        subheading={<Subheading>Our Vision</Subheading>}
-        heading="We aim to disrupt the design space."
-        buttonRounded={false}
-        primaryButtonText="Contact Us"
-        imageSrc="https://images.unsplash.com/3/doctype-hi-res.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80"
-        textOnLeft={false}
-      />
-      <Features
+      {MainFeatureData.map((value, i) => (
+        <MainFeature1
+          key={i}
+          heading={value.heading}
+          imageSrc={value.imageSrc}
+          subheading={value.subheading}
+          textOnLeft={value.textOnLeft}
+          description={value.description}
+          primaryButtonText={value.primaryButtonText}
+        />
+      ))}
+    <Features
         subheading={<Subheading>Our Values</Subheading>}
         heading="We follow these."
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description="Optimize operations through automated workflows, minimizing manual efforts while maximizing productivity and resource utilization"
         cards={[
           {
             imageSrc: SupportIconImage,
-            title: "24/7 Support",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
+            title: "Bespoke Tech Solutions",
+            description:
+              "Tailored digital innovations to meet unique business needs",
           },
           {
             imageSrc: ShieldIconImage,
-            title: "Strong Teams",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
+            title: "Efficiency Amplification",
+            description:
+              "Streamlined processes through automation and optimization",
           },
           {
             imageSrc: CustomerLoveIconImage,
-            title: "Customer Satisfaction",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
+            title: "End-to-End Support",
+            description:
+              "Comprehensive assistance from concept to implementation, driving success in every project",
           },
         ]}
         linkText=""
       />
-      <TeamCardGrid 
+      {/* <TeamCardGrid 
         subheading={<Subheading>Our Team</Subheading>}
-      />
+      /> */}
 
       <Footer />
     </AnimationRevealPage>

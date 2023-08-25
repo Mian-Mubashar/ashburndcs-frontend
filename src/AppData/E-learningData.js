@@ -2,16 +2,16 @@ import WD from "images/services/WD.jpg";
 import SD from "images/services/SD.jpg";
 import IC from "images/services/IC.jpg";
 import AM from "images/services/AM.jpg";
+import CE from "images/E-learning/CE.jpg";
 import MAD from "images/services/MAD.jpg";
 import SEO from "images/services/SEO.jpg";
+import VT from "images/E-learning/VT.jpg";
 import SMM from "images/services/SMM.jpg";
-import DSM from "images/E-learning/DSM.jpg";
 import NF from "images/E-learning/NF.jpg";
-import CE from "images/E-learning/CE.jpg";
+import DSM from "images/E-learning/DSM.jpg";
 import CCP from "images/E-learning/CCP.jpg";
 import IIM from "images/E-learning/IIM.jpg";
 import NSM from "images/E-learning/NSM.jpg";
-import VT from "images/E-learning/VT.jpg";
 
 export const ElearningData = [
   {
@@ -30,7 +30,7 @@ export const ElearningData = [
       "Master the basics of networking - from protocols to routing. Build a strong foundation in setting up, configuring, and securing network environments.",
     primaryButtonText: "More Info",
     imageSrc: NF,
-    textOnLeft: true,
+    textOnLeft: false,
   },
   {
     heading: "Cybersecurity Essentials",
@@ -48,7 +48,7 @@ export const ElearningData = [
       "Dive into MEAN/MERN Stack - MongoDB, Express.js, Angular,React and Node.js. Learn to craft dynamic, full-stack web applications with seamless user experiences.",
     primaryButtonText: "More Info",
     imageSrc: WD,
-    textOnLeft: true,
+    textOnLeft: false,
   },
   {
     heading: " Mobile App Development with MEAN/MERN",
@@ -57,7 +57,7 @@ export const ElearningData = [
       "Master cross-platform mobile app creation using MEAN technologies. Build apps that deliver exceptional performance and real-time functionality.",
     primaryButtonText: "More Info",
     imageSrc: MAD,
-    textOnLeft: false,
+    textOnLeft: true,
   },
   {
     heading: "Software Development",
@@ -66,7 +66,7 @@ export const ElearningData = [
       "Tailor software solutions to optimize your operations, leveraging technology to enhance efficiency and meet specific business goal",
     primaryButtonText: "More Info",
     imageSrc: SD,
-    textOnLeft: true,
+    textOnLeft: false,
   },
   {
     heading: "E-commerce with MEAN",
@@ -75,7 +75,7 @@ export const ElearningData = [
       "Benefit from expert guidance to formulate IT strategies that enhance productivity, security, and align technology with your business objectives",
     primaryButtonText: "More Info",
     imageSrc: IC,
-    textOnLeft: false,
+    textOnLeft: true,
   },
 
   {
@@ -85,7 +85,7 @@ export const ElearningData = [
       "Enhance online visibility and drive organic traffic through strategic search engine optimization techniques tailored to your target audience.",
     primaryButtonText: "More Info",
     imageSrc: SEO,
-    textOnLeft: true,
+    textOnLeft: false,
   },
   {
     heading: "Social Media Marketing",
@@ -94,7 +94,7 @@ export const ElearningData = [
       "Amplify brand presence on social platforms, engaging users and building strong connections through well-crafted content and interactions.",
     primaryButtonText: "More Info",
     imageSrc: SMM,
-    textOnLeft: false,
+    textOnLeft: true,
   },
   {
     heading: "Affiliate Marketing",
@@ -103,7 +103,7 @@ export const ElearningData = [
       "Collaborate with affiliates to promote your offerings and gain wider exposure.",
     primaryButtonText: "More Info",
     imageSrc: AM,
-    textOnLeft: true,
+    textOnLeft: false,
   },
 
   {
@@ -122,7 +122,7 @@ export const ElearningData = [
       "Delve into network security strategies - from firewalls to intrusion detection. Learn to monitor and protect networks against emerging threats.",
     primaryButtonText: "More Info",
     imageSrc: NSM,
-    textOnLeft: true,
+    textOnLeft: false,
   },
   {
     heading: "IT Infrastructure Management",
@@ -140,6 +140,6 @@ export const ElearningData = [
       "Explore virtualization for efficient resource utilization. Learn to deploy and manage virtual machines, enhancing scalability and flexibility.",
     primaryButtonText: "More Info",
     imageSrc: VT,
-    textOnLeft: true,
+    textOnLeft: false,
   },
 ];

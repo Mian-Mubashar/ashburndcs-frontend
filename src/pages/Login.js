@@ -145,12 +145,14 @@ export default ({
                     name="email"
                     placeholder="Email"
                     onChange={handleUser}
+                    required
                   />
                   <Input
                     type="password"
                     passowrd="passowrd"
                     name="password"
                     placeholder="Password"
+                    required
                     onChange={handleUser}
                   />
                   <SubmitButton onClick={onLogin}>
