@@ -26,6 +26,7 @@ export default () => {
           description={value.description}
           imageSrc={value.imageSrc}
           buttonRounded={false}
+          primaryButtonUrl={`/services/${value.id}`}
           primaryButtonText={value.primaryButtonText}
           textOnLeft={value.textOnLeft}
         />

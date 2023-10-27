@@ -15,6 +15,7 @@ import NSM from "images/E-learning/NSM.jpg";
 
 export const ElearningData = [
   {
+    id: 1,
     heading: "Data Server Management",
     subheading: "Efficient Data Handling",
     description:
@@ -24,6 +25,8 @@ export const ElearningData = [
     textOnLeft: true,
   },
   {
+    id: 2,
+
     heading: "Networking Fundamentals",
     subheading: "Connectivity Essentials",
     description:
@@ -33,6 +36,8 @@ export const ElearningData = [
     textOnLeft: false,
   },
   {
+    id: 3,
+
     heading: "Cybersecurity Essentials",
     subheading: "Digital Defense Strategies",
     description:
@@ -42,6 +47,8 @@ export const ElearningData = [
     textOnLeft: true,
   },
   {
+    id: 4,
+
     heading: "MEAN/MERN Stack Web Development",
     subheading: "IT Service",
     description:
@@ -51,6 +58,8 @@ export const ElearningData = [
     textOnLeft: false,
   },
   {
+    id: 5,
+
     heading: " Mobile App Development with MEAN/MERN",
     subheading: "IT Service",
     description:
@@ -60,6 +69,8 @@ export const ElearningData = [
     textOnLeft: true,
   },
   {
+    id: 6,
+
     heading: "Software Development",
     subheading: "IT Service",
     description:
@@ -69,6 +80,8 @@ export const ElearningData = [
     textOnLeft: false,
   },
   {
+    id: 7,
+
     heading: "E-commerce with MEAN",
     subheading: "IT Service",
     description:
@@ -79,6 +92,8 @@ export const ElearningData = [
   },
 
   {
+    id: 8,
+
     heading: "Search Engine Optimization (SEO)",
     subheading: "Digital Marketing Service",
     description:
@@ -88,6 +103,8 @@ export const ElearningData = [
     textOnLeft: false,
   },
   {
+    id: 9,
+
     heading: "Social Media Marketing",
     subheading: "Digital Marketing Service",
     description:
@@ -97,6 +114,8 @@ export const ElearningData = [
     textOnLeft: true,
   },
   {
+    id: 10,
+
     heading: "Affiliate Marketing",
     subheading: "Digital Marketing Service",
     description:
@@ -107,6 +126,8 @@ export const ElearningData = [
   },
 
   {
+    id: 11,
+
     heading: "Cloud Computing Principles",
     subheading: "Master Cloud Technologies",
     description:
@@ -116,6 +137,8 @@ export const ElearningData = [
     textOnLeft: true,
   },
   {
+    id: 12,
+
     heading: "Network Security and Monitoring",
     subheading: "Securing the Network",
     description:
@@ -125,6 +148,8 @@ export const ElearningData = [
     textOnLeft: false,
   },
   {
+    id: 13,
+
     heading: "IT Infrastructure Management",
     subheading: "Efficient Operations",
     description:
@@ -134,6 +159,8 @@ export const ElearningData = [
     textOnLeft: true,
   },
   {
+    id: 14,
+
     heading: "Virtualization Technologies",
     subheading: "Optimize Resource Usage",
     description:

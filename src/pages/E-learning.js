@@ -20,11 +20,13 @@ export default () => {
 
       {ElearningData.map((value) => (
         <MainFeature1
+        
           subheading={<Subheading>{value.subheading}</Subheading>}
           heading={value.heading}
           description={value.description}
           imageSrc={value.imageSrc}
           buttonRounded={false}
+          primaryButtonUrl={`/E-learning/${value.id}`}
           primaryButtonText={value.primaryButtonText}
           textOnLeft={value.textOnLeft}
         />

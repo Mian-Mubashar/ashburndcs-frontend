@@ -25,7 +25,6 @@ export default function AppRoutes() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<MainLandingPage />} />
           <Route path="/price" element={<PricingPage />} />
-          <Route path="/web" element={<WebDevelopment />} />
           <Route path="/blog" element={<BlogIndexPage />} />
           <Route path="/register" element={<SignupPage />} />
           <Route path="/e-learning" element={<ELearning />} />
@@ -35,6 +34,9 @@ export default function AppRoutes() {
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsOfServicePage />} />
+          <Route path="/services/:id" element={<WebDevelopment />} />
+          <Route path="/E-learning/:id" element={<WebDevelopment />} />
+
 
 
         </Routes>

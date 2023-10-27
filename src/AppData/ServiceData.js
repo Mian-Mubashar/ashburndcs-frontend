@@ -14,6 +14,7 @@ import PM from "images/services/PM.jpg";
 
 export const serviceData = [
   {
+    id: 1,
     heading: "Rapid Issue Identification",
     subheading: "Data Center Troubleshoot",
     description:
@@ -23,6 +24,8 @@ export const serviceData = [
     textOnLeft: false,
   },
   {
+    id: 2,
+
     heading: "Swift Resolutions",
     subheading: "Data Center Troubleshoot",
     description:
@@ -32,6 +35,8 @@ export const serviceData = [
     textOnLeft: true,
   },
   {
+    id: 3,
+
     heading: "Proactive Maintenance",
     subheading: "Data Center Troubleshoot",
     description:
@@ -41,6 +46,8 @@ export const serviceData = [
     textOnLeft: false,
   },
   {
+    id: 4,
+
     heading: "Website Development",
     subheading: "IT Service",
     description:
@@ -50,6 +57,8 @@ export const serviceData = [
     textOnLeft: true,
   },
   {
+    id: 5,
+
     heading: "Mobile App Development",
     subheading: "IT Service",
     description:
@@ -59,6 +68,8 @@ export const serviceData = [
     textOnLeft: false,
   },
   {
+    id: 6,
+
     heading: "Software Development",
     subheading: "IT Service",
     description:
@@ -68,6 +79,8 @@ export const serviceData = [
     textOnLeft: true,
   },
   {
+    id: 7,
+
     heading: "IT Consulting",
     subheading: "IT Service",
     description:
@@ -77,6 +90,8 @@ export const serviceData = [
     textOnLeft: false,
   },
   {
+    id: 8,
+
     heading: "E-commerce Solutions",
     subheading: "IT Service",
     description:
@@ -86,6 +101,8 @@ export const serviceData = [
     textOnLeft: true,
   },
   {
+    id: 9,
+
     heading: "Managed IT Services",
     subheading: "IT Service",
     description:
@@ -95,6 +112,8 @@ export const serviceData = [
     textOnLeft: false,
   },
   {
+    id: 10,
+
     heading: "Search Engine Optimization (SEO)",
     subheading: "Digital Marketing Service",
     description:
@@ -104,6 +123,8 @@ export const serviceData = [
     textOnLeft: true,
   },
   {
+    id: 11,
+
     heading: "Social Media Marketing",
     subheading: "Digital Marketing Service",
     description:
@@ -113,6 +134,8 @@ export const serviceData = [
     textOnLeft: false,
   },
   {
+    id: 12,
+
     heading: "Affiliate Marketing",
     subheading: "Digital Marketing Service",
     description:
@@ -122,6 +145,8 @@ export const serviceData = [
     textOnLeft: true,
   },
   {
+    id: 13,
+
     heading: "Analytics and Data Analysis",
     subheading: "Digital Marketing Service",
     description: "Monitoring and analyzing data to optimize marketing efforts.",

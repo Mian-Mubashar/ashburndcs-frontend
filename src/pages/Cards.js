@@ -15,8 +15,7 @@ import { motion } from "framer-motion";
 import DataCenter from "../images/services/DataCenter1.jpg";
 import ITservice from "../images/services/ITservice1.jpg";
 import Lplatform from "../images/services/Lplatform.jpg";
-
-
+import { useNavigate } from "react-router-dom";
 
 const Container = tw.div`relative`;
 
@@ -54,71 +53,66 @@ export default () => {
       backgroundPositionY: "100%",
       transition: { type: "tween", ease: "linear", duration: 5 },
     },
+    navigate: useNavigate(),
   };
   return (
     <Container tw="bg-gray-100 -mx-8 -mt-8 pt-8 px-8">
       <Content2Xl>
         <SectionContainer id="landingPageDemos">
-          <SectionHeading>Explore Services</SectionHeading>
+          <SectionHeading>Ashburn Services</SectionHeading>
           <SectionDescription>
-            We have {"4"} premade landing pages. Click on the "View Live Demo"
-            button to see them in action. Customizing or Creating your own
-            custom landing page is really simple by using our UI components.
+            Ashburn specializes in delivering comprehensive data center
+            solutions, e-learning platforms, and IT services. We excel in
+            optimizing data management and providing cutting-edge e-learning
+            experiences. Our dedicated IT team ensures seamless technological
+            support, making us the trusted choice for businesses seeking
+            reliable solutions in the digital era
           </SectionDescription>
           <PreviewCards>
-            <PreviewCardContainer key={Math.random()}>
-              <PreviewCard
-                initial="rest"
-                animate="rest"
-                whileHover="hover"
-                href={""}
-                target="_blank"
-              >
-                <PreviewCardImageContainer>
-                  <PreviewCardImage
-                    transition={{ type: "tween" }}
-                    variants={previewImageAnimationVariants}
-                    $imageSrc={DataCenter}
-                  />
-                </PreviewCardImageContainer>
-                <PreviewButton>Data Center</PreviewButton>
-              </PreviewCard>
+            <PreviewCardContainer
+              key={Math.random()}
+              onClick={() =>
+                previewImageAnimationVariants.navigate("/services")
+              }
+            >
+              <PreviewCardImageContainer>
+                <PreviewCardImage
+                  transition={{ type: "tween" }}
+                  variants={previewImageAnimationVariants}
+                  $imageSrc={DataCenter}
+                />
+              </PreviewCardImageContainer>
+              <PreviewButton>Data Center</PreviewButton>
             </PreviewCardContainer>
-            <PreviewCardContainer key={Math.random()}>
-              <PreviewCard
-                initial="rest"
-                animate="rest"
-                whileHover="hover"
-                href={""}
-                target="_blank"
-              >
-                <PreviewCardImageContainer>
-                  <PreviewCardImage
-                    transition={{ type: "tween" }}
-                    variants={previewImageAnimationVariants}
-                    $imageSrc={ITservice}
-                  />
-                </PreviewCardImageContainer>
-                <PreviewButton>IT Services</PreviewButton>
-              </PreviewCard>
+            <PreviewCardContainer
+              key={Math.random()}
+              onClick={() =>
+                previewImageAnimationVariants.navigate("/services")
+              }
+            >
+              <PreviewCardImageContainer>
+                <PreviewCardImage
+                  transition={{ type: "tween" }}
+                  variants={previewImageAnimationVariants}
+                  $imageSrc={ITservice}
+                />
+              </PreviewCardImageContainer>
+              <PreviewButton>IT Services</PreviewButton>
             </PreviewCardContainer>
-            <PreviewCardContainer key={Math.random()}>
-              <PreviewCard
-                initial="rest"
-                animate="rest"
-                whileHover="hover"
-                href={""}
-                target="_blank"
-              >
-                <PreviewCardImageContainer>
-                  <PreviewCardImage
-                    transition={{ type: "tween" }}
-                    variants={previewImageAnimationVariants}
-                    $imageSrc={Lplatform}
-                  />
-                </PreviewCardImageContainer>
-                <PreviewButton>learning Platform</PreviewButton>
-              </PreviewCard>
+            <PreviewCardContainer
+              key={Math.random()}
+              onClick={() =>
+                previewImageAnimationVariants.navigate("/e-learning")
+              }
+            >
+              <PreviewCardImageContainer>
+                <PreviewCardImage
+                  transition={{ type: "tween" }}
+                  variants={previewImageAnimationVariants}
+                  $imageSrc={Lplatform}
+                />
+              </PreviewCardImageContainer>
+              <PreviewButton>E-learning Platform</PreviewButton>
             </PreviewCardContainer>
           </PreviewCards>
         </SectionContainer>
