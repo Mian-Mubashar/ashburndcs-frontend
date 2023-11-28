@@ -14,9 +14,10 @@ import TermsOfServicePage from "pages/TermsOfService.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WebDevelopment from "DetailPage/WebDevelopment";
 import ELearning from "pages/E-learning";
+import SimpleContactUs from "components/forms/SimpleContactUs";
+import DataTable from "pages/DataEdit";
+import AdminLogin from "pages/AdminSide/login";
 export default function AppRoutes() {
-  // If you want to disable the animation just use the disabled `prop` like below on your page's component
-  // return <AnimationRevealPage disabled>xxxxxxxxxx</AnimationRevealPage>;
   return (
     <>
       <GlobalStyles />
@@ -36,9 +37,14 @@ export default function AppRoutes() {
           <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/services/:id" element={<WebDevelopment />} />
           <Route path="/E-learning/:id" element={<WebDevelopment />} />
+          <Route path="/new-data" element={<SimpleContactUs />} />
+          <Route path="/check-data" element={<DataTable />} />
+          <Route path="/edit-data/:id" element={<SimpleContactUs />} />
 
 
 
+          {/* admin Routes? */}
+          <Route path="/admin-login" element={<AdminLogin />} />
         </Routes>
       </Router>
     </>

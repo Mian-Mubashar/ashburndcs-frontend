@@ -37,7 +37,6 @@ export const ElearningData = [
   },
   {
     id: 3,
-
     heading: "Cybersecurity Essentials",
     subheading: "Digital Defense Strategies",
     description:
@@ -48,7 +47,6 @@ export const ElearningData = [
   },
   {
     id: 4,
-
     heading: "MEAN/MERN Stack Web Development",
     subheading: "IT Service",
     description:
@@ -59,7 +57,6 @@ export const ElearningData = [
   },
   {
     id: 5,
-
     heading: " Mobile App Development with MEAN/MERN",
     subheading: "IT Service",
     description:
@@ -70,7 +67,6 @@ export const ElearningData = [
   },
   {
     id: 6,
-
     heading: "Software Development",
     subheading: "IT Service",
     description:
@@ -81,7 +77,6 @@ export const ElearningData = [
   },
   {
     id: 7,
-
     heading: "E-commerce with MEAN",
     subheading: "IT Service",
     description:
@@ -93,7 +88,6 @@ export const ElearningData = [
 
   {
     id: 8,
-
     heading: "Search Engine Optimization (SEO)",
     subheading: "Digital Marketing Service",
     description:
@@ -104,7 +98,6 @@ export const ElearningData = [
   },
   {
     id: 9,
-
     heading: "Social Media Marketing",
     subheading: "Digital Marketing Service",
     description:
@@ -115,7 +108,6 @@ export const ElearningData = [
   },
   {
     id: 10,
-
     heading: "Affiliate Marketing",
     subheading: "Digital Marketing Service",
     description:
@@ -169,4 +161,14 @@ export const ElearningData = [
     imageSrc: VT,
     textOnLeft: false,
   },
+  // {
+  //   id: 15,
+  //   heading: "CompTIA A+ Certification Training (Core1 & Core2)",
+  //   subheading: "CompTIA Testing",
+  //   description:
+  //     "Comprehensive training in hardware, software, networking, and troubleshooting, preparing individuals for CompTIA A+ Core1 and Core2 certification exams.",
+  //   primaryButtonText: "More Info",
+  //   // imageSrc: VT,
+  //   textOnLeft: true,
+  // },
 ];

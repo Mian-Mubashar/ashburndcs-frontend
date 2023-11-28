@@ -24,18 +24,18 @@ const PrimaryAction = tw.button`rounded-full px-8 py-3 mt-10 text-sm sm:text-bas
 export default ({data}) => {
   const Container = styled.div`
   ${tw`relative -mx-8 -mt-8 bg-center bg-cover h-screen min-h-144`}
-  background-image: url(${data[0].imageSrc});
+  background-image: url(${data[0]?.imageSrc});
 `;
   return (
-    <Container style={{backgroundImage:data[0].imageSrc}}>
+    <Container style={{backgroundImage:data[0]?.imageSrc}}>
       <OpacityOverlay/>
       <HeroContainer>
         <Header className={{color:"white"}}/>
         <Content>
           <Heading>
-              {data[0].subheading}
+              {data[0]?.subheading}
               <br />
-              {data[0].heading}
+              {data[0]?.heading}
           </Heading>
           <PrimaryAction>Explore This</PrimaryAction>
         </Content>

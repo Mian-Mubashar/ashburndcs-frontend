@@ -79,7 +79,7 @@ export default ({
 
     } else {
       try {
-        axios.post('http://localhost:4200/api/contact', {
+        axios.post('https://ashburnbe-abdulbasits-projects-c78465b7.vercel.app/api/contact', {
           name: data.name,
           email: data.email,
           subject: data.subject,
