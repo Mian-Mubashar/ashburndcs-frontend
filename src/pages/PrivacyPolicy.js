@@ -100,7 +100,7 @@ export default ({ headingText = "Privacy Policy" }) => {
               </li>
               <li>
                 <strong>Website</strong> refers to Ashburn, accessible from
-                https://Ashburn.com
+                https://Ashburndcs.com
               </li>{" "}
               <li>
                 <strong>Service</strong> refers to the Website.

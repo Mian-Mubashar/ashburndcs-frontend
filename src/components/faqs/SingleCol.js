@@ -43,15 +43,15 @@ const DecoratorBlob2 = styled(SvgDecoratorBlob2)`
 export default ({
   subheading = "FAQS",
   heading = "You have Questions ?",
-  description = "Frequently Asked Questions (FAQ) - Ashburn Tech Services",
+  description = "Frequently Asked Questions (FAQ) - ADCS Tech Services",
   faqs = [
     {
-      question: "What services does Ashburn Tech offer?",
+      question: "What services does ADCS Tech offer?",
       answer:
-        "Ashburn Tech provides a range of services including web development, SEO optimization, networking solutions, cybersecurity, e-learning, and more",
+        "ADCS Tech provides a range of services including web development, SEO optimization, networking solutions, cybersecurity, e-learning, and more",
     },
     {
-      question: "How can Ashburn Tech help my business grow?",
+      question: "How can ADCS Tech help my business grow?",
       answer:
         "We offer tailored solutions to enhance your online presence, streamline operations, and foster innovation, ultimately driving business growth",
     },
@@ -66,7 +66,7 @@ export default ({
         "Our e-learning platform offers diverse courses, expert instructors, and interactive tools to empower continuous skill development and knowledge acquisition",
     },
     {
-      question: "How can Ashburn Tech assist startups?",
+      question: "How can ADCS Tech assist startups?",
       answer:
         "We offer startup-friendly services including web development, SEO, and networking solutions, helping startups establish a strong online presence and accelerate growth.",
     },

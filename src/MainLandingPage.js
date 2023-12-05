@@ -13,6 +13,7 @@ import Testimonial from "components/testimonials/Testimonial";
 import MainFeature from "components/features/TwoColWithTwoHorizontalFeaturesAndButton.js";
 import { TestimonialData } from "AppData/TestimonialData";
 import Cards from "pages/Cards";
+import Banner from "components/testimonials/TwoColumnWithImage";
 
 const HighlightedText = tw.span`text-primary-500`;
 
@@ -21,6 +22,7 @@ export default () => {
     <AnimationRevealPage>
       <Hero roundedHeaderButton={true} />
       {/* main cardsss */}
+      <Banner/>
       <Cards/>
       {FeatureData.map((value, i) => (
         <Features

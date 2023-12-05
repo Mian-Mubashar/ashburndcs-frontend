@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import tw from "twin.macro";
 import Header from "components/headers/light.js";
 import ShieldIconImage from "images/shield-icon.svg";
@@ -10,14 +10,16 @@ import Footer from "components/footers/MiniCenteredFooter";
 // import TeamCardGrid from "components/cards/ProfileThreeColGrid.js";
 import MainFeature1 from "components/features/TwoColWithButton.js";
 import { serviceData } from "AppData/ServiceData";
+import ModalExample from "components/myComponent/Modal";
 
 const Subheading = tw.span`uppercase tracking-wider text-sm`;
 
 export default () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
   return (
     <AnimationRevealPage>
       <Header />
-
 
       {serviceData.map((value) => (
         <MainFeature1
@@ -31,8 +33,8 @@ export default () => {
           textOnLeft={value.textOnLeft}
         />
       ))}
-    
-    <Features
+
+      <Features
         subheading={<Subheading>Our Values</Subheading>}
         heading="We follow these."
         description="Optimize operations through automated workflows, minimizing manual efforts while maximizing productivity and resource utilization"
@@ -61,6 +63,7 @@ export default () => {
       {/* <TeamCardGrid subheading={<Subheading>Our Team</Subheading>} /> */}
 
       <Footer />
+      <ModalExample open={open} handleOpen={handleOpen} setOpen={setOpen} />
     </AnimationRevealPage>
   );
 };

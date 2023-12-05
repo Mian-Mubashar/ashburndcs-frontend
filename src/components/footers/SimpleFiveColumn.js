@@ -41,10 +41,10 @@ export default () => {
         <WideColumn>
           <LogoContainer>
             <LogoImg src={LogoImage} />
-            <LogoText>Ashburn Inc.</LogoText>
+            <LogoText>ADCS Inc.</LogoText>
           </LogoContainer>
           <CompanyDescription>
-          Ashburn is an Internet Technology company 
+          ADCS is an Internet Technology company 
           </CompanyDescription>
           <SocialLinksContainer>
             <SocialLink href="https://facebook.com">

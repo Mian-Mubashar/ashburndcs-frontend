@@ -47,9 +47,9 @@ const DecoratorBlob = styled(SvgDecoratorBlob3)`
 
 export default ({
   cards = null,
-  heading = "Ashburn Features",
+  heading = "ADCS Features",
   subheading = "Features",
-  description = "Ashburn Tech boasts ultra-fast connectivity, cutting-edge infrastructure, and a vibrant tech community, fostering innovation and collaboration for unparalleled success in the digital age.",
+  description = "ADCS Tech boasts ultra-fast connectivity, cutting-edge infrastructure, and a vibrant tech community, fostering innovation and collaboration for unparalleled success in the digital age.",
 }) => {
 
   if (!cards) cards = FeatureCardsData;

@@ -62,7 +62,7 @@ const IllustrationImage = styled.div`
 export default ({
   logoLinkUrl = "/",
   illustrationImageSrc = illustration,
-  headingText = "Sign Up For Ashburn",
+  headingText = "Sign Up For ADCS",
   socialButtons = [
     {
       iconImageSrc: googleIconImageSrc,
@@ -158,7 +158,7 @@ export default ({
                     <span className="text">{submitButtonText}</span>
                   </SubmitButton>
                   <p tw="mt-6 text-xs text-gray-600 text-center">
-                    I agree to abide by Ashburn's{" "}
+                    I agree to abide by ADCS's{" "}
                     <button
                       onClick={() => navigate(tosUrl)}
                       tw="border-b border-gray-500 border-dotted"

@@ -35,7 +35,7 @@ export default () => {
         <TwoColumn>
           <LeftColumn>
             <Heading> 
-           <HighlightedText>Ashburn</HighlightedText> Your IT Solution Partner. Expertise in Data Centers, Networking, Cloud, and Security. Empowering Success through Technology Excellence.
+           <HighlightedText>ADCS</HighlightedText> Your IT Solution Partner. Expertise in Data Centers, Networking, Cloud, and Security. Empowering Success through Technology Excellence.
             </Heading>
             <Paragraph><HighlightedText>Reaching New Heights, Together</HighlightedText></Paragraph>
           </LeftColumn>

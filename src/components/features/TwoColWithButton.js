@@ -44,6 +44,11 @@ const PrimaryButton = styled(PrimaryButtonBase)((props) => [
   tw`mt-8 md:mt-8 text-sm inline-block mx-auto md:mx-0`,
   props.buttonRounded && tw`rounded-full`,
 ]);
+const ColumnContainer = tw.div`lg:w-1/2 max-w-lg`;
+
+const LinksContainer = tw(
+  ColumnContainer
+)`flex justify-center lg:justify-end mt-6 lg:mt-0 flex-col sm:flex-row`;
 
 export default ({
   subheading = "Our Expertise",
@@ -64,6 +69,7 @@ export default ({
   imageDecoratorBlob = false,
   imageDecoratorBlobCss = null,
   textOnLeft = true,
+  contact,
 }) => {
   const navigate = useNavigate();
   // The textOnLeft boolean prop can be used to display either the text on left or right side of the image.
@@ -86,12 +92,17 @@ export default ({
             <Subheading>{subheading}</Subheading>
             <Heading>{heading}</Heading>
             <Description>{description}</Description>
-            <PrimaryButton
-              buttonRounded={buttonRounded}
-              onClick={() => navigate(primaryButtonUrl)}
-            >
-              {primaryButtonText}
-            </PrimaryButton>
+            <LinksContainer style={{ justifyContent: "space-between" }}>
+              <PrimaryButton
+                buttonRounded={buttonRounded}
+                onClick={() => navigate(primaryButtonUrl)}
+              >
+                {primaryButtonText}
+              </PrimaryButton>
+              <PrimaryButton buttonRounded={buttonRounded} onClick={contact}>
+                Contact Us
+              </PrimaryButton>
+            </LinksContainer>
           </TextContent>
         </TextColumn>
       </TwoColumn>

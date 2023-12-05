@@ -70,7 +70,7 @@ export default ({ headingText = "Terms And Condition" }) => {
               </li>
               <li>
                 <strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement)
-                refers to Ashburn Inc.
+                refers to ADCS Inc.
               </li>
               <li>
                 <strong>Country</strong> refers to: Maharashtra, India
@@ -88,7 +88,7 @@ export default ({ headingText = "Terms And Condition" }) => {
                 available by the Service.
               </li>
               <li>
-                <strong>Website</strong> refers to Ashburn, accessible from https://Ashburn.com
+                <strong>Website</strong> refers to ADCS, accessible from https://Ashburndcs.com
               </li>
               <li>
                 <strong>You</strong> means the individual accessing or using the Service, or the company, or other legal

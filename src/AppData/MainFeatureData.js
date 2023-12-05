@@ -16,13 +16,13 @@ export const FeatureCardsData = [
     imageSrc: ShieldIconImage,
     title: "High-Speed Connectivity",
     description:
-      "Ashburn Tech offers lightning-fast internet speeds, ensuring seamless data transfer and reduced latency for optimal performance",
+      "ADCS Tech offers lightning-fast internet speeds, ensuring seamless data transfer and reduced latency for optimal performance",
   },
   {
     imageSrc: SupportIconImage,
     title: "State-of-the-Art Facilities",
     description:
-      "With modern, purpose-built facilities, Ashburn Tech provides an ideal environment for tech-driven enterprises to thrive and innovate.",
+      "With modern, purpose-built facilities, ADCS Tech provides an ideal environment for tech-driven enterprises to thrive and innovate.",
   },
   {
     imageSrc: CustomizeIconImage,
@@ -67,7 +67,7 @@ export const MainFeatureData = [
     primaryButtonText: "More Info",
     textOnLeft: false,
     description:
-      "Ashburn Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
+      "ADCS Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
   },
   {
     heading: "Courses",
@@ -76,7 +76,7 @@ export const MainFeatureData = [
     primaryButtonText: "More Info",
     textOnLeft: true,
     description:
-      "Ashburn Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
+      "ADCS Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
   },
 
   // {
@@ -95,11 +95,11 @@ export const FeatureData = [
   {
     heading: (
       <>
-        Ashburn <HighlightedText>Features</HighlightedText>
+        ADCS <HighlightedText>Features</HighlightedText>
       </>
     ),
     subheading: "Features",
     description:
-      "Ashburn Tech boasts ultra-fast connectivity, cutting-edge infrastructure, and a vibrant tech community, fostering innovation and collaboration for unparalleled success in the digital age.",
+      "ADCS Tech boasts ultra-fast connectivity, cutting-edge infrastructure, and a vibrant tech community, fostering innovation and collaboration for unparalleled success in the digital age.",
   },
 ];

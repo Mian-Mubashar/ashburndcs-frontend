@@ -47,7 +47,7 @@ export default () => {
           <NavRow>
             <LogoLink href="/">
               <img src={logo} alt="" />
-              Ashburn
+              ADCS
             </LogoLink>
             <div tw="flex flex-col lg:flex-row items-center">
               <NavLink target="_blank" href="">
@@ -68,11 +68,11 @@ export default () => {
             <Heading>Thank You!</Heading>
             <Description tw="mt-12">Your Download Will Begin Shortly. If it does not, </Description>
             <div tw="mt-12 text-center">
-              I am working on another library similar to Ashburn, with <span tw="font-bold">more components</span> and a much <span tw="font-bold">better developer
+              I am working on another library similar to ADCS, with <span tw="font-bold">more components</span> and a much <span tw="font-bold">better developer
               experience</span>.
             </div>
             <div tw="mt-12 text-center">
-              If you liked Ashburn and would like to get updates on the library I am working on among other things, do <span tw="font-bold">follow</span> me on
+              If you liked ADCS and would like to get updates on the library I am working on among other things, do <span tw="font-bold">follow</span> me on
               Twitter/GitHub.
               <div tw="mt-12 flex flex-col items-center">
                 <a

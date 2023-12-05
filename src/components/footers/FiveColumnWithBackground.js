@@ -142,9 +142,9 @@ export default () => {
         <ThreeColRow>
           <LogoContainer>
             <LogoImg src={LogoImage} />
-            <LogoText>Ashburn Inc.</LogoText>
+            <LogoText>ADCS Inc.</LogoText>
           </LogoContainer>
-          <CopywrightNotice>&copy; 2023 Ashburn Inc. All Rights Reserved.</CopywrightNotice>
+          <CopywrightNotice>&copy; 2023 ADCS Inc. All Rights Reserved.</CopywrightNotice>
           <SocialLinksContainer>
             <SocialLink href="https://facebook.com">
               <FacebookIcon />

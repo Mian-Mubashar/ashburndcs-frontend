@@ -112,7 +112,7 @@ export default ({
         <img src={logo} alt="logo" />
         <span style={{ display: "grid" }}>
           <span>
-            ASHBURN <span style={{ fontSize: "50%" }}> LLC</span>
+          ADCS <span style={{ fontSize: "50%" }}> LLC</span>
           </span>
           <span style={{ fontSize: "50%" }}> Data Center & IT services</span>
         </span>
@@ -177,3 +177,19 @@ const collapseBreakPointCssMap = {
     mobileNavLinksContainer: tw`lg:hidden`,
   },
 };
+
+
+
+// const defaultLogoLink = (
+//   <LogoLink onClick={() => navigate("/")}>
+//     <span style={{ display: "flex" }}>
+//       <img src={logo} alt="logo" />
+//       <span style={{ display: "grid" }}>
+//         <span>
+//           ASHBURN <span style={{ fontSize: "50%" }}> LLC</span>
+//         </span>
+//         <span style={{ fontSize: "50%" }}> Data Center & IT services</span>
+//       </span>
+//     </span>
+//   </LogoLink>
+// );

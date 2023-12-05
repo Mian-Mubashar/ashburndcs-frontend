@@ -36,7 +36,7 @@ export default ({ navigate = useNavigate() }) => {
         <Row>
           <LogoContainer>
             <LogoImg src={logo} />
-            <LogoText>Ashburn</LogoText>
+            <LogoText>ADCS</LogoText>
           </LogoContainer>
           <LinksContainer>
             <Link onClick={() => navigate("/")}>Home</Link>
@@ -57,7 +57,7 @@ export default ({ navigate = useNavigate() }) => {
             </SocialLink>
           </SocialLinksContainer>
           <CopyrightText>
-            &copy; Copyright 2023, Ashburn Inc. All Rights Reserved.
+            &copy; Copyright 2023, ADCS Inc. All Rights Reserved.
           </CopyrightText>
         </Row>
       </Content>

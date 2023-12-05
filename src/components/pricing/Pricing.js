@@ -74,7 +74,7 @@ const DecoratorBlob2 = styled(SvgDecoratorBlob2)`
 export default ({
   subheading = "Pricing",
   heading = "Flexible Plans.",
-  description = "Ashburn Flexible Plans: Tailored to Your Needs. Choose from a range of customizable options, ensuring scalability, cost-efficiency, and seamless integration. Empowering your tech journey with versatility and innovation",
+  description = "ADCS Flexible Plans: Tailored to Your Needs. Choose from a range of customizable options, ensuring scalability, cost-efficiency, and seamless integration. Empowering your tech journey with versatility and innovation",
   plans = null,
   primaryButtonText = "Buy Now",
   planDurations = [

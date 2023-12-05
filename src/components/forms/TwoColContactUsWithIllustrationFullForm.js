@@ -13,6 +13,7 @@ import { db } from "FireBase";
 import { Toast } from "helpers/Alert";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import WhatsAppContact from "components/myComponent/Whatsapp";
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-20 md:py-24`;
@@ -46,6 +47,7 @@ const Textarea = styled(Input).attrs({ as: "textarea" })`
 const SubmitButton = tw(PrimaryButtonBase)`inline-block mt-8`;
 
 export default ({
+  modal = false,
   subheading = "Contact Us",
   heading = (
     <>
@@ -53,7 +55,7 @@ export default ({
       <wbr /> with us.
     </>
   ),
-  description = "Connect with Ashburn's dedicated tech experts for reliable solutions. Reach out now for prompt assistance with your technical needs",
+  description = "Connect with ADCS's dedicated tech experts for reliable solutions. Reach out now for prompt assistance with your technical needs",
   submitButtonText = "Send",
   textOnLeft = true,
 }) => {
@@ -75,41 +77,90 @@ export default ({
       data.subject === "" ||
       data.message === ""
     ) {
-      Toast({message:"Please fill all data in the fields",type:"info"})
-
+      Toast({ message: "Please fill all data in the fields", type: "info" });
     } else {
       try {
-        axios.post('https://ashburnbe-abdulbasits-projects-c78465b7.vercel.app/api/contact', {
-          name: data.name,
-          email: data.email,
-          subject: data.subject,
-          message: data.message,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        axios
+          .post(
+            "https://ashburnbe-abdulbasits-projects-c78465b7.vercel.app/api/contact",
+            {
+              name: data.name,
+              email: data.email,
+              subject: data.subject,
+              message: data.message,
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         // console.log("Document written with ID: ", docRef.id);
-      // Toast({message:"Submitted Data Successfully"})
-      // navigate("/");
-
-
+        // Toast({message:"Submitted Data Successfully"})
+        // navigate("/");
       } catch (e) {
         // console.error("Error adding document: ", e);
-      Toast({message:e.message})
-
+        Toast({ message: e.message });
       }
     }
   };
 
   return (
-    <Container>
-      <TwoColumn>
-        <ImageColumn>
-          <Image imageSrc={EmailIllustrationSrc} />
-        </ImageColumn>
+    <>
+      {!modal ? (
+        <Container>
+          <TwoColumn>
+            <ImageColumn>
+              <Image imageSrc={EmailIllustrationSrc} />
+            </ImageColumn>
+            <TextColumn textOnLeft={textOnLeft}>
+              <TextContent>
+                {subheading && <Subheading>{subheading}</Subheading>}
+                <Heading>{heading}</Heading>
+                {description && <Description>{description}</Description>}
+                <Form>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    onChange={handleChange}
+                    placeholder="Your Email Address"
+                  />
+                  <Input
+                    type="text"
+                    name="name"
+                    id="name"
+                    required
+                    onChange={handleChange}
+                    placeholder="Full Name"
+                  />
+                  <Input
+                    type="text"
+                    name="subject"
+                    id="subject"
+                    required
+                    onChange={handleChange}
+                    placeholder="Subject"
+                  />
+                  <Textarea
+                    name="message"
+                    id="subject"
+                    required
+                    onChange={handleChange}
+                    placeholder="Your Message Here"
+                  />
+                  <SubmitButton onClick={addContact}>
+                    {submitButtonText}
+                  </SubmitButton>
+                  <WhatsAppContact />
+                </Form>
+              </TextContent>
+            </TextColumn>
+          </TwoColumn>
+        </Container>
+      ) : (
         <TextColumn textOnLeft={textOnLeft}>
           <TextContent>
             {subheading && <Subheading>{subheading}</Subheading>}
@@ -150,10 +201,11 @@ export default ({
               <SubmitButton onClick={addContact}>
                 {submitButtonText}
               </SubmitButton>
+              <WhatsAppContact />
             </Form>
           </TextContent>
         </TextColumn>
-      </TwoColumn>
-    </Container>
+      )}
+    </>
   );
 };

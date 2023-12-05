@@ -59,14 +59,14 @@ export default () => {
     <Container tw="bg-gray-100 -mx-8 -mt-8 pt-8 px-8">
       <Content2Xl>
         <SectionContainer id="landingPageDemos">
-          <SectionHeading>Ashburn Services</SectionHeading>
+          <SectionHeading>ADCS Services</SectionHeading>
           <SectionDescription>
-            Ashburn specializes in delivering comprehensive data center
-            solutions, e-learning platforms, and IT services. We excel in
-            optimizing data management and providing cutting-edge e-learning
-            experiences. Our dedicated IT team ensures seamless technological
-            support, making us the trusted choice for businesses seeking
-            reliable solutions in the digital era
+            ADCS specializes in delivering comprehensive data center solutions,
+            e-learning platforms, and IT services. We excel in optimizing data
+            management and providing cutting-edge e-learning experiences. Our
+            dedicated IT team ensures seamless technological support, making us
+            the trusted choice for businesses seeking reliable solutions in the
+            digital era
           </SectionDescription>
           <PreviewCards>
             <PreviewCardContainer

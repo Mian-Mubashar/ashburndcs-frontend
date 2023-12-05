@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import tw from "twin.macro";
 import Header from "components/headers/light.js";
 import ShieldIconImage from "images/shield-icon.svg";
@@ -10,17 +10,19 @@ import Footer from "components/footers/MiniCenteredFooter";
 // import TeamCardGrid from "components/cards/ProfileThreeColGrid.js";
 import MainFeature1 from "components/features/TwoColWithButton.js";
 import { ElearningData } from "AppData/E-learningData";
+import ModalExample from "components/myComponent/Modal";
 
 const Subheading = tw.span`uppercase tracking-wider text-sm`;
 
 export default () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
   return (
     <AnimationRevealPage>
       <Header />
 
       {ElearningData.map((value) => (
         <MainFeature1
-        
           subheading={<Subheading>{value.subheading}</Subheading>}
           heading={value.heading}
           description={value.description}
@@ -29,6 +31,7 @@ export default () => {
           primaryButtonUrl={`/E-learning/${value.id}`}
           primaryButtonText={value.primaryButtonText}
           textOnLeft={value.textOnLeft}
+          contact={handleOpen}
         />
       ))}
 
@@ -61,6 +64,7 @@ export default () => {
       {/* <TeamCardGrid subheading={<Subheading>Our Team</Subheading>} /> */}
 
       <Footer />
+      <ModalExample open={open} handleOpen={handleOpen} setOpen={setOpen} />
     </AnimationRevealPage>
   );
 };
