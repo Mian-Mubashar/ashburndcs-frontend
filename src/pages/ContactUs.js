@@ -4,7 +4,7 @@ import tw from "twin.macro";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter";
-import ContactUsForm from "components/forms/TwoColContactUsWithIllustrationFullForm.js";
+import ContactUsForm from "components/forms/ContactUsForm";
 import ContactDetails from "components/cards/ThreeColContactDetails.js";
 
 const Address = tw.span`leading-relaxed`;

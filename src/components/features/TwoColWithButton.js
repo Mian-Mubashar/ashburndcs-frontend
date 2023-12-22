@@ -92,7 +92,7 @@ export default ({
             <Subheading>{subheading}</Subheading>
             <Heading>{heading}</Heading>
             <Description>{description}</Description>
-            <LinksContainer style={{ justifyContent: "space-between" }}>
+            <LinksContainer style={{ justifyContent: "space-evenly" }}>
               <PrimaryButton
                 buttonRounded={buttonRounded}
                 onClick={() => navigate(primaryButtonUrl)}

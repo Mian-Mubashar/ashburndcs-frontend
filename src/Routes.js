@@ -4,19 +4,21 @@ import SignupPage from "pages/Signup.js";
 import PricingPage from "pages/Pricing.js";
 import AboutUsPage from "pages/AboutUs.js";
 import ThankYouPage from "ThankYouPage.js";
+import DataTable from "pages/DataEdit";
+import ELearning from "pages/E-learning";
 import OurServices from "pages/OurServices";
 import ContactUsPage from "pages/ContactUs.js";
 import BlogIndexPage from "pages/BlogIndex.js";
 import GlobalStyles from "styles/GlobalStyles";
+import AdminLogin from "AdminSide/login";
 import MainLandingPage from "MainLandingPage.js";
 import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 import TermsOfServicePage from "pages/TermsOfService.js";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WebDevelopment from "DetailPage/WebDevelopment";
-import ELearning from "pages/E-learning";
-import SimpleContactUs from "components/forms/SimpleContactUs";
-import DataTable from "pages/DataEdit";
-import AdminLogin from "pages/AdminSide/login";
+import NotFound from "components/myComponent/NotFound";
+import AdminDashboard from "AdminSide/dashboard";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DataUploadFrom from "components/forms/DataUploadFrom";
 export default function AppRoutes() {
   return (
     <>
@@ -37,14 +39,15 @@ export default function AppRoutes() {
           <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/services/:id" element={<WebDevelopment />} />
           <Route path="/E-learning/:id" element={<WebDevelopment />} />
-          <Route path="/new-data" element={<SimpleContactUs />} />
-          <Route path="/check-data" element={<DataTable />} />
-          <Route path="/edit-data/:id" element={<SimpleContactUs />} />
-
-
+          <Route path="*" element={<NotFound />} />
 
           {/* admin Routes? */}
           <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/new-data" element={<DataUploadFrom />} />
+          <Route path="/check-data" element={<DataTable />} />
+          <Route path="/edit-data/:id" element={<DataUploadFrom />} />
+
         </Routes>
       </Router>
     </>

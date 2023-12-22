@@ -1,19 +1,20 @@
 import React from "react";
 import tw from "twin.macro";
-import FAQ from "components/faqs/SingleCol.js";
+import Cards from "pages/Cards";
 import Hero from "components/hero/HeaderHero";
+import FAQ from "components/faqs/SingleCol.js";
 import Pricing from "components/pricing/Pricing";
+import Banner from "components/testimonials/MainBanner";
+import { ElearningData } from "AppData/E-learningData";
+import { TestimonialData } from "AppData/TestimonialData";
 import GetStarted from "components/cta/GetStartedLight.js";
 import FeatureStats from "components/features/StatFeature";
-import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Footer from "components/footers/MiniCenteredFooter";
+import Testimonial from "components/testimonials/Testimonial";
+import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Features from "components/features/ThreeColWithSideImage.js";
 import { FeatureData, MainFeatureData } from "AppData/MainFeatureData";
-import Testimonial from "components/testimonials/Testimonial";
 import MainFeature from "components/features/TwoColWithTwoHorizontalFeaturesAndButton.js";
-import { TestimonialData } from "AppData/TestimonialData";
-import Cards from "pages/Cards";
-import Banner from "components/testimonials/TwoColumnWithImage";
 
 const HighlightedText = tw.span`text-primary-500`;
 
@@ -21,9 +22,8 @@ export default () => {
   return (
     <AnimationRevealPage>
       <Hero roundedHeaderButton={true} />
-      {/* main cardsss */}
-      <Banner/>
-      <Cards/>
+      <Banner data={ElearningData} />
+      <Cards />
       {FeatureData.map((value, i) => (
         <Features
           key={i}

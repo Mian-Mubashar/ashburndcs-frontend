@@ -27,10 +27,12 @@ export default () => {
           heading={value.heading}
           description={value.description}
           imageSrc={value.imageSrc}
-          buttonRounded={false}
+          buttonRounded={true}
           primaryButtonUrl={`/services/${value.id}`}
           primaryButtonText={value.primaryButtonText}
           textOnLeft={value.textOnLeft}
+          contact={handleOpen}
+
         />
       ))}
 

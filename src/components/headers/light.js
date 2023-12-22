@@ -107,16 +107,9 @@ export default ({
     collapseBreakPointCssMap[collapseBreakpointClass];
 
   const defaultLogoLink = (
-    <LogoLink onClick={() => navigate("/")}>
-      <span style={{ display: "flex" }}>
-        <img src={logo} alt="logo" />
-        <span style={{ display: "grid" }}>
-          <span>
-          ADCS <span style={{ fontSize: "50%" }}> LLC</span>
-          </span>
-          <span style={{ fontSize: "50%" }}> Data Center & IT services</span>
-        </span>
-      </span>
+    <LogoLink onClick={() => navigate("/")} >
+        <img src={logo} alt="logo" style={{width:"6.5rem"}}/>
+ 
     </LogoLink>
   );
 

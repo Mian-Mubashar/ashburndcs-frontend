@@ -35,8 +35,7 @@ export default ({ navigate = useNavigate() }) => {
       <Content>
         <Row>
           <LogoContainer>
-            <LogoImg src={logo} />
-            <LogoText>ADCS</LogoText>
+            <LogoImg src={logo} style={{width:"6.5rem"}}/>
           </LogoContainer>
           <LinksContainer>
             <Link onClick={() => navigate("/")}>Home</Link>

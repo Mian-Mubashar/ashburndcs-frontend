@@ -118,7 +118,7 @@ export default ({
         <Content>
           <MainContainer>
             <LogoLink onClick={() => navigate(logoLinkUrl)}>
-              <LogoImage src={logo} />
+              <LogoImage src={logo} style={{width:"6.5rem"}}/>
             </LogoLink>
             <MainContent>
               <Heading>{headingText}</Heading>

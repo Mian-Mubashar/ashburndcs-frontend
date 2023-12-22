@@ -79,9 +79,10 @@ export default ({
     <Container>
       <Content>
         <MainContainer>
-          <LogoLink href={logoLinkUrl}>
-            <LogoImage src={logo} />
+          <LogoLink href={logoLinkUrl} style={{width:"8.5rem"}}>
+            <LogoImage src={logo} style={{width:"6.5rem"}}/>
           </LogoLink>
+          
           <MainContent>
             <Heading>{headingText}</Heading>
             <FormContainer>

@@ -12,7 +12,6 @@ import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-
 import { ReactComponent as SvgDecoratorBlob2 } from "../../images/svg-decorator-blob-5.svg";
 
 import "slick-carousel/slick/slick.css";
-import { ElearningData } from "AppData/E-learningData.js";
 
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
@@ -70,12 +69,7 @@ const DecoratorBlob2 = tw(
   SvgDecoratorBlob2
 )`absolute w-32 bottom-0 right-0 -z-10 text-pink-500 opacity-15 transform translate-x-2/3 translate-y-8`;
 
-export default () => {
-  /*
-   * You can modify the testimonials shown by modifying the array below
-   * You can add or remove objects from the array as you need.
-   */
-
+export default ({ data }) => {
   return (
     <Container>
       <Content>
@@ -84,8 +78,11 @@ export default () => {
           <HeadingDescription></HeadingDescription>
         </HeadingInfoContainer>
         <TestimonialSliderContainer>
-          <TestimonialSlider nextArrow={<NextArrow />} prevArrow={<PreviousArrow />}>
-            {ElearningData.map((testimonial, index) => (
+          <TestimonialSlider
+            nextArrow={<NextArrow />}
+            prevArrow={<PreviousArrow />}
+          >
+            {data.map((testimonial, index) => (
               <Testimonial key={index}>
                 <ImageContainer>
                   <img src={testimonial.imageSrc} alt={testimonial.heading} />
@@ -96,9 +93,7 @@ export default () => {
                     <CustomerTitle>{testimonial.subheading}</CustomerTitle>
                   </CustomerInfo>
                   <QuoteContainer>
-                    {/* <QuotesLeft /> */}
                     <Quote>{testimonial.description}</Quote>
-                    {/* <QuotesRight /> */}
                   </QuoteContainer>
                 </TextContainer>
               </Testimonial>
