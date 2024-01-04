@@ -3,7 +3,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import { ReactComponent as SvgDotPatternIcon } from "../../images/dot-pattern.svg";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Toast } from "helpers/Alert";
 import axios from "axios";
 
@@ -40,7 +40,7 @@ const SvgDotPattern1 = tw(
   SvgDotPatternIcon
 )`absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/2 -z-10 opacity-50 text-primary-500 fill-current w-24`;
 
-export default ({ service = false, handleOpen }) => {
+export default ({ service = false, learning = false, handleOpen }) => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({
@@ -53,13 +53,11 @@ export default ({ service = false, handleOpen }) => {
   const handleChange = ({ target: { name, value } }) =>
     setData({ ...data, [name]: value });
   const addData = async (e) => {
-    console.log(data);
     e.preventDefault();
     if (
       data.heading === "" ||
       data.subHeading === "" ||
       data.description === "" ||
-      data.primaryButtonText === "" ||
       data.file === null
     ) {
       Toast({ message: "Please fill all data in the fields", type: "info" });
@@ -74,9 +72,14 @@ export default ({ service = false, handleOpen }) => {
         formData.append("file", data.file);
 
         axios
-          .post("http://localhost:4200/api/learning/create", formData)
+          .post(
+            service
+              ? "http://localhost:4200/api/service/create"
+              : learning && "http://localhost:4200/api/learning/create",
+            formData
+          )
           .then(function (response) {
-            // navigate("/new-data");
+            service ? navigate("/services") :learning && navigate("/e-learning");
             handleOpen();
             Toast({ message: response.message });
           });
@@ -93,7 +96,7 @@ export default ({ service = false, handleOpen }) => {
   const uploadImage = (event) => {
     setData({ ...data, file: event.target.files[0] });
   };
-  
+
   return (
     <div tw="mx-auto max-w-4xl">
       <h2>Organize your data</h2>
@@ -121,7 +124,7 @@ export default ({ service = false, handleOpen }) => {
               onChange={handleChange}
             />
           </InputContainer>
-          <InputContainer>
+          {/* <InputContainer>
             <Label htmlFor="email-input">BUTTON TEXT</Label>
             <Input
               id="primaryButtonText"
@@ -130,7 +133,7 @@ export default ({ service = false, handleOpen }) => {
               placeholder="someThing"
               onChange={handleChange}
             />
-          </InputContainer>
+          </InputContainer> */}
           <InputContainer>
             <Label htmlFor="email-input">PHOTO</Label>
             <Input

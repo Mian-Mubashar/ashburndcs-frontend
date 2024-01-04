@@ -1,5 +1,4 @@
 import axios from "axios";
-import { PrimaryButton } from "components/misc/Buttons";
 import { useEffect, useState } from "react";
 import CreateModal from "./create";
 import tw from "twin.macro";
@@ -11,11 +10,8 @@ export default function ElearnListing() {
   const [isCreate, setIsCreate] = useState(false);
   const handleCreate = () => setIsCreate(!isCreate);
   useEffect(() => {
-    getData();
-  }, []);
-  const getData = () => {
     axios
-      .get("http://localhost:4200/api/service/view")
+      .get("http://localhost:4200/api/learning/view")
       .then((response) => {
         if (response) {
           setTableData(response?.data?.data);
@@ -25,27 +21,12 @@ export default function ElearnListing() {
       .catch((error) => {
         alert(error);
       });
-  };
-  const deleteFunction = (data) => {
-    axios
-      .delete(`http://localhost:4200/api/service/delete/${data}`)
-      .then((response) => {
-        if (response) {
-          getData();
-          console.log("response", response);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
+  }, []);
+
+  console.log("--------------", tableData);
   return (
     <>
-      <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-        <PrimaryButton buttonRounded={true} onClick={handleCreate}>
-          Add new Data
-        </PrimaryButton>
-      </div>
+      <div className="flex-none rounded-full bg-emerald-500/20 p-1"></div>
       <ul className="divide-y divide-gray-100">
         {tableData?.map((data) => (
           <li key={data?.id} className="flex justify-between gap-x-6 py-5">
@@ -82,9 +63,7 @@ export default function ElearnListing() {
                   </div> */}
                   <p className="text-xs leading-5 text-gray-500">
                     {" "}
-                    <SubmitButton onClick={() => deleteFunction(data._id)}>
-                      Delete
-                    </SubmitButton>
+                    <SubmitButton>Submit</SubmitButton>
                   </p>
                 </div>
               )}

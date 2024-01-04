@@ -2,12 +2,18 @@ import axios from "axios";
 import { PrimaryButton } from "components/misc/Buttons";
 import { useEffect, useState } from "react";
 import CreateModal from "./create";
+import tw from "twin.macro";
+
+const SubmitButton = tw.button`w-full sm:w-32 mt-6 py-3 bg-gray-100 text-primary-500 rounded-full font-bold tracking-wide shadow-lg uppercase text-sm transition duration-300 transform focus:outline-none focus:shadow-outline hover:bg-gray-300 hover:text-primary-700 hocus:-translate-y-px hocus:shadow-xl`;
 
 export default function ElearnListing() {
   const [tableData, setTableData] = useState([]);
   const [isCreate, setIsCreate] = useState(false);
   const handleCreate = () => setIsCreate(!isCreate);
   useEffect(() => {
+    getData();
+  }, []);
+  const getData = () => {
     axios
       .get("http://localhost:4200/api/learning/view")
       .then((response) => {
@@ -19,13 +25,27 @@ export default function ElearnListing() {
       .catch((error) => {
         alert(error);
       });
-  }, []);
-
+  };
+  const deleteFunction = (data) => {
+    axios
+      .delete(`http://localhost:4200/api/learning/delete/${data}`)
+      .then((response) => {
+        if (response) {
+          getData();
+          console.log("response", response);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
   console.log("--------------", tableData);
   return (
     <>
       <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-        <PrimaryButton buttonRounded={true} onClick={handleCreate}>Add new Data</PrimaryButton>
+        <PrimaryButton buttonRounded={false} onClick={handleCreate}>
+          Add new Data
+        </PrimaryButton>
       </div>
       <ul className="divide-y divide-gray-100">
         {tableData?.map((data) => (
@@ -61,7 +81,12 @@ export default function ElearnListing() {
                   {/* <div className="flex-none rounded-full bg-emerald-500/20 p-1">
                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </div> */}
-                  <p className="text-xs leading-5 text-gray-500">Free</p>
+                  <p className="text-xs leading-5 text-gray-500">
+                    {" "}
+                    <SubmitButton onClick={() => deleteFunction(data._id)}>
+                      Delete
+                    </SubmitButton>
+                  </p>
                 </div>
               )}
             </div>
