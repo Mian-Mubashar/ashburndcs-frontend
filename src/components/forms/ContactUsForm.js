@@ -9,7 +9,7 @@ import {
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import EmailIllustrationSrc from "images/email-illustration.svg";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "FireBase";
+// import { db } from "FireBase";
 import { Toast } from "helpers/Alert";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

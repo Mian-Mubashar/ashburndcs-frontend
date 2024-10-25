@@ -14,7 +14,6 @@ const Phone = tw.span`text-sm mt-0 block text-gray-500`;
 
 export default () => {
   return (
-    
     <AnimationRevealPage>
       <Header />
       <ContactUsForm />
@@ -28,11 +27,11 @@ export default () => {
                   <AddressLine>ADCS</AddressLine>
                   <AddressLine>Data center Solution</AddressLine>
                 </Address>
-                <Email>contact@Ashburn.com</Email>
+                <Email>ashburndcsolutions@gmail.com</Email>
                 <Phone>+1 (571) 484-0539</Phone>
               </>
-            )
-          }
+            ),
+          },
         ]}
       />
       <Footer />

@@ -9,11 +9,10 @@ import logo from "images/logo.svg";
 import googleIconImageSrc from "images/google-icon.png";
 // import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
-import { auth, signInWithGoogle } from "FireBase";
+import { auth, signInWithGoogle } from "../FireBase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "helpers/Alert";
-
 
 const Container = tw(
   ContainerBase
@@ -96,23 +95,21 @@ export default ({
     e.preventDefault();
     signInWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
-        Toast({message:userCredential})
+        Toast({ message: userCredential });
         const user = userCredential.user;
         window.localStorage.setItem("token", JSON.stringify(user));
         navigate("/");
         console.log(userCredential);
-        Toast({message:"Login Successfully"})
-
+        Toast({ message: "Login Successfully" });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        Toast({message:errorMessage,type:"error"})
-
+        Toast({ message: errorMessage, type: "error" });
       });
   };
-  
+
   return (
     <AnimationRevealPage>
       <Container>

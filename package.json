@@ -5,6 +5,8 @@
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "@headlessui/react": "^1.7.17",
+    "@stripe/react-stripe-js": "^2.8.1",
+    "@stripe/stripe-js": "^4.9.0",
     "@testing-library/jest-dom": "^5.16.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",

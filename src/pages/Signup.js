@@ -10,7 +10,7 @@ import googleIconImageSrc from "images/google-icon.png";
 import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, signInWithGoogle } from "FireBase";
+import { auth, signInWithGoogle } from "../FireBase";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "helpers/Alert";
 
@@ -118,7 +118,7 @@ export default ({
         <Content>
           <MainContainer>
             <LogoLink onClick={() => navigate(logoLinkUrl)}>
-              <LogoImage src={logo} style={{width:"6.5rem"}}/>
+              <LogoImage src={logo} style={{ width: "6.5rem" }} />
             </LogoLink>
             <MainContent>
               <Heading>{headingText}</Heading>

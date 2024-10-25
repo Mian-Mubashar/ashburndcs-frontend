@@ -2,7 +2,9 @@ import React from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import Header from "../headers/light.js";
-import DesignIllustration from "../../images/design-illustration-2.svg";
+// import DesignIllustration from "../../images/design-illustration-2.svg";
+import DesignIllustration from "../../images/newImages/HeaderImage.webp";
+
 // import CustomersLogoStripImage from "../../images/customers-logo-strip.png";
 import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-1.svg";
 
@@ -30,14 +32,18 @@ const HighlightedText = tw.span`text-primary-500`;
 export default () => {
   return (
     <>
-      <Header/>
+      <Header />
       <Container>
         <TwoColumn>
           <LeftColumn>
-            <Heading> 
-           <HighlightedText>ADCS</HighlightedText> Your IT Solution Partner. Expertise in Data Centers, Networking, Cloud, and Security. Empowering Success through Technology Excellence.
+            <Heading>
+              <HighlightedText>ADCS</HighlightedText> Your IT Solution Partner.
+              Expertise in Data Centers, Networking, Cloud, and Security.
+              Empowering Success through Technology Excellence.
             </Heading>
-            <Paragraph><HighlightedText>Reaching New Heights, Together</HighlightedText></Paragraph>
+            <Paragraph>
+              <HighlightedText>Reaching New Heights, Together</HighlightedText>
+            </Paragraph>
           </LeftColumn>
           <RightColumn>
             <IllustrationContainer>
@@ -45,6 +51,7 @@ export default () => {
                 tw="min-w-0 w-full max-w-lg xl:max-w-3xl"
                 src={DesignIllustration}
                 alt="Design Illustration"
+                style={{ borderRadius: "50px", height: "80%", width: "80%" }}
               />
             </IllustrationContainer>
           </RightColumn>
