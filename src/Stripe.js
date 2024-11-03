@@ -1,8 +1,6 @@
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(
-  "pk_test_51Pl79EJsvhlE6wo7snitvai6hiDMOVciIjQyIp7R0aAgVhBAcBpYorZZWLuhpfWh7w9yUudw8aXFZQFzwP4rjobY00wiJiIz6p"
-);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE);
 export const Stripe = async (selectedAmount = "10") => {
   console.log("calllledddd");
   if (!selectedAmount) {
@@ -11,6 +9,17 @@ export const Stripe = async (selectedAmount = "10") => {
   }
   const stripe = await stripePromise;
   await stripe.redirectToCheckout({
+    // payment_method_types: ["card"],
+    // line_items: [
+    //   {
+    //     price_data: {
+    //       currency: "usd",
+    //       product_data: { name: "Custom Item" },
+    //       unit_amount: "20",
+    //     },
+    //     quantity: 1,
+    //   },
+    // ],
     //   lineItems: [
     //     {
     //       price_data: {
@@ -30,10 +39,7 @@ export const Stripe = async (selectedAmount = "10") => {
       },
     ],
     mode: "payment",
-    successUrl: () => {
-      Email();
-      window.location.origin + "/success";
-    },
+    successUrl: window.location.origin + "/success",
     cancelUrl: window.location.origin + "/cancel",
   });
 };

@@ -19,6 +19,7 @@ import NotFound from "components/myComponent/NotFound";
 import AdminDashboard from "AdminSide/dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DataUploadFrom from "components/forms/DataUploadFrom";
+import { Email } from "Email";
 export default function AppRoutes() {
   return (
     <>
@@ -50,12 +51,12 @@ export default function AppRoutes() {
           <Route
             path="/success"
             element={
-              <>
+              <div onLoad={() => Email()}>
                 <h1>Payment Successful</h1>
                 <button onClick={() => (window.location.href = "/")}>
                   Move to Dashboard
                 </button>
-              </>
+              </div>
             }
           />
           <Route

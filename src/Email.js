@@ -1,19 +1,21 @@
-export const Email = (e) => {
-  e.preventDefault();
+import emailjs from "@emailjs/browser";
+
+export const Email = () => {
+  //   e.preventDefault();
 
   // Define the template parameters as an object
   const templateParams = {
-    user_name: "James",
-    user_email: "abdulbasit99786+wahwah@gmail.com",
+    to_name: "James",
+    from_name: "abdulbasit99786+wahwah@gmail.com",
     message: "Email Sent Kindly confirm",
   };
 
   emailjs
     .send(
-      "service_0qmutp5", // Service ID
-      "template_00f8hcl", // Template ID
+      process.env.REACT_APP_EMAIL_ID, // Service ID
+      process.env.REACT_APP_EMAIL_TEMPLATE, // Template ID
       templateParams, // Template parameters
-      "Tu_JcFhNhrSGZDnp2" // Public key (or User ID)
+      process.env.REACT_APP_EMAIL_KEY // Public key (or User ID)
     )
     .then(
       () => {
