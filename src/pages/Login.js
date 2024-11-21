@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
@@ -76,9 +76,27 @@ export default ({
   signupUrl = "#",
 }) => {
   const navigate = useNavigate();
+  const Token = window.localStorage.getItem("token");
+  useEffect(() => {
+    console.log({ Token });
+    if (Token) {
+      navigate("/");
+    }
+  }, [Token]);
   function withGoogle() {
-    const res = signInWithGoogle();
-    console.log("resss", res);
+    const ress = signInWithGoogle()
+      .then((res) => {
+        console.log("resss", res);
+        window.localStorage.setItem("token", JSON.stringify(res.user));
+        navigate("/");
+
+        Toast({ message: "Login Successfully" });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Toast({ message: errorMessage, type: "error" });
+      });
+    console.log("resss", ress);
   }
 
   const [user, setUser] = useState({
@@ -96,8 +114,10 @@ export default ({
     signInWithEmailAndPassword(auth, user.email, user.password)
       .then((userCredential) => {
         Toast({ message: userCredential });
+        console.log({ userCredential });
         const user = userCredential.user;
         window.localStorage.setItem("token", JSON.stringify(user));
+
         navigate("/");
         console.log(userCredential);
         Toast({ message: "Login Successfully" });

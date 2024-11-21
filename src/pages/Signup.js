@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
@@ -76,9 +76,26 @@ export default ({
   signInUrl = "#",
 }) => {
   const navigate = useNavigate();
+  const Token = window.localStorage.getItem("token");
+
+  useEffect(() => {
+    console.log({ Token });
+    if (Token) {
+      navigate("/");
+    }
+  }, [Token]);
   function withGoogle() {
-    const res = signInWithGoogle();
-    console.log("resss", res);
+    const ress = signInWithGoogle()
+      .then((res) => {
+        console.log("resss", res);
+        window.localStorage.setItem("token", JSON.stringify(res.user));
+        Toast({ message: "Registered Successfully" });
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Toast({ message: errorMessage, type: "error" });
+      });
   }
 
   const [user, setUser] = useState({

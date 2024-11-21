@@ -1,30 +1,24 @@
-import emailjs from "@emailjs/browser";
+import { Toast } from "helpers/Alert";
 
-export const Email = () => {
-  //   e.preventDefault();
-
-  // Define the template parameters as an object
-  const templateParams = {
-    to_name: "James",
-    from_name: "abdulbasit99786+wahwah@gmail.com",
-    message: "Email Sent Kindly confirm",
-  };
-
-  emailjs
-    .send(
-      process.env.REACT_APP_EMAIL_ID, // Service ID
-      process.env.REACT_APP_EMAIL_TEMPLATE, // Template ID
-      templateParams, // Template parameters
-      process.env.REACT_APP_EMAIL_KEY // Public key (or User ID)
-    )
-    .then(
-      () => {
-        console.log("SUCCESS!");
-        alert("Sent Email");
+export const Email = (intent) => {
+  console.log({ intent });
+  const data = JSON.parse(window.localStorage.getItem("token"));
+  if (data.email) {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}myemail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      (error) => {
-        alert("Failed");
-        console.log("FAILED...", error.text);
-      }
-    );
+      body: JSON.stringify({
+        email: data.email,
+        amount: intent.amount / 100,
+        transaction: intent.id,
+      }),
+    }).then((res) => console.log(res));
+  } else {
+    Toast({
+      message: "Kindly Login first to perform transaction",
+      type: "error",
+    });
+  }
 };
