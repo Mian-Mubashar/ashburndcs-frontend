@@ -11,7 +11,7 @@ import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { Container, ContentWithPaddingXl } from "components/misc/Layouts.js";
 import { ReactComponent as SvgDecoratorBlob1 } from "images/svg-decorator-blob-6.svg";
 import { ReactComponent as SvgDecoratorBlob2 } from "images/svg-decorator-blob-7.svg";
-import { Stripe } from "Stripe";
+import { useNavigate } from "react-router-dom";
 
 const HeaderContainer = tw.div`w-full flex flex-col items-center`;
 const Subheading = tw(SubheadingBase)`mb-4`;
@@ -80,7 +80,7 @@ export default ({
   primaryButtonText = "Buy Now",
   planDurations = [
     {
-      text: "Month",
+      text: "$",
       switcherText: "Monthly",
     },
     {
@@ -122,7 +122,28 @@ export default ({
   if (!plans) plans = defaultPlans;
 
   const [activeDurationIndex, setActiveDurationIndex] = useState(0);
-
+  const navigate = useNavigate();
+  const [value, setValue] = useState({
+    basic: 1,
+    pro: 10,
+  });
+  function handleValue(e) {
+    if (e.target.name == "Pro Plan") {
+      if (e.target.value >= 10) {
+        setValue({ ...value, pro: e.target.value });
+      } else {
+        setValue({ ...value, pro: 10 });
+      }
+    } else {
+      if (e.target.value >= 1) {
+        setValue({ ...value, basic: e.target.value });
+      } else {
+        setValue(1);
+        setValue({ ...value, basic: 1 });
+      }
+    }
+  }
+  console.log({ value });
   return (
     <Container>
       <ContentWithPaddingXl>
@@ -131,7 +152,7 @@ export default ({
           <Heading>{heading}</Heading>
           {description && <Description>{description}</Description>}
           <PlanDurationSwitcher>
-            {planDurations.map((planDuration, index) => (
+            {/* {planDurations.map((planDuration, index) => (
               <SwitchButton
                 active={activeDurationIndex === index}
                 key={index}
@@ -139,7 +160,7 @@ export default ({
               >
                 {planDuration.switcherText}
               </SwitchButton>
-            ))}
+            ))} */}
           </PlanDurationSwitcher>
         </HeaderContainer>
         <PlansContainer>
@@ -147,9 +168,27 @@ export default ({
             <Plan key={index} featured={plan.featured}>
               <PlanHeader>
                 <span className="priceAndDuration">
-                  <span className="price">
-                    {plan.durationPrices[activeDurationIndex]}
-                  </span>
+                  <input
+                    className="price"
+                    // value={plan.durationPrices[activeDurationIndex]}
+                    value={plan.name == "Pro Plan" ? value.pro : value.basic}
+                    type="number"
+                    name={plan.name}
+                    min={plan.name == "Pro Plan" ? 10 : 1}
+                    max={1000}
+                    onChange={handleValue}
+                    onWheel={(event) => event.currentTarget.blur()}
+                    style={{
+                      width: "150px",
+                      border: "none",
+                      borderRadius: "20px",
+                      WebkitAppearance: "none", // Disables spin buttons in Chrome
+                      appearance: "textfield", // Ensures consistent appearance across browsers
+                      margin: 0,
+                    }}
+                  />
+                  {/* {plan.durationPrices[activeDurationIndex]} */}
+                  {/* </input> */}
                   <span className="slash"> / </span>
                   <span className="duration">
                     {planDurations[activeDurationIndex].text}
@@ -166,7 +205,17 @@ export default ({
                 ))}
               </PlanFeatures>
               <PlanAction>
-                <BuyNowButton onClick={() => Stripe()}>
+                <BuyNowButton
+                  onClick={() =>
+                    navigate("/payment", {
+                      state: {
+                        plan: plan.name,
+                        amount:
+                          plan.name == "Pro Plan" ? value.pro : value.basic,
+                      },
+                    })
+                  }
+                >
                   {primaryButtonText}
                 </BuyNowButton>
               </PlanAction>

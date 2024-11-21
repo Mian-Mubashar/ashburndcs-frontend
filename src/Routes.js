@@ -20,6 +20,7 @@ import AdminDashboard from "AdminSide/dashboard";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DataUploadFrom from "components/forms/DataUploadFrom";
 import { Email } from "Email";
+import { Stripee } from "components/stripe";
 export default function AppRoutes() {
   return (
     <>
@@ -41,6 +42,7 @@ export default function AppRoutes() {
           <Route path="/services/:id" element={<WebDevelopment />} />
           <Route path="/E-learning/:id" element={<WebDevelopment />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/Payment" element={<Stripee />} />
 
           {/* admin Routes? */}
           <Route path="/admin-login" element={<AdminLogin />} />
