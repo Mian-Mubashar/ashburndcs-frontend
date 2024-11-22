@@ -21,6 +21,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DataUploadFrom from "components/forms/DataUploadFrom";
 import { Email } from "Email";
 import { Stripee } from "components/stripe";
+import ThankYou from "components/myComponent/Thanks";
 export default function AppRoutes() {
   return (
     <>
@@ -43,6 +44,7 @@ export default function AppRoutes() {
           <Route path="/E-learning/:id" element={<WebDevelopment />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/Payment" element={<Stripee />} />
+          <Route path="/Thanks" element={<ThankYou />} />
 
           {/* admin Routes? */}
           <Route path="/admin-login" element={<AdminLogin />} />
