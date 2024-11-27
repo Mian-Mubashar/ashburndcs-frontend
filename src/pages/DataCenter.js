@@ -9,32 +9,60 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Footer from "components/footers/MiniCenteredFooter";
 // import TeamCardGrid from "components/cards/ProfileThreeColGrid.js";
 import MainFeature1 from "components/features/TwoColWithButton.js";
-import { serviceData } from "AppData/ServiceData";
 import ModalExample from "components/myComponent/Modal";
+import { DServiceData } from "AppData/Data-Service";
+// import axios from "axios";
 
 const Subheading = tw.span`uppercase tracking-wider text-sm`;
 
 export default () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  // const [tableData, setTableData] = useState([]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:4200/api/learning/view")
+  //     .then((response) => {
+  //       if (response) {
+  //         setTableData(response?.data?.data);
+  //         console.log("response", response);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       alert(error);
+  //     });
+  // }, []);
+
   return (
     <AnimationRevealPage>
       <Header />
 
-      {serviceData.map((value) => (
+      {DServiceData.map((value) => (
         <MainFeature1
           subheading={<Subheading>{value.subheading}</Subheading>}
           heading={value.heading}
           description={value.description}
           imageSrc={value.imageSrc}
           buttonRounded={true}
-          primaryButtonUrl={`/services/${value.id}?type=service`}
+          primaryButtonUrl={`/d-services/${value.id}?type=Data-service`}
           primaryButtonText={value.primaryButtonText}
           textOnLeft={value.textOnLeft}
           contact={handleOpen}
         />
       ))}
-
+      {/* {tableData?.map((value, i) => (
+        <MainFeature1
+          subheading={<Subheading>{value.subheading}</Subheading>}
+          heading={value.heading}
+          description={value.description}
+          imageSrc={value?.imageSrc?.src}
+          buttonRounded={true}
+          primaryButtonUrl={`/E-learning/${value._id}`}
+          primaryButtonText={"More Info"}
+          textOnLeft={i % 2 === 0 ? true : false}
+          contact={handleOpen}
+        />
+      ))} */}
       <Features
         subheading={<Subheading>Our Values</Subheading>}
         heading="We follow these."
