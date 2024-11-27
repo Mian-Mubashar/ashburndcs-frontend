@@ -11,8 +11,20 @@ import SMM from "images/services/SMM.jpg";
 import RII from "images/services/RII.jpg";
 import SR from "images/services/SR.jpg";
 import PM from "images/services/PM.jpg";
+import A from "images/newImages/web development course.webp";
 
 export const serviceData = [
+  {
+    id: 0,
+    heading: "Repair laptop, Printer and Networking",
+    subheading:
+      "Expert Laptop Repair, Printer Servicing, and Network Issue Resolution for Reliable IT Solutions",
+    description:
+      "As a dedicated IT professional, Laptop repair, printer troubleshooting and maintenance, and network issue resolution. Hands-on experience, I provide quick, effective repairs to keep your devices running smoothly, ensuring seamless connectivity and optimal performance. From fixing hardware and software issues on laptops, servicing and repairing printers, to diagnosing and resolving network problems, I offer comprehensive solutions designed to maximize uptime and productivity. Trust in expert service for fast, dependable IT support for all your laptop, printer, and network needs!",
+    primaryButtonText: "More Info",
+    imageSrc: A,
+    textOnLeft: true,
+  },
   {
     id: 1,
     heading: "Rapid Issue Identification",

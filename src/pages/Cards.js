@@ -31,7 +31,7 @@ const SectionContainer = tw(ContentWithVerticalPadding)``;
 // const noOfLandingPages = Object.keys(landingPages).length;
 const PreviewCards = tw.div`flex flex-wrap -mr-12`;
 const PreviewCardContainer = tw.div`mt-24 mx-auto md:mx-0 max-w-lg w-full md:w-1/2 lg:w-1/3 pr-12`;
-const PreviewCard = tw(motion.a)`block rounded-lg shadow-raised`;
+// const PreviewCard = tw(motion.a)`block rounded-lg shadow-raised`;
 const PreviewCardImageContainer = tw.div`rounded-t-lg border-0 border-b-0`;
 const PreviewCardImage = styled(motion.div)`
   ${(props) =>
@@ -72,7 +72,7 @@ export default () => {
             <PreviewCardContainer
               key={Math.random()}
               onClick={() =>
-                previewImageAnimationVariants.navigate("/services")
+                previewImageAnimationVariants.navigate("/d-services")
               }
             >
               <PreviewCardImageContainer>
