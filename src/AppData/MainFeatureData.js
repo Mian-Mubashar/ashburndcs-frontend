@@ -7,162 +7,151 @@ import ReliableIconImage from "images/reliable-icon.svg";
 import CustomizeIconImage from "images/customize-icon.svg";
 import serverSecureIllustrationImageSrc from "images/server-secure-illustration.svg";
 import serverRedundancyIllustrationImageSrc from "images/server-redundancy-illustration.svg";
-import education from "images/demo/3974536.jpg";
+import dataCenterImage from "images/newImages/data center.jpeg.jpg";
 
 const HighlightedText = tw.span`text-primary-500`;
 
 export const FeatureCardsData = [
   {
     imageSrc: ShieldIconImage,
-    title: "High-Speed Connectivity",
+    title: "Certified Computer Repair Technicians",
     description:
-      "ADCS Tech offers lightning-fast internet speeds, ensuring seamless data transfer and reduced latency for optimal performance",
+      "Our team consists of certified computer repair technicians with expertise in laptop repair, PC repair, printer repair, and data center services. Professional computer repair near me with years of experience.",
   },
   {
     imageSrc: SupportIconImage,
-    title: "State-of-the-Art Facilities",
+    title: "24/7 Emergency Computer Repair Support",
     description:
-      "With modern, purpose-built facilities, ADCS Tech provides an ideal environment for tech-driven enterprises to thrive and innovate.",
+      "Round-the-clock emergency response services for critical computer repair issues, ensuring minimal downtime and maximum reliability. Fast computer repair service when you need it most.",
   },
   {
     imageSrc: CustomizeIconImage,
-    title: "Robust Security",
+    title: "Hardware Specialization & Computer Repair",
     description:
-      "Top-notch cybersecurity measures safeguard valuable data, guaranteeing a secure environment for sensitive operations and confidential information.",
+      "Expert knowledge in major computer brands including Dell, HP, Lenovo, Apple, ASUS, and specialized hardware troubleshooting and repair. Professional computer repair shop with certified technicians.",
   },
   {
     imageSrc: ReliableIconImage,
-    title: "Collaborative Ecosystem",
+    title: "Preventive Computer Maintenance",
     description:
-      "A dynamic tech community encourages networking, knowledge-sharing, and synergistic partnerships, fueling creativity and growth",
+      "Proactive computer maintenance programs to prevent hardware failures, optimize performance, and extend equipment lifespan. Professional computer repair services with warranty.",
   },
   {
     imageSrc: FastIconImage,
-    title: "Scalability and Flexibility",
+    title: "Rapid Computer Repair Response",
     description:
-      "Adaptable spaces and scalable resources accommodate evolving business needs, enabling companies to expand and succeed without constraints.",
+      "Quick response times with on-site and remote computer repair support capabilities for immediate issue resolution and system restoration. Same-day computer repair service available.",
   },
   {
     imageSrc: SimpleIconImage,
-    title: "Access to Expertise",
+    title: "Infrastructure & Computer Repair Expertise",
     description:
-      "Proximity to tech experts, thought leaders, and educational institutions offers a rich pool of knowledge and talent, fostering continuous learning and development.",
+      "Comprehensive understanding of computer repair, data center infrastructure including power, cooling, security, and environmental monitoring. Expert computer repair technicians.",
   },
 ];
 
 export const MainFeatureData = [
   {
-    heading: "Resolving Issues for Seamless Operations",
-    subheading: "Data Center Troubleshooting",
-    imageSrc: serverRedundancyIllustrationImageSrc,
-    primaryButtonText: "More Info",
+    heading: "Professional Computer Repair & Data Center Services",
+    subheading: "Computer Repair Near Me - Sterling, VA",
+    imageSrc: dataCenterImage,
+    primaryButtonText: "Our Services",
     textOnLeft: true,
     description:
-      "Experience uninterrupted data center performance with Ashburn's expert troubleshooting services. Our skilled technicians diagnose, identify, and swiftly resolve issues, ensuring minimal downtime and optimal efficiency. From hardware glitches to network complexities, we've got you covered, keeping your critical infrastructure running smoothly. Trust us to navigate the intricacies of your data center, providing rapid solutions and proactive insights to prevent future disruptions. Your data center's reliability is our priority.",
+      "Ashburn DCS provides comprehensive computer repair services in Sterling, VA including laptop repair, PC repair, printer repair, and data center server technician services. Our certified computer repair technicians are trained in the latest technologies and industry best practices, ensuring your computers and critical infrastructure operate at peak performance with maximum reliability and security. Professional computer repair shop with competitive pricing and warranty on all repairs.",
   },
   {
-    heading: "Services",
-    subheading: "Solution",
-    imageSrc: serverSecureIllustrationImageSrc,
-    primaryButtonText: "More Info",
+    heading: "Computer Hardware Repair & Infrastructure",
+    subheading: "Expert Computer Repair Services",
+    imageSrc: serverRedundancyIllustrationImageSrc,
+    primaryButtonText: "Learn More",
     textOnLeft: false,
     description:
-      "ADCS Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
+      "Professional computer hardware repair and infrastructure management services with precision installation, proper cable management, and optimal space utilization. Our certified computer repair technicians handle everything from laptop repair to server systems, implementing industry standards for computer repair, rack organization, power distribution, and environmental monitoring. Expert computer repair services for all your hardware needs.",
   },
   {
-    heading: "Courses",
-    subheading: "E-learning",
-    imageSrc: education,
-    primaryButtonText: "More Info",
+    heading: "Network & Security Solutions",
+    subheading: "Computer Repair & Infrastructure Security",
+    imageSrc: serverSecureIllustrationImageSrc,
+    primaryButtonText: "Learn More",
     textOnLeft: true,
     description:
-      "ADCS Tech offers comprehensive services including SEO optimization, website design and development, and advanced networking solutions. Catering to diverse digital needs, it empowers businesses with effective online presence, seamless connectivity, and strategic growth strategies, ensuring success in today's competitive landscape.",
+      "Comprehensive network infrastructure and computer repair services including switch configuration, routing setup, VLAN management, and security implementation. Our computer repair technicians provide troubleshooting, optimization, and redundancy solutions to ensure high availability and reliable network performance for your computer systems and data center operations. Professional computer repair and IT support services.",
   },
-
-  // {
-  //   heading: (
-  //     <>
-  //       Ashburn built by and for
-  //       <HighlightedText> Professionals </HighlightedText>
-  //     </>
-  //   ),
-  //   description:
-  //     "Ashburn Tech: Expertly Designed by and for Professionals. A purpose-driven ecosystem, tailored to empower industry leaders, startups, and experts, fostering collaboration, innovation, and success",
-  // },
 ];
 
 export const FeatureData = [
   {
     heading: (
       <>
-        ADCS <HighlightedText>L1 (Level 1) Tech Support</HighlightedText>
+        Computer Repair <HighlightedText>Services</HighlightedText> & Data Center Expertise
       </>
     ),
-    subheading: "Features",
+    subheading: "Professional Computer Repair Services",
     description:
-      "At ADCS, we pride ourselves on delivering top-notch tech support services to ensure a seamless experience for our customers. Our tech support is organized into three distinct levels, each playing a crucial role in addressing and resolving your technical issues.",
+      "Our certified computer repair technicians provide comprehensive computer repair services including laptop repair, PC repair, printer repair, and infrastructure management to ensure your computers and data center operate at peak efficiency with maximum reliability and security. Professional computer repair near me with fast service and competitive pricing.",
   },
 ];
+
 export const FeatureCardsDataL1 = [
-  
   {
     imageSrc: ReliableIconImage,
-    title: "First Line of Assistance",
+    title: "Computer Hardware Installation",
     description:
-      "Our L1 support team is your initial point of contact, ready to address and resolve your basic technical inquiries",
+      "Professional computer repair services including laptop repair, PC repair, hardware installation with proper diagnostics and documentation",
   },
   {
     imageSrc: FastIconImage,
-    title: "Swift Issue Resolution",
+    title: "Computer Repair & Break-Fix Services",
     description:
-      "We excel in quick problem diagnosis and offer solutions for common technical challenges",
+      "Rapid diagnosis and repair of computer hardware failures with certified computer repair technicians and quality replacement parts",
   },
   {
     imageSrc: SimpleIconImage,
-    title: "Escalation Process",
+    title: "Preventive Computer Maintenance",
     description:
-      "For more complex issues, our L1 team efficiently escalates problems to higher tiers for in-depth resolution",
+      "Regular computer maintenance schedules to prevent hardware failures and optimize computer performance and reliability",
   },
 ];
+
 export const FeatureCardsDataL2 = [
-  
   {
     imageSrc: ReliableIconImage,
-    title: "Advanced Troubleshooting",
+    title: "Network Infrastructure & Computer Repair",
     description:
-      "Our L2 support specialists are experts in handling more intricate technical problems that may require a deeper understanding",
+      "Expert network configuration, troubleshooting, and optimization for reliable computer connectivity and data center operations",
   },
   {
     imageSrc: FastIconImage,
-    title: "Specialized Assistance",
+    title: "Computer Administration & Support",
     description:
-      "From networking issues to software glitches, our L2 team provides specialized solutions to ensure your systems run smoothly",
+      "Comprehensive computer management including OS installation, configuration, security, and performance tuning",
   },
   {
     imageSrc: SimpleIconImage,
-    title: "Collaborative Approach",
+    title: "Infrastructure Monitoring",
     description:
-      " Working closely with other departments, L2 support ensures comprehensive issue resolution and continuous improvement",
+      "24/7 monitoring of computer systems and data center infrastructure including power, cooling, security, and environmental systems",
   },
 ];
+
 export const FeatureCardsDataL3 = [
-  
   {
     imageSrc: ReliableIconImage,
-    title: "Highest Expertise",
+    title: "Advanced Computer Troubleshooting",
     description:
-      "Our L3 support is the pinnacle of technical expertise, tackling the most challenging and critical issues with precision",
+      "Expert-level problem resolution for complex computer hardware and infrastructure issues with strategic solutions",
   },
   {
     imageSrc: FastIconImage,
-    title: "Strategic Solutions",
+    title: "Infrastructure Design",
     description:
-      "L3 specialists collaborate with product development teams to address underlying software and hardware challenges",
+      "Computer system and data center infrastructure planning, design, and implementation for optimal performance and scalability",
   },
   {
     imageSrc: SimpleIconImage,
-    title: "Guidance and Training",
+    title: "Technical Consulting",
     description:
-      "Providing guidance to lower support tiers, L3 ensures the continuous improvement of our support services",
+      "Strategic technical consulting for computer optimization, security enhancement, and technology upgrades",
   },
 ];

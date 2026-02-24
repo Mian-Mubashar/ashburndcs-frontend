@@ -16,153 +16,141 @@ import A from "images/newImages/web development course.webp";
 export const serviceData = [
   {
     id: 0,
-    heading: "Repair laptop, Printer and Networking",
-    subheading:
-      "Expert Laptop Repair, Printer Servicing, and Network Issue Resolution for Reliable IT Solutions",
+    heading: "Laptop Repair & Computer Services",
+    subheading: "Professional Computer Repair Services",
     description:
-      "As a dedicated IT professional, Laptop repair, printer troubleshooting and maintenance, and network issue resolution. Hands-on experience, I provide quick, effective repairs to keep your devices running smoothly, ensuring seamless connectivity and optimal performance. From fixing hardware and software issues on laptops, servicing and repairing printers, to diagnosing and resolving network problems, I offer comprehensive solutions designed to maximize uptime and productivity. Trust in expert service for fast, dependable IT support for all your laptop, printer, and network needs!",
-    primaryButtonText: "More Info",
+      "Expert laptop repair services in Sterling, VA including hardware diagnostics, screen replacement, battery replacement, keyboard repair, and software troubleshooting. Our certified computer repair technicians provide fast, reliable laptop repair for all major brands including Dell, HP, Lenovo, Apple, and ASUS. We offer same-day laptop repair service for common issues and comprehensive diagnostics for complex problems. Trust our experienced computer repair team for professional laptop repair services that get your device back to optimal performance quickly. Best laptop repair service near me with competitive pricing and warranty on all repairs.",
+    primaryButtonText: "Get Repair Quote",
     imageSrc: A,
     textOnLeft: true,
   },
   {
     id: 1,
-    heading: "Rapid Issue Identification",
-    subheading: "Data Center Troubleshoot",
+    heading: "PC Repair & Desktop Computer Services",
+    subheading: "Desktop Computer Repair Near Me",
     description:
-      "Our experienced technicians are skilled in identifying the root causes of data center problems, whether they involve hardware, software, connectivity, or environmental factors",
-    primaryButtonText: "More Info",
+      "Professional PC repair and desktop computer services in Sterling, VA for home and business users. Our computer repair technicians handle motherboard repairs, power supply replacement, RAM upgrades, hard drive installation, and complete system builds. We provide diagnostic services, virus removal, data recovery, and performance optimization. With years of experience in desktop computer repair, we ensure your PC runs efficiently and reliably with quality parts and expert service. Fast PC repair service with on-site and drop-off options available. Trusted computer repair shop for all your desktop computer needs.",
+    primaryButtonText: "Schedule Repair",
     imageSrc: RII,
     textOnLeft: false,
   },
   {
     id: 2,
-
-    heading: "Swift Resolutions",
-    subheading: "Data Center Troubleshoot",
+    heading: "Printer Repair & Maintenance Services",
+    subheading: "Professional Printer Repair Services",
     description:
-      "We understand the critical nature of data center disruptions. Our team is dedicated to delivering rapid solutions, minimizing impact, and restoring your operations promptly",
-    primaryButtonText: "More Info",
+      "Comprehensive printer repair and maintenance services in Sterling, VA for all major brands including HP, Canon, Epson, Brother, and Lexmark. Our certified printer repair technicians provide printer troubleshooting, cartridge replacement, print head cleaning, network connectivity setup, and preventive maintenance. We service laser printers, inkjet printers, all-in-one devices, and commercial printing equipment. Fast, reliable printer repair services to keep your business running smoothly. Professional printer repair near me with same-day service for urgent printer issues. Expert printer maintenance and repair for home and office use.",
+    primaryButtonText: "Call for Service",
     imageSrc: SR,
     textOnLeft: true,
   },
   {
     id: 3,
-
-    heading: "Proactive Maintenance",
-    subheading: "Data Center Troubleshoot",
+    heading: "Computer Hardware Repair & Upgrades",
+    subheading: "Computer Hardware Services",
     description:
-      "Beyond troubleshooting, we provide insights to help prevent future issues. Our proactive maintenance recommendations are designed to enhance the stability and reliability of your data center infrastructure.",
-    primaryButtonText: "More Info",
+      "Professional computer hardware repair and upgrade services in Sterling, VA including CPU replacement, graphics card installation, memory upgrades, storage solutions, and cooling system maintenance. Our computer repair technicians are certified in major hardware brands and provide expert advice on performance optimization. We offer custom PC builds, gaming computer upgrades, and business workstation maintenance. Quality hardware repair services with warranty on all parts and labor. Expert computer hardware repair for gaming PCs, workstations, and home computers. Professional computer upgrade services to enhance performance and extend computer lifespan.",
+    primaryButtonText: "Learn More",
     imageSrc: PM,
     textOnLeft: false,
   },
   {
     id: 4,
-
-    heading: "Website Development",
-    subheading: "IT Service",
+    heading: "Virus Removal & Computer Security",
+    subheading: "Computer Virus Removal Services",
     description:
-      "All types of websites tailored to your needs using advanced technologies and frameworks. From dynamic WordPress sites to custom-built applications with MERN Stack (MongoDB, Express.js, React, Node.js) and MEAN Stack (MongoDB, Express.js, Angular, Node.js), our team delivers high-quality, scalable, and user-friendly solutions. Whether it's an e-commerce platform, portfolio, or enterprise application, we ensure seamless functionality and modern design.",
-    primaryButtonText: "More Info",
+      "Professional virus removal and computer security services in Sterling, VA. Our computer repair experts provide comprehensive malware removal, spyware removal, ransomware recovery, and computer security optimization. We offer virus removal for Windows, Mac, and Linux systems with guaranteed results. Our computer security services include firewall setup, antivirus installation, and security software configuration. Fast virus removal service with data protection and recovery options. Trust our experienced computer repair technicians for safe and effective virus removal and computer security solutions.",
+    primaryButtonText: "Get Security Quote",
     imageSrc: WD,
     textOnLeft: true,
   },
   {
     id: 5,
-
-    heading: "Mobile App Development",
-    subheading: "IT Service",
+    heading: "Data Recovery & Backup Services",
+    subheading: "Professional Data Recovery",
     description:
-      "Create user-friendly mobile apps that cater to your audience's needs, providing convenient access to your products or services",
-    primaryButtonText: "More Info",
+      "Expert data recovery and backup services in Sterling, VA for all types of storage devices including hard drives, SSDs, USB drives, and memory cards. Our computer repair technicians specialize in recovering lost data from failed drives, corrupted files, and accidentally deleted information. We provide secure data recovery services with confidentiality guarantees and no data, no fee policy. Professional backup solutions including cloud backup, local backup, and disaster recovery planning. Fast data recovery service with high success rates for all major storage brands and file systems.",
+    primaryButtonText: "Recover Data",
     imageSrc: MAD,
     textOnLeft: false,
   },
   {
     id: 6,
-
-    heading: "Software Development",
-    subheading: "IT Service",
+    heading: "Network Setup & IT Support",
+    subheading: "Professional IT Support Services",
     description:
-      "Tailor software solutions to optimize your operations, leveraging technology to enhance efficiency and meet specific business goal",
-    primaryButtonText: "More Info",
+      "Professional network setup and IT support services in Sterling, VA for home and business networks. Our computer repair technicians provide network installation, WiFi setup, router configuration, network troubleshooting, and IT support. We offer managed IT services including network monitoring, security updates, and technical support. Professional IT support for small businesses and home offices with 24/7 emergency support available. Expert network troubleshooting and optimization for improved internet performance and network reliability. Trust our IT support team for all your networking and technical support needs.",
+    primaryButtonText: "Get IT Support",
     imageSrc: SD,
     textOnLeft: true,
   },
   {
     id: 7,
-
-    heading: "IT Consulting",
-    subheading: "IT Service",
+    heading: "Server Hardware Installation & Maintenance",
+    subheading: "Data Center Infrastructure",
     description:
-      "Benefit from expert guidance to formulate IT strategies that enhance productivity, security, and align technology with your business objectives",
-    primaryButtonText: "More Info",
+      "Professional server hardware installation, racking, and maintenance services for data centers and IT infrastructure. Our certified technicians handle server deployment, hardware upgrades, and preventive maintenance to ensure optimal performance and reliability. From 1U servers to blade systems, we provide expert installation with proper cable management, power distribution, and environmental monitoring.",
+    primaryButtonText: "Learn More",
     imageSrc: IC,
     textOnLeft: false,
   },
   {
     id: 8,
-
-    heading: "E-commerce Solutions",
-    subheading: "IT Service",
+    heading: "Website Development & IT Solutions",
+    subheading: "Digital Services",
     description:
-      "Establish and manage online stores with secure payment gateways, inventory management, and user-friendly interfaces for optimal customer experiences.",
-    primaryButtonText: "More Info",
+      "Professional website development and IT solutions using advanced technologies and frameworks. From dynamic WordPress sites to custom-built applications with MERN Stack and MEAN Stack, our team delivers high-quality, scalable, and user-friendly solutions for your business needs.",
+    primaryButtonText: "Learn More",
     imageSrc: EC,
     textOnLeft: true,
   },
   {
     id: 9,
-
-    heading: "Managed IT Services",
-    subheading: "IT Service",
+    heading: "Mobile App Development",
+    subheading: "Application Development",
     description:
-      "Delegate IT management to experts, gaining proactive support, maintenance, and troubleshooting to keep your systems running seamlessly",
-    primaryButtonText: "More Info",
+      "Create user-friendly mobile apps that cater to your audience's needs, providing convenient access to your products or services with modern development practices and responsive design.",
+    primaryButtonText: "Learn More",
     imageSrc: MIS,
     textOnLeft: false,
   },
   {
     id: 10,
-
-    heading: "Search Engine Optimization (SEO)",
-    subheading: "Digital Marketing Service",
+    heading: "Software Development & Custom Solutions",
+    subheading: "IT Development",
     description:
-      "Enhance online visibility and drive organic traffic through strategic search engine optimization techniques tailored to your target audience.",
-    primaryButtonText: "More Info",
+      "Tailored software solutions to optimize your operations, leveraging technology to enhance efficiency and meet specific business goals with custom development and integration services.",
+    primaryButtonText: "Learn More",
     imageSrc: SEO,
     textOnLeft: true,
   },
   {
     id: 11,
-
-    heading: "Social Media Marketing",
-    subheading: "Digital Marketing Service",
+    heading: "IT Consulting & Strategy",
+    subheading: "Technology Consulting",
     description:
-      "Amplify brand presence on social platforms, engaging users and building strong connections through well-crafted content and interactions.",
-    primaryButtonText: "More Info",
+      "Expert IT consulting services to formulate technology strategies that enhance productivity, security, and align technology with your business objectives for optimal performance and growth.",
+    primaryButtonText: "Learn More",
     imageSrc: SMM,
     textOnLeft: false,
   },
   {
     id: 12,
-
-    heading: "Affiliate Marketing",
-    subheading: "Digital Marketing Service",
+    heading: "E-commerce Solutions",
+    subheading: "Online Business",
     description:
-      "Collaborate with affiliates to promote your offerings and gain wider exposure.",
-    primaryButtonText: "More Info",
+      "Establish and manage online stores with secure payment gateways, inventory management, and user-friendly interfaces for optimal customer experiences and business growth.",
+    primaryButtonText: "Learn More",
     imageSrc: AM,
     textOnLeft: true,
   },
   {
     id: 13,
-
-    heading: "Analytics and Data Analysis",
-    subheading: "Digital Marketing Service",
-    description: "Monitoring and analyzing data to optimize marketing efforts.",
-    primaryButtonText: "More Info",
+    heading: "Managed IT Services",
+    subheading: "IT Management",
+    description:
+      "Comprehensive managed IT services including proactive support, maintenance, and troubleshooting to keep your systems running seamlessly with 24/7 monitoring and support.",
+    primaryButtonText: "Learn More",
     imageSrc: DMS,
     textOnLeft: false,
   },

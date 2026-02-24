@@ -43,37 +43,37 @@ const DecoratorBlob2 = styled(SvgDecoratorBlob2)`
 export default ({
   subheading = "FAQS",
   heading = "You have Questions ?",
-  description = "Frequently Asked Questions (FAQ) - ADCS Tech Services",
+  description = "Frequently Asked Questions - Computer Repair & Data Center Services in Sterling, VA",
   faqs = [
     {
-      question: "What services does ADCS Tech offer?",
+      question: "What computer repair services do you provide in Sterling, VA?",
       answer:
-        "ADCS Tech provides a range of services including web development, SEO optimization, networking solutions, cybersecurity, e-learning, and more",
+        "We provide comprehensive computer repair services including laptop repair, PC repair, desktop computer repair, printer repair, virus removal, data recovery, and network troubleshooting. Our certified computer repair technicians handle all major brands including Dell, HP, Lenovo, Apple, and ASUS. Professional computer repair near me with fast service and competitive pricing.",
     },
     {
-      question: "How can ADCS Tech help my business grow?",
+      question: "Are your computer repair technicians certified and experienced?",
       answer:
-        "We offer tailored solutions to enhance your online presence, streamline operations, and foster innovation, ultimately driving business growth",
+        "Yes, our computer repair technicians are certified in major computer brands including Dell, HP, Lenovo, Apple, ASUS, and specialized hardware troubleshooting and repair. They have extensive experience in computer repair operations, hardware troubleshooting, and infrastructure management with industry best practices. Professional computer repair shop with years of experience.",
     },
     {
-      question: "Can I customize the services to my specific needs?",
+      question: "Do you provide same-day computer repair service?",
       answer:
-        "Yes, our services are customizable to meet your unique requirements, ensuring a personalized approach that aligns with your goals",
+        "Yes, we offer same-day computer repair service for common issues like virus removal, software troubleshooting, and basic hardware repairs. For complex computer repair issues, we provide fast turnaround times with on-site and drop-off options available. Our computer repair technicians work efficiently to get your computer back to optimal performance quickly.",
     },
     {
-      question: "Tell me about your e-learning platform?",
+      question: "What is your response time for computer repair services?",
       answer:
-        "Our e-learning platform offers diverse courses, expert instructors, and interactive tools to empower continuous skill development and knowledge acquisition",
+        "Our standard response time for computer repair services is 2-4 hours for critical issues, with on-site computer repair support available within 24 hours. For emergency computer repair situations, we can provide immediate remote diagnostics and guidance while dispatching computer repair technicians. Fast computer repair service when you need it most.",
     },
     {
-      question: "How can ADCS Tech assist startups?",
+      question: "Do you handle laptop repair and PC repair services?",
       answer:
-        "We offer startup-friendly services including web development, SEO, and networking solutions, helping startups establish a strong online presence and accelerate growth.",
+        "Absolutely. We specialize in laptop repair and PC repair services including hardware diagnostics, screen replacement, battery replacement, motherboard repairs, power supply replacement, RAM upgrades, and complete system builds. Our computer repair technicians provide diagnostic services, virus removal, data recovery, and performance optimization for all computer types.",
     },
     {
-      question: "Are your services suitable for academic institutions?",
+      question: "Can you work with my existing computer setup and provide printer repair?",
       answer:
-        "Yes, our services, such as e-learning and networking solutions, can benefit academic institutions by enhancing learning experiences and campus connectivity.",
+        "Certainly. Our computer repair technicians are experienced with various computer environments and can work with your existing setup, providing upgrades, maintenance, and optimization while ensuring compatibility and minimal disruption. We also provide comprehensive printer repair services for all major brands including HP, Canon, Epson, Brother, and Lexmark.",
     },
   ],
 }) => {

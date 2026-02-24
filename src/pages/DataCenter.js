@@ -7,31 +7,15 @@ import CustomerLoveIconImage from "images/simple-icon.svg";
 import Features from "components/features/ThreeColSimple.js";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Footer from "components/footers/MiniCenteredFooter";
-// import TeamCardGrid from "components/cards/ProfileThreeColGrid.js";
 import MainFeature1 from "components/features/TwoColWithButton.js";
 import ModalExample from "components/myComponent/Modal";
 import { DServiceData } from "AppData/Data-Service";
-// import axios from "axios";
 
 const Subheading = tw.span`uppercase tracking-wider text-sm`;
 
 export default () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-  // const [tableData, setTableData] = useState([]);
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:4200/api/learning/view")
-  //     .then((response) => {
-  //       if (response) {
-  //         setTableData(response?.data?.data);
-  //         console.log("response", response);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       alert(error);
-  //     });
-  // }, []);
 
   return (
     <AnimationRevealPage>
@@ -39,6 +23,7 @@ export default () => {
 
       {DServiceData.map((value) => (
         <MainFeature1
+          key={value.id}
           subheading={<Subheading>{value.subheading}</Subheading>}
           heading={value.heading}
           description={value.description}
@@ -50,46 +35,33 @@ export default () => {
           contact={handleOpen}
         />
       ))}
-      {/* {tableData?.map((value, i) => (
-        <MainFeature1
-          subheading={<Subheading>{value.subheading}</Subheading>}
-          heading={value.heading}
-          description={value.description}
-          imageSrc={value?.imageSrc?.src}
-          buttonRounded={true}
-          primaryButtonUrl={`/E-learning/${value._id}`}
-          primaryButtonText={"More Info"}
-          textOnLeft={i % 2 === 0 ? true : false}
-          contact={handleOpen}
-        />
-      ))} */}
+
       <Features
-        subheading={<Subheading>Our Values</Subheading>}
-        heading="We follow these."
-        description="Optimize operations through automated workflows, minimizing manual efforts while maximizing productivity and resource utilization"
+        subheading={<Subheading>Our Expertise</Subheading>}
+        heading="Data Center Server Technician Services"
+        description="Professional data center infrastructure management with certified technicians, 24/7 support, and industry best practices for optimal performance and reliability"
         cards={[
           {
             imageSrc: SupportIconImage,
-            title: "Bespoke Tech Solutions",
+            title: "Certified Technicians",
             description:
-              "Tailored digital innovations to meet unique business needs",
+              "Our team consists of certified data center technicians with expertise in server hardware, networking, and infrastructure management",
           },
           {
             imageSrc: ShieldIconImage,
-            title: "Efficiency Amplification",
+            title: "24/7 Emergency Support",
             description:
-              "Streamlined processes through automation and optimization",
+              "Round-the-clock emergency response services for critical data center issues, ensuring minimal downtime and maximum reliability",
           },
           {
             imageSrc: CustomerLoveIconImage,
-            title: "End-to-End Support",
+            title: "Hardware Specialization",
             description:
-              "Comprehensive assistance from concept to implementation, driving success in every project",
+              "Expert knowledge in major server brands including Dell, HP, IBM, Cisco, and specialized hardware troubleshooting and repair",
           },
         ]}
         linkText=""
       />
-      {/* <TeamCardGrid subheading={<Subheading>Our Team</Subheading>} /> */}
 
       <Footer />
       <ModalExample open={open} handleOpen={handleOpen} setOpen={setOpen} />

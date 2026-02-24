@@ -6,11 +6,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter";
 import MainFeature1 from "components/features/TwoColWithButton.js";
-// import MainFeature2 from "components/features/TwoColSingleFeatureWithStats.js";
-// import MainFeature3 from "components/features/TwoColSingleFeatureWithStats2.js";
 import Features from "components/features/ThreeColSimple.js";
-// import Features from "components/features/ThreeColWithSideImage.js";
-// import TeamCardGrid from "components/cards/ProfileThreeColGrid.js";
 
 import SupportIconImage from "images/support-icon.svg";
 import ShieldIconImage from "images/shield-icon.svg";
@@ -21,7 +17,6 @@ const Subheading = tw.span`uppercase tracking-wider text-sm`;
 export default () => {
   return (
     <AnimationRevealPage>
-
       <Header />
       {MainFeatureData.map((value, i) => (
         <MainFeature1
@@ -34,36 +29,32 @@ export default () => {
           primaryButtonText={value.primaryButtonText}
         />
       ))}
-    <Features
-        subheading={<Subheading>Our Values</Subheading>}
-        heading="We follow these."
-        description="Optimize operations through automated workflows, minimizing manual efforts while maximizing productivity and resource utilization"
+      <Features
+        subheading={<Subheading>Our Expertise</Subheading>}
+        heading="Computer Repair & Data Center Services"
+        description="Professional computer repair services in Sterling, VA with certified computer repair technicians, 24/7 support, and industry best practices for optimal performance and reliability. Expert laptop repair, PC repair, printer repair, and data center services."
         cards={[
           {
             imageSrc: SupportIconImage,
-            title: "Bespoke Tech Solutions",
+            title: "Certified Computer Repair Technicians",
             description:
-              "Tailored digital innovations to meet unique business needs",
+              "Our team consists of certified computer repair technicians with expertise in laptop repair, PC repair, printer repair, and data center services. Professional computer repair near me with years of experience.",
           },
           {
             imageSrc: ShieldIconImage,
-            title: "Efficiency Amplification",
+            title: "24/7 Emergency Computer Repair Support",
             description:
-              "Streamlined processes through automation and optimization",
+              "Round-the-clock emergency response services for critical computer repair issues, ensuring minimal downtime and maximum reliability. Fast computer repair service when you need it most.",
           },
           {
             imageSrc: CustomerLoveIconImage,
-            title: "End-to-End Support",
+            title: "Hardware Specialization & Computer Repair",
             description:
-              "Comprehensive assistance from concept to implementation, driving success in every project",
+              "Expert knowledge in major computer brands including Dell, HP, Lenovo, Apple, ASUS, and specialized hardware troubleshooting and repair. Professional computer repair shop with certified technicians.",
           },
         ]}
         linkText=""
       />
-      {/* <TeamCardGrid 
-        subheading={<Subheading>Our Team</Subheading>}
-      /> */}
-
       <Footer />
     </AnimationRevealPage>
   );
