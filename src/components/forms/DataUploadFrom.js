@@ -75,11 +75,11 @@ export default ({ service = false, learning = false, handleOpen }) => {
           .post(
             service
               ? "http://localhost:4200/api/service/create"
-              : learning && "http://localhost:4200/api/learning/create",
+              : "http://localhost:4200/api/service/create",
             formData
           )
           .then(function (response) {
-            service ? navigate("/services") :learning && navigate("/e-learning");
+            navigate("/services");
             handleOpen();
             Toast({ message: response.message });
           });
@@ -126,13 +126,13 @@ export default ({ service = false, learning = false, handleOpen }) => {
           </InputContainer>
           {/* <InputContainer>
             <Label htmlFor="email-input">BUTTON TEXT</Label>
-            <Input
-              id="primaryButtonText"
-              type="text"
-              name="primaryButtonText"
-              placeholder="someThing"
-              onChange={handleChange}
-            />
+            // <Input
+            //   id="primaryButtonText"
+            //   type="text"
+            //   name="primaryButtonText"
+            //   placeholder="someThing"
+            //   onChange={handleChange}
+            // />
           </InputContainer> */}
           <InputContainer>
             <Label htmlFor="email-input">PHOTO</Label>
@@ -152,7 +152,7 @@ export default ({ service = false, learning = false, handleOpen }) => {
             <TextArea
               id="description"
               name="description"
-              onChange={handleChange}
+              onChangprimaryButtonTexte={handleChange}
               placeholder="E.g. Details about your data"
             />
           </InputContainer>

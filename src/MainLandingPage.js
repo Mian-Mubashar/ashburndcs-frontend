@@ -1,11 +1,8 @@
 import React from "react";
 import tw from "twin.macro";
-import Cards from "pages/Cards";
 import Hero from "components/hero/HeaderHero";
 import FAQ from "components/faqs/SingleCol.js";
-import Pricing from "components/pricing/Pricing";
 import Banner from "components/testimonials/MainBanner";
-import { ElearningData } from "AppData/E-learningData";
 import { TestimonialData } from "AppData/TestimonialData";
 import GetStarted from "components/cta/GetStartedLight.js";
 import FeatureStats from "components/features/StatFeature";
@@ -22,8 +19,7 @@ export default () => {
   return (
     <AnimationRevealPage>
       <Hero roundedHeaderButton={true} />
-      <Banner data={ElearningData} />
-      <Cards />
+      <Banner data={MainFeatureData} />
       {FeatureData.map((value, i) => (
         <Features
           key={i}
@@ -57,13 +53,6 @@ export default () => {
         testimonials={TestimonialData.testimonials}
         imageRounded={TestimonialData.imageRounded}
       />
-      {/* <Pricing
-        heading={
-          <>
-            Flexible <HighlightedText>Plans</HighlightedText>
-          </>
-        }
-      /> */}
       <FAQ
         heading={
           <>

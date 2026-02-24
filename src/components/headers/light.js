@@ -72,11 +72,12 @@ export default ({
       <NavLink style={{ pointerEvents: "auto" }} onClick={() => navigate("/")}>
         Home
       </NavLink>
-      <NavLink onClick={() => navigate("/services")}>Our Services</NavLink>
-      <NavLink onClick={() => navigate("/e-learning")}>E-Learning</NavLink>
+      <NavLink onClick={() => navigate("/d-services")}>Data Center Services</NavLink>
+      <NavLink onClick={() => navigate("/services")}>IT Services</NavLink>
+      <NavLink onClick={() => navigate("/payment")}>Payment</NavLink>
+      <NavLink onClick={() => navigate("/career")}>Career</NavLink>
       <NavLink onClick={() => navigate("/about-us")}>About Us</NavLink>
       <NavLink onClick={() => navigate("/contact-us")}>Contact Us</NavLink>
-      <NavLink onClick={() => navigate("/buy-now")}>Buy Now</NavLink>
 
       {!Token ? (
         <>
@@ -171,17 +172,3 @@ const collapseBreakPointCssMap = {
     mobileNavLinksContainer: tw`lg:hidden`,
   },
 };
-
-// const defaultLogoLink = (
-//   <LogoLink onClick={() => navigate("/")}>
-//     <span style={{ display: "flex" }}>
-//       <img src={logo} alt="logo" />
-//       <span style={{ display: "grid" }}>
-//         <span>
-//           ASHBURN <span style={{ fontSize: "50%" }}> LLC</span>
-//         </span>
-//         <span style={{ fontSize: "50%" }}> Data Center & IT services</span>
-//       </span>
-//     </span>
-//   </LogoLink>
-// );

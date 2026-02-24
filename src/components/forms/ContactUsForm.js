@@ -67,8 +67,12 @@ export default ({
     subject: "",
     message: "",
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const handleChange = ({ target: { name, value } }) =>
     setData({ ...data, [name]: value });
+  
   const addContact = async (e) => {
     e.preventDefault();
     if (
@@ -79,29 +83,39 @@ export default ({
     ) {
       Toast({ message: "Please fill all data in the fields", type: "info" });
     } else {
+      setIsSubmitting(true);
       try {
-        axios
-          .post(
-            "https://ashburnbe-abdulbasits-projects-c78465b7.vercel.app/api/contact",
-            {
-              name: data.name,
-              email: data.email,
-              subject: data.subject,
-              message: data.message,
-            }
-          )
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
+        const response = await axios.post(
+          "https://ashburnbe-abdulbasits-projects-c78465b7.vercel.app/api/contact",
+          {
+            name: data.name,
+            email: data.email,
+            subject: data.subject,
+            message: data.message,
+          }
+        );
+        
+        if (response.data.success) {
+          Toast({ message: "Thank you! Your message has been sent successfully.", type: "success" });
+          setIsSubmitted(true);
+          // Reset form
+          setData({
+            name: "",
+            email: "",
+            subject: "",
+            message: "",
           });
-        // console.log("Document written with ID: ", docRef.id);
-        // Toast({message:"Submitted Data Successfully"})
-        // navigate("/");
-      } catch (e) {
-        // console.error("Error adding document: ", e);
-        Toast({ message: e.message });
+        } else {
+          Toast({ message: response.data.error || "Failed to send message. Please try again.", type: "error" });
+        }
+      } catch (error) {
+        console.error("Contact form error:", error);
+        Toast({ 
+          message: error.response?.data?.error || "An error occurred. Please try again later.", 
+          type: "error" 
+        });
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -119,43 +133,67 @@ export default ({
                 {subheading && <Subheading>{subheading}</Subheading>}
                 <Heading>{heading}</Heading>
                 {description && <Description>{description}</Description>}
-                <Form>
-                  <Input
-                    type="email"
-                    name="email"
-                    id="email"
-                    required
-                    onChange={handleChange}
-                    placeholder="Your Email Address"
-                  />
-                  <Input
-                    type="text"
-                    name="name"
-                    id="name"
-                    required
-                    onChange={handleChange}
-                    placeholder="Full Name"
-                  />
-                  <Input
-                    type="text"
-                    name="subject"
-                    id="subject"
-                    required
-                    onChange={handleChange}
-                    placeholder="Subject"
-                  />
-                  <Textarea
-                    name="message"
-                    id="subject"
-                    required
-                    onChange={handleChange}
-                    placeholder="Your Message Here"
-                  />
-                  <SubmitButton onClick={addContact}>
-                    {submitButtonText}
-                  </SubmitButton>
-                  <WhatsAppContact />
-                </Form>
+                {isSubmitted ? (
+                  <div tw="mt-8 p-6 bg-green-500 border-2 border-green-200 rounded-lg text-center">
+                    <h3 tw="text-2xl font-bold text-green-700 mb-2">Thank You!</h3>
+                    <p tw="text-green-600">Your message has been sent successfully. We'll get back to you soon.</p>
+                    <SubmitButton 
+                      onClick={() => setIsSubmitted(false)}
+                      tw="mt-4"
+                    >
+                      Send Another Message
+                    </SubmitButton>
+                  </div>
+                ) : (
+                  <Form>
+                    <Input
+                      type="email"
+                      name="email"
+                      id="email"
+                      required
+                      value={data.email}
+                      onChange={handleChange}
+                      placeholder="Your Email Address"
+                      disabled={isSubmitting}
+                    />
+                    <Input
+                      type="text"
+                      name="name"
+                      id="name"
+                      required
+                      value={data.name}
+                      onChange={handleChange}
+                      placeholder="Full Name"
+                      disabled={isSubmitting}
+                    />
+                    <Input
+                      type="text"
+                      name="subject"
+                      id="subject"
+                      required
+                      value={data.subject}
+                      onChange={handleChange}
+                      placeholder="Subject"
+                      disabled={isSubmitting}
+                    />
+                    <Textarea
+                      name="message"
+                      id="message"
+                      required
+                      value={data.message}
+                      onChange={handleChange}
+                      placeholder="Your Message Here"
+                      disabled={isSubmitting}
+                    />
+                    <SubmitButton 
+                      onClick={addContact}
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : submitButtonText}
+                    </SubmitButton>
+                    <WhatsAppContact />
+                  </Form>
+                )}
               </TextContent>
             </TextColumn>
           </TwoColumn>
@@ -166,43 +204,67 @@ export default ({
             {subheading && <Subheading>{subheading}</Subheading>}
             <Heading>{heading}</Heading>
             {description && <Description>{description}</Description>}
-            <Form>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                required
-                onChange={handleChange}
-                placeholder="Your Email Address"
-              />
-              <Input
-                type="text"
-                name="name"
-                id="name"
-                required
-                onChange={handleChange}
-                placeholder="Full Name"
-              />
-              <Input
-                type="text"
-                name="subject"
-                id="subject"
-                required
-                onChange={handleChange}
-                placeholder="Subject"
-              />
-              <Textarea
-                name="message"
-                id="subject"
-                required
-                onChange={handleChange}
-                placeholder="Your Message Here"
-              />
-              <SubmitButton onClick={addContact}>
-                {submitButtonText}
-              </SubmitButton>
-              <WhatsAppContact />
-            </Form>
+            {isSubmitted ? (
+              <div tw="mt-8 p-6 bg-green-500 border-2 border-green-200 rounded-lg text-center">
+                <h3 tw="text-2xl font-bold text-green-700 mb-2">Thank You!</h3>
+                <p tw="text-green-600">Your message has been sent successfully. We'll get back to you soon.</p>
+                <SubmitButton 
+                  onClick={() => setIsSubmitted(false)}
+                  tw="mt-4"
+                >
+                  Send Another Message
+                </SubmitButton>
+              </div>
+            ) : (
+              <Form>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  required
+                  value={data.email}
+                  onChange={handleChange}
+                  placeholder="Your Email Address"
+                  disabled={isSubmitting}
+                />
+                <Input
+                  type="text"
+                  name="name"
+                  id="name"
+                  required
+                  value={data.name}
+                  onChange={handleChange}
+                  placeholder="Full Name"
+                  disabled={isSubmitting}
+                />
+                <Input
+                  type="text"
+                  name="subject"
+                  id="subject"
+                  required
+                  value={data.subject}
+                  onChange={handleChange}
+                  placeholder="Subject"
+                  disabled={isSubmitting}
+                />
+                <Textarea
+                  name="message"
+                  id="message"
+                  required
+                  value={data.message}
+                  onChange={handleChange}
+                  placeholder="Your Message Here"
+                  disabled={isSubmitting}
+                />
+                <SubmitButton 
+                  onClick={addContact}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : submitButtonText}
+                </SubmitButton>
+                <WhatsAppContact />
+              </Form>
+            )}
           </TextContent>
         </TextColumn>
       )}
