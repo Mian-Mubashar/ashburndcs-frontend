@@ -1,214 +1,124 @@
 import React, { useEffect, useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import { Container as ContainerBase } from "components/misc/Layouts";
-import tw from "twin.macro";
-import styled from "styled-components";
-import { css } from "styled-components/macro"; //eslint-disable-line
 import illustration from "images/signup-illustration.svg";
-import logo from "images/logo.svg";
-import googleIconImageSrc from "images/google-icon.png";
-import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, signInWithGoogle } from "../FireBase";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "helpers/Alert";
+import {
+  AuthPageLayout,
+  AuthForm,
+  AuthInput,
+  AuthButton,
+  AuthLink,
+  AuthMessage,
+} from "components/auth/AuthLayout";
+import { authApi, getAuthToken } from "services/authApi";
+import tw from "twin.macro";
 
-const Container = tw(
-  ContainerBase
-)`min-h-screen bg-primary-900 text-white font-medium flex justify-center -m-8`;
-const Content = tw.div`max-w-screen-xl m-0 sm:mx-20 sm:my-16 bg-white text-gray-900 shadow sm:rounded-lg flex justify-center flex-1`;
-const MainContainer = tw.div`lg:w-1/2 xl:w-5/12 p-6 sm:p-12`;
-const LogoLink = tw.a``;
-const LogoImage = tw.img`h-12 mx-auto`;
-const MainContent = tw.div`mt-12 flex flex-col items-center`;
-const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
-const FormContainer = tw.div`w-full flex-1 mt-8`;
-
-const SocialButtonsContainer = tw.div`flex flex-col items-center`;
-const SocialButton = styled.a`
-  ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
-  .iconContainer {
-    ${tw`bg-white p-2 rounded-full`}
-  }
-  .icon {
-    ${tw`w-4`}
-  }
-  .text {
-    ${tw`ml-4`}
-  }
-`;
-
-const DividerTextContainer = tw.div`my-12 border-b text-center relative`;
-const DividerText = tw.div`leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform -translate-y-1/2 absolute inset-x-0 top-1/2 bg-transparent`;
-
-const Form = tw.form`mx-auto max-w-xs`;
-const Input = tw.input`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
-const SubmitButton = styled.button`
-  ${tw`mt-5 tracking-wide font-semibold bg-primary-500 text-gray-100 w-full py-4 rounded-lg hover:bg-primary-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none`}
-  .icon {
-    ${tw`w-6 h-6 -ml-2`}
-  }
-  .text {
-    ${tw`ml-3`}
-  }
-`;
-const IllustrationContainer = tw.div`sm:rounded-r-lg flex-1 bg-purple-100 text-center hidden lg:flex justify-center`;
-const IllustrationImage = styled.div`
-  ${(props) => `background-image: url("${props.imageSrc}");`}
-  ${tw`m-12 xl:m-16 w-full max-w-lg bg-contain bg-center bg-no-repeat`}
-`;
-
-export default ({
-  logoLinkUrl = "/",
-  illustrationImageSrc = illustration,
-  headingText = "Sign Up For ADCS",
-  socialButtons = [
-    {
-      iconImageSrc: googleIconImageSrc,
-      text: "Sign Up With Google",
-    },
-  ],
-  submitButtonText = "Sign Up",
-  SubmitButtonIcon = SignUpIcon,
-  tosUrl = "/terms",
-  privacyPolicyUrl = "/policy",
-  signInUrl = "#",
-}) => {
+export default function SignupPage() {
   const navigate = useNavigate();
-  const Token = window.localStorage.getItem("token");
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
   useEffect(() => {
-    console.log({ Token });
-    if (Token) {
-      navigate("/");
-    }
-  }, [Token]);
-  function withGoogle() {
-    const ress = signInWithGoogle()
-      .then((res) => {
-        console.log("resss", res);
-        window.localStorage.setItem("token", JSON.stringify(res.user));
-        Toast({ message: "Registered Successfully" });
-        navigate("/");
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        Toast({ message: errorMessage, type: "error" });
+    if (getAuthToken()) navigate("/");
+  }, [navigate]);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { data } = await authApi.register(form);
+      setRegistered(true);
+      Toast({ message: data.message, type: "success" });
+    } catch (error) {
+      Toast({
+        message: error.response?.data?.error || "Registration failed.",
+        type: "error",
       });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (registered) {
+    return (
+      <AnimationRevealPage>
+        <AuthPageLayout illustrationSrc={illustration} logoWidth="6.5rem" heading="Check Your Email">
+          <AuthMessage type="success">
+            We sent a verification link to <strong>{form.email}</strong>.
+            <br />
+            Click the link in your email to activate your account.
+          </AuthMessage>
+          <AuthButton
+            type="button"
+            tw="mt-6"
+            onClick={() => navigate("/verify-email", { state: { email: form.email } })}
+          >
+            Resend Verification Email
+          </AuthButton>
+          <p tw="mt-6 text-sm text-gray-600 text-center">
+            <AuthLink type="button" onClick={() => navigate("/login")}>
+              Back to Sign In
+            </AuthLink>
+          </p>
+        </AuthPageLayout>
+      </AnimationRevealPage>
+    );
   }
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-  const handleUser = (e) => {
-    e.target.name === "email"
-      ? setUser({ ...user, email: e.target.value })
-      : setUser({ ...user, password: e.target.value });
-  };
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await createUserWithEmailAndPassword(auth, user.email, user.password)
-      .then((userCredential) => {
-        if (userCredential) {
-          Toast({ message: "Register Successfully" });
-        }
-
-        // const user = userCredential.user;
-        // console.log(user);
-        navigate("/login");
-      })
-      .catch((error) => {
-        // const errorCode = error.code;
-        const errorMessage = error.message;
-        // console.log(errorCode, errorMessage);
-        Toast({ message: errorMessage, type: "error" });
-
-        // ..
-      });
-  };
   return (
     <AnimationRevealPage>
-      <Container>
-        <Content>
-          <MainContainer>
-            <LogoLink onClick={() => navigate(logoLinkUrl)}>
-              <LogoImage src={logo} style={{ width: "6.5rem" }} />
-            </LogoLink>
-            <MainContent>
-              <Heading>{headingText}</Heading>
-              <FormContainer>
-                <SocialButtonsContainer>
-                  {socialButtons.map((socialButton, index) => (
-                    <SocialButton key={index} onClick={withGoogle}>
-                      <span className="iconContainer">
-                        <img
-                          src={socialButton.iconImageSrc}
-                          className="icon"
-                          alt=""
-                        />
-                      </span>
-                      <span className="text">{socialButton.text}</span>
-                    </SocialButton>
-                  ))}
-                </SocialButtonsContainer>
-                <DividerTextContainer>
-                  <DividerText>Or Sign up with your e-mail</DividerText>
-                </DividerTextContainer>
-                <Form>
-                  <Input
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    onChange={handleUser}
-                  />
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleUser}
-                  />
-                  <SubmitButton onClick={onSubmit}>
-                    <SubmitButtonIcon className="icon" />
-                    <span className="text">{submitButtonText}</span>
-                  </SubmitButton>
-                  <p tw="mt-6 text-xs text-gray-600 text-center">
-                    I agree to abide by ADCS's{" "}
-                    <button
-                      onClick={() => navigate(tosUrl)}
-                      tw="border-b border-gray-500 border-dotted"
-                    >
-                      Terms of Service
-                    </button>{" "}
-                    and its{" "}
-                    <button
-                      onClick={() => navigate(privacyPolicyUrl)}
-                      tw="border-b border-gray-500 border-dotted"
-                    >
-                      Privacy Policy
-                    </button>
-                  </p>
+      <AuthPageLayout illustrationSrc={illustration} logoWidth="6.5rem" heading="Sign Up For ADCS">
+        <AuthForm onSubmit={handleRegister}>
+          <AuthInput
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+          <AuthInput
+            type="password"
+            name="password"
+            placeholder="Password (min 6 characters)"
+            value={form.password}
+            onChange={handleChange}
+            required
+            minLength={6}
+          />
 
-                  <p tw="mt-8 text-sm text-gray-600 text-center">
-                    Already have an account?{" "}
-                    <button
-                      onClick={() => navigate("/login")}
-                      tw="border-b border-gray-500 border-dotted"
-                    >
-                      Sign In
-                    </button>
-                  </p>
-                </Form>
-              </FormContainer>
-            </MainContent>
-          </MainContainer>
-          <IllustrationContainer>
-            <IllustrationImage imageSrc={illustrationImageSrc} />
-          </IllustrationContainer>
-        </Content>
-      </Container>
+          <AuthButton type="submit" disabled={loading}>
+            <SignUpIcon tw="w-5 h-5 mr-2" />
+            {loading ? "Creating Account..." : "Sign Up"}
+          </AuthButton>
+
+          <p tw="mt-6 text-xs text-gray-600 text-center">
+            By signing up, you agree to our{" "}
+            <AuthLink type="button" onClick={() => navigate("/terms")}>
+              Terms of Service
+            </AuthLink>{" "}
+            and{" "}
+            <AuthLink type="button" onClick={() => navigate("/policy")}>
+              Privacy Policy
+            </AuthLink>
+          </p>
+        </AuthForm>
+
+        <p tw="mt-8 text-sm text-gray-600 text-center">
+          Already have an account?{" "}
+          <AuthLink type="button" onClick={() => navigate("/login")}>
+            Sign In
+          </AuthLink>
+        </p>
+      </AuthPageLayout>
     </AnimationRevealPage>
   );
-};
+}
