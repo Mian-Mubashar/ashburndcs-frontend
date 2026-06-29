@@ -1,24 +1,26 @@
 import { Toast } from "helpers/Alert";
 
+import { getAuthToken } from "services/authApi";
+
 export const Email = (intent) => {
-  console.log({ intent });
-  const data = JSON.parse(window.localStorage.getItem("token"));
-  if (data.email) {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}myemail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: data.email,
-        amount: intent.amount / 100,
-        transaction: intent.id,
-      }),
-    }).then((res) => console.log(res));
-  } else {
+  const data = getAuthToken();
+  if (!data?.email) {
     Toast({
       message: "Kindly Login first to perform transaction",
       type: "error",
     });
+    return;
   }
+
+  const apiUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000/";
+
+  fetch(`${apiUrl}myemail`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: data.email,
+      amount: intent.amount / 100,
+      transaction: intent.id,
+    }),
+  }).catch((err) => console.error("Payment email error:", err));
 };

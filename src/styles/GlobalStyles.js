@@ -14,6 +14,44 @@ const GlobalStyles = createGlobalStyle(globalStyles, `
    .ReactModal__Overlay--before-close{
      transform: scale(0);
    }
+
+   /* CDN Tailwind must not reset custom app buttons */
+   button.schedule-action-btn {
+     background-color: #6415ff !important;
+     background-image: linear-gradient(90deg, #6415ff, #430ce5) !important;
+     color: #ffffff !important;
+     border: none !important;
+   }
+
+   button.contact-send-btn {
+     display: block !important;
+     width: 100% !important;
+     background-color: #6415ff !important;
+     background-image: linear-gradient(90deg, #6415ff, #430ce5) !important;
+     color: #ffffff !important;
+     border: none !important;
+   }
+
+   button.contact-send-btn:hover:not(:disabled) {
+     background-color: #430ce5 !important;
+     background-image: linear-gradient(90deg, #6415ff, #430ce5) !important;
+     color: #ffffff !important;
+   }
+
+   button.contact-whatsapp-btn {
+     display: block !important;
+     width: 100% !important;
+     background-color: #16a34a !important;
+     background-image: linear-gradient(90deg, #22c55e, #16a34a) !important;
+     color: #ffffff !important;
+     border: none !important;
+   }
+
+   button.contact-whatsapp-btn:hover {
+     background-color: #15803d !important;
+     background-image: linear-gradient(90deg, #22c55e, #16a34a) !important;
+     color: #ffffff !important;
+   }
 `)
 
 export default GlobalStyles

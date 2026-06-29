@@ -121,9 +121,7 @@ function PaymentForm() {
     setIsProcessing(true);
 
     try {
-      // 1. Create PaymentIntent on Backend
-      // Force localhost:5000 as backend is running on port 5000
-      const backendUrl = 'http://localhost:5000';
+      const backendUrl = (process.env.REACT_APP_BACKEND_URL || "http://localhost:5000/").replace(/\/$/, "");
 
       const { data } = await axios.post(
         `${backendUrl}/create-payment-intent`,
