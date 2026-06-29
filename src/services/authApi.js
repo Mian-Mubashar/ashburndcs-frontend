@@ -7,6 +7,7 @@ const authClient = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+
 export const authApi = {
   register: (data) => authClient.post("/register", data),
   login: (data) => authClient.post("/login", data),
