@@ -1,5 +1,5 @@
-# Force LF so Hostinger/Linux yarn can parse lockfiles
+# Force LF so Linux hosts parse lockfiles correctly
 * text=auto
-yarn.lock text eol=lf
 package-lock.json text eol=lf
+yarn.lock text eol=lf
 *.sh text eol=lf
