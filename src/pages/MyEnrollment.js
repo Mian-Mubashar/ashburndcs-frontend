@@ -9,6 +9,7 @@ import { enrollmentApi } from "services/enrollmentApi";
 import { getAuthToken } from "services/authApi";
 import { getTrackedEmail, saveEnrollmentTrack } from "utils/enrollmentStorage";
 import { Toast } from "helpers/Alert";
+import Swal from "sweetalert2";
 
 const Page = styled.div`
   max-width: 720px;
@@ -119,20 +120,69 @@ const Empty = styled.p`
 
 const STATUS_HELP = {
   pending: "Waiting for admin to review your application. Check back here anytime — no need to enroll again.",
-  approved: "You're approved! Click below to get the registration link by email, then set your password.",
-  completed: "All done! Log in and open your Student Dashboard.",
+  approved: "You're approved and enrolled! Sign in to open your Student Dashboard.",
+  completed: "You're fully enrolled! Sign in and open your Student Dashboard.",
   rejected: "This application was not approved. Contact ADCS for help.",
+};
+
+const showStatusSwal = (list) => {
+  if (!list.length) {
+    Swal.fire({
+      icon: "info",
+      title: "No enrollment found",
+      text: "No enrollment found for this email. Please enroll from Schedule first.",
+      confirmButtonColor: "#6415ff",
+    });
+    return;
+  }
+
+  const priority = ["approved", "pending", "completed", "rejected"];
+  const top =
+    priority.map((s) => list.find((e) => e.status === s)).find(Boolean) || list[0];
+
+  const config = {
+    pending: {
+      icon: "info",
+      title: "Status: Pending",
+      text: "Your application is pending. Admin will review it soon — no need to enroll again.",
+    },
+    approved: {
+      icon: "success",
+      title: "Status: Approved",
+      text: "Your application is approved — you are enrolled! Sign in to open your Student Dashboard.",
+    },
+    completed: {
+      icon: "success",
+      title: "Status: Enrolled",
+      text: "You are fully enrolled. Sign in and open your Student Dashboard.",
+    },
+    rejected: {
+      icon: "error",
+      title: "Status: Rejected",
+      text: "This application was not approved. Please contact ADCS for help.",
+    },
+  };
+
+  const alert = config[top.status] || {
+    icon: "info",
+    title: `Status: ${top.status}`,
+    text: STATUS_HELP[top.status] || "Check your enrollment details below.",
+  };
+
+  Swal.fire({
+    ...alert,
+    confirmButtonColor: "#6415ff",
+  });
 };
 
 export default function MyEnrollment() {
   const [email, setEmail] = useState(getTrackedEmail());
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sending, setSending] = useState(null);
   const navigate = useNavigate();
   const auth = getAuthToken();
 
-  const load = useCallback(async (lookupEmail) => {
+  const load = useCallback(async (lookupEmail, { alert = false } = {}) => {
     if (!lookupEmail?.trim()) return;
     setLoading(true);
     try {
@@ -145,11 +195,21 @@ export default function MyEnrollment() {
           email: e.email,
           fullName: e.fullName,
           courseTitle: e.courseTitle,
+          courseId: e.courseId,
           status: e.status,
         })
       );
+      if (alert) showStatusSwal(list);
     } catch {
       Toast({ message: "Could not load enrollments.", type: "error" });
+      if (alert) {
+        Swal.fire({
+          icon: "error",
+          title: "Could not check status",
+          text: "Please try again in a moment.",
+          confirmButtonColor: "#6415ff",
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -168,26 +228,7 @@ export default function MyEnrollment() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    load(email);
-  };
-
-  const requestLink = async (enrollment) => {
-    setSending(enrollment.id);
-    try {
-      const { data } = await enrollmentApi.requestRegistrationLink({
-        email: enrollment.email,
-        enrollmentId: enrollment.id,
-      });
-      Toast({ message: data.message, type: data.emailSent !== false ? "success" : "error" });
-      if (data.status === "completed") {
-        navigate(auth ? "/dashboard" : "/login");
-      }
-      load(email);
-    } catch (error) {
-      Toast({ message: error.response?.data?.error || "Failed to send link.", type: "error" });
-    } finally {
-      setSending(null);
-    }
+    load(email, { alert: true });
   };
 
   return (
@@ -196,8 +237,8 @@ export default function MyEnrollment() {
       <Page>
         <Title>My Enrollment</Title>
         <Sub>
-          Enrolled but left the page? No problem — enter your email here anytime to check status.
-          When admin approves, come back here to get your registration link.
+          Enrolled but left the page? Enter your email anytime to check status.
+          When admin approves, you are fully enrolled — just sign in to your dashboard.
         </Sub>
 
         <SearchBox onSubmit={handleSearch}>
@@ -224,7 +265,9 @@ export default function MyEnrollment() {
 
         {enrollments.map((en) => (
           <Card key={en.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-            <StatusBadge $s={en.status}>{en.status}</StatusBadge>
+            <StatusBadge $s={en.status === "approved" ? "completed" : en.status}>
+              {en.status === "approved" ? "enrolled" : en.status}
+            </StatusBadge>
             <h3 style={{ margin: "0 0 6px", fontSize: 18 }}>{en.courseTitle}</h3>
             <p style={{ margin: 0, color: "#6b7280", fontSize: 14 }}>
               {en.fullName} • {en.email}
@@ -245,19 +288,9 @@ export default function MyEnrollment() {
                   Refresh Status
                 </Btn>
               )}
-              {en.status === "approved" && (
-                <>
-                  <Btn type="button" disabled={sending === en.id} onClick={() => requestLink(en)}>
-                    {sending === en.id ? "Sending..." : "Send Registration Link to Email"}
-                  </Btn>
-                  <Btn $outline type="button" onClick={() => navigate("/complete-enrollment")}>
-                    I Have the Link — Complete Registration
-                  </Btn>
-                </>
-              )}
-              {en.status === "completed" && (
+              {(en.status === "approved" || en.status === "completed") && (
                 <Btn type="button" onClick={() => navigate(auth ? "/dashboard" : "/login")}>
-                  Go to Dashboard
+                  {auth ? "Go to Dashboard" : "Sign In to Dashboard"}
                 </Btn>
               )}
             </ActionRow>

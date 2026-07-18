@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthModal } from "context/AuthModalContext";
-import { getAuthToken } from "services/authApi";
+import { getAuthToken, clearAuthToken } from "services/authApi";
 import { getActiveEnrollmentTracks } from "utils/enrollmentStorage";
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
@@ -198,13 +198,20 @@ export default ({
   collapseBreakpointClass = "lg",
   navigate = useNavigate(),
 }) => {
-  const auth = getAuthToken();
+  const [authTick, setAuthTick] = useState(0);
+  const auth = useMemo(() => getAuthToken(), [authTick]);
   const trackedEnrollments = getActiveEnrollmentTracks();
   const { openAuthModal } = useAuthModal();
   const nav = useNavigate();
   const { pathname } = useLocation();
   const navigateTo = navigate || nav;
   const [servicesOpen, setServicesOpen] = useState(false);
+
+  const handleSignOut = () => {
+    clearAuthToken();
+    setAuthTick((t) => t + 1);
+    navigateTo("/");
+  };
 
   const isActive = (path, exact = false) => {
     if (exact) return pathname === path;
@@ -317,11 +324,7 @@ export default ({
           )}
           <PrimaryLink
             css={roundedHeaderButton && tw`rounded-full`}
-            onClick={() => {
-              window.localStorage.clear();
-              navigateTo("/");
-              window.location.reload();
-            }}
+            onClick={handleSignOut}
           >
             Sign Out
           </PrimaryLink>

@@ -269,14 +269,12 @@ const initialForm = { fullName: "", email: "", phone: "", education: "", message
 const STATUS_STEPS = [
   { key: "submitted", label: "Application Submitted", desc: "Your form was received" },
   { key: "pending", label: "Pending Review", desc: "Admin is reviewing your request" },
-  { key: "approved", label: "Approved", desc: "Check email to complete registration" },
-  { key: "completed", label: "Enrolled", desc: "Full access to student dashboard" },
+  { key: "completed", label: "Enrolled", desc: "Approved — full access to student dashboard" },
 ];
 
 const stepIndex = (status) => {
   if (status === "pending") return 1;
-  if (status === "approved") return 2;
-  if (status === "completed") return 3;
+  if (status === "approved" || status === "completed") return 2;
   if (status === "rejected") return 1;
   return 0;
 };
@@ -342,7 +340,7 @@ export default function EnrollModal({ course, isOpen, onClose, sessionTitle }) {
     try {
       const { data } = await enrollmentApi.submitEnrollment({
         ...form,
-        courseId: course._id,
+        courseId: course._id || course.id,
         message: sessionTitle
           ? `${form.message ? `${form.message}\n\n` : ""}Interested in class: ${sessionTitle}`
           : form.message,
@@ -443,16 +441,10 @@ export default function EnrollModal({ course, isOpen, onClose, sessionTitle }) {
                 </InfoBox>
               )}
 
-              {status === "approved" && (
+              {(status === "approved" || status === "completed") && (
                 <InfoBox style={{ background: "#ecfdf5", borderColor: "#a7f3d0" }}>
-                  <strong style={{ color: "#065f46" }}>Approved!</strong> Check your email (
-                  {enrollment.email}) for the registration link to set your password.
-                </InfoBox>
-              )}
-
-              {status === "completed" && (
-                <InfoBox style={{ background: "#eff6ff", borderColor: "#bfdbfe" }}>
-                  Registration complete. You can now access your student dashboard.
+                  <strong style={{ color: "#065f46" }}>Approved & enrolled!</strong> You are fully
+                  enrolled. Sign in and open your Student Dashboard — no extra password step.
                 </InfoBox>
               )}
 

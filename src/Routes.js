@@ -24,11 +24,16 @@ import Headertop from "./components/Headertop";
 import { AuthModalProvider } from "context/AuthModalContext";
 import AuthModal from "components/auth/AuthModal";
 import AuthModalRouteHandler from "components/auth/AuthModalRouteHandler";
+import VerifyingEmailPage from "pages/VerifyingEmail";
 
 function AppContent() {
   const location = useLocation();
-  const hideSiteHeader = ["/admin", "/dashboard"].some((p) => location.pathname.startsWith(p));
-  const hideWhatsApp = location.pathname.startsWith("/admin");
+  const hideSiteHeader =
+    ["/admin", "/dashboard"].some((p) => location.pathname.startsWith(p)) ||
+    /^\/verify-email\/[^/]+$/.test(location.pathname);
+  const hideWhatsApp =
+    location.pathname.startsWith("/admin") ||
+    /^\/verify-email\/[^/]+$/.test(location.pathname);
 
   useEffect(() => {
     const styleId = "hide-whatsapp-admin";
@@ -68,7 +73,7 @@ function AppContent() {
             <Route path="/register" element={<MainLandingPage />} />
             <Route path="/forgot-password" element={<MainLandingPage />} />
             <Route path="/verify-email" element={<MainLandingPage />} />
-            <Route path="/verify-email/:token" element={<MainLandingPage />} />
+            <Route path="/verify-email/:token" element={<VerifyingEmailPage />} />
             <Route path="/reset-password" element={<MainLandingPage />} />
             <Route path="/d-services" element={<DataCenter />} />
             <Route path="/about-us" element={<AboutUsPage />} />

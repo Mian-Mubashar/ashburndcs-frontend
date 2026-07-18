@@ -8,7 +8,15 @@ import { enrollmentApi } from "services/enrollmentApi";
 import EnrollModal from "components/enrollment/EnrollModal";
 import { useNavigate } from "react-router-dom";
 import { getAuthToken } from "services/authApi";
-import { getActiveEnrollmentTracks, getTrackedEmail, saveEnrollmentTrack } from "utils/enrollmentStorage";
+import {
+  getBlockingEnrollmentTracks,
+  findTrackForCourse,
+  getTrackedEmail,
+  saveEnrollmentTrack,
+} from "utils/enrollmentStorage";
+import { Toast } from "helpers/Alert";
+
+const courseIdOf = (course) => course?._id || course?.id || null;
 
 const Page = styled.div`
   min-height: 80vh;
@@ -120,11 +128,12 @@ const EnrollBtn = styled.button`
   margin-top: auto;
   flex-shrink: 0;
   padding: 13px 16px;
-  border: none;
+  border: ${(p) => (p.$outline ? "2px solid #6415ff" : "none")};
   border-radius: 10px;
-  background-color: #6415ff;
-  background-image: linear-gradient(90deg, #6415ff, #430ce5);
-  color: #ffffff;
+  background-color: ${(p) => (p.$outline ? "#fff" : "#6415ff")};
+  background-image: ${(p) =>
+    p.$outline ? "none" : "linear-gradient(90deg, #6415ff, #430ce5)"};
+  color: ${(p) => (p.$outline ? "#6415ff" : "#ffffff")};
   font-weight: 700;
   font-size: 14px;
   font-family: inherit;
@@ -136,11 +145,18 @@ const EnrollBtn = styled.button`
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(100, 21, 255, 0.35);
-    color: #ffffff;
-    background-color: #430ce5;
-    background-image: linear-gradient(90deg, #6415ff, #430ce5);
+    box-shadow: ${(p) =>
+      p.$outline ? "0 4px 12px rgba(100, 21, 255, 0.15)" : "0 8px 20px rgba(100, 21, 255, 0.35)"};
+    color: ${(p) => (p.$outline ? "#430ce5" : "#ffffff")};
   }
+`;
+
+const StatusNote = styled.p`
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: ${(p) =>
+    p.$status === "pending" ? "#92400e" : p.$status === "completed" || p.$status === "approved" ? "#065f46" : "#6b7280"};
 `;
 
 const DashLink = styled.button`
@@ -214,11 +230,27 @@ export default function Schedule() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedSessionTitle, setSelectedSessionTitle] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [activeTracks, setActiveTracks] = useState(() => getActiveEnrollmentTracks());
+  const [myEnrollments, setMyEnrollments] = useState(() => getBlockingEnrollmentTracks());
   const navigate = useNavigate();
   const auth = getAuthToken();
-  const pendingTrack = activeTracks.find((t) => t.status === "pending");
-  const approvedTrack = activeTracks.find((t) => t.status === "approved");
+  const pendingTrack = myEnrollments.find((t) => t.status === "pending");
+  const approvedTrack = myEnrollments.find((t) =>
+    ["approved", "completed"].includes(t.status)
+  );
+
+  const applyEnrollmentList = (list) => {
+    (list || []).forEach((e) =>
+      saveEnrollmentTrack({
+        id: e.id || e._id,
+        email: e.email,
+        fullName: e.fullName,
+        courseTitle: e.courseTitle || e.course?.title,
+        courseId: e.courseId || e.course?._id || e.course?.id,
+        status: e.status,
+      })
+    );
+    setMyEnrollments(getBlockingEnrollmentTracks());
+  };
 
   useEffect(() => {
     Promise.all([enrollmentApi.getCourses(), enrollmentApi.getSchedules()])
@@ -234,35 +266,87 @@ export default function Schedule() {
   }, []);
 
   useEffect(() => {
-    const email = getTrackedEmail();
-    if (!email || auth) return undefined;
+    let cancelled = false;
 
-    const syncTracks = async () => {
+    const syncEnrollments = async () => {
       try {
+        if (auth?.token && auth.role === "student") {
+          const { data } = await enrollmentApi.getDashboard();
+          if (cancelled) return;
+          const apps = data.applications || [];
+          apps.forEach((e) =>
+            saveEnrollmentTrack({
+              id: e.id || e._id,
+              email: data.user?.email || auth.email,
+              fullName: e.fullName || data.user?.name,
+              courseTitle: e.courseTitle || e.course?.title,
+              courseId: e.courseId || e.course?._id || e.course?.id,
+              status: e.status,
+            })
+          );
+          (data.courses || []).forEach((c) => {
+            const id = c._id || c.id;
+            const existing = findTrackForCourse(c, getBlockingEnrollmentTracks());
+            if (!existing) {
+              saveEnrollmentTrack({
+                id: `course-${id}`,
+                email: data.user?.email || auth.email,
+                courseTitle: c.title,
+                courseId: id,
+                status: "completed",
+              });
+            }
+          });
+          setMyEnrollments(getBlockingEnrollmentTracks());
+          return;
+        }
+
+        const email = getTrackedEmail() || auth?.email;
+        if (!email) {
+          setMyEnrollments(getBlockingEnrollmentTracks());
+          return;
+        }
         const { data } = await enrollmentApi.getEnrollmentsByEmail(email);
-        (data.enrollments || []).forEach((e) =>
-          saveEnrollmentTrack({
-            id: e.id,
-            email: e.email,
-            fullName: e.fullName,
-            courseTitle: e.courseTitle,
-            status: e.status,
-          })
-        );
-        setActiveTracks(getActiveEnrollmentTracks());
+        if (cancelled) return;
+        applyEnrollmentList(data.enrollments);
       } catch {
-        /* ignore */
+        if (!cancelled) setMyEnrollments(getBlockingEnrollmentTracks());
       }
     };
 
-    syncTracks();
-    const timer = setInterval(syncTracks, 30000);
-    return () => clearInterval(timer);
-  }, [auth]);
+    syncEnrollments();
+    const timer = setInterval(syncEnrollments, 30000);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [auth?.token, auth?.role, auth?.email]);
+
+  const statusForCourse = (course) => findTrackForCourse(course, myEnrollments);
 
   const openEnroll = (course, sessionTitle = "") => {
-    if (!course?._id) return;
-    setSelectedCourse(course);
+    const courseId = courseIdOf(course);
+    if (!courseId) {
+      Toast({
+        message: "This session has no linked course. Ask admin to fix the schedule.",
+        type: "error",
+      });
+      return;
+    }
+
+    const already = statusForCourse(course);
+    if (already) {
+      if (already.status === "pending") {
+        Toast({ message: "You already applied for this course — status is Pending.", type: "info" });
+        navigate("/my-enrollment");
+        return;
+      }
+      Toast({ message: "You are already enrolled in this course.", type: "info" });
+      navigate(auth ? "/dashboard" : "/login");
+      return;
+    }
+
+    setSelectedCourse({ ...course, _id: courseId, id: courseId });
     setSelectedSessionTitle(sessionTitle);
     setModalOpen(true);
   };
@@ -271,6 +355,39 @@ export default function Schedule() {
     setModalOpen(false);
     setSelectedCourse(null);
     setSelectedSessionTitle("");
+  };
+
+  const renderCourseAction = (course, sessionTitle = "") => {
+    const track = statusForCourse(course);
+    if (track?.status === "pending") {
+      return (
+        <>
+          <StatusNote $status="pending">Application pending admin approval</StatusNote>
+          <EnrollBtn $outline type="button" onClick={() => navigate("/my-enrollment")}>
+            Track Enrollment
+          </EnrollBtn>
+        </>
+      );
+    }
+    if (track && ["approved", "completed"].includes(track.status)) {
+      return (
+        <>
+          <StatusNote $status="completed">Already enrolled in this course</StatusNote>
+          <EnrollBtn $outline type="button" onClick={() => navigate(auth ? "/dashboard" : "/login")}>
+            {auth ? "Go to Dashboard" : "Sign In to Dashboard"}
+          </EnrollBtn>
+        </>
+      );
+    }
+    return (
+      <EnrollBtn
+        type="button"
+        className="schedule-action-btn"
+        onClick={() => openEnroll(course, sessionTitle)}
+      >
+        Enroll Now
+      </EnrollBtn>
+    );
   };
 
   return (
@@ -289,9 +406,9 @@ export default function Schedule() {
             {!auth && (pendingTrack || approvedTrack) && (
               <TrackBanner initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
                 <span>
-                  {approvedTrack ? (
+                  {approvedTrack && approvedTrack.status !== "pending" ? (
                     <>
-                      <strong>Approved!</strong> Complete registration for {approvedTrack.courseTitle}.
+                      <strong>Already enrolled!</strong> Sign in for {approvedTrack.courseTitle}.
                     </>
                   ) : (
                     <>
@@ -321,7 +438,7 @@ export default function Schedule() {
                   <Grid>
                     {schedules.map((session, i) => (
                       <Card
-                        key={session._id}
+                        key={session._id || session.id}
                         custom={i}
                         initial="hidden"
                         animate="visible"
@@ -337,13 +454,7 @@ export default function Schedule() {
                           </span>
                           <span>Instructor: {session.instructor}</span>
                         </Meta>
-                        <EnrollBtn
-                          type="button"
-                          className="schedule-action-btn"
-                          onClick={() => openEnroll(session.course, session.title)}
-                        >
-                          Enroll Now
-                        </EnrollBtn>
+                        {renderCourseAction(session.course, session.title)}
                       </Card>
                     ))}
                   </Grid>
@@ -355,7 +466,7 @@ export default function Schedule() {
                 <Grid>
                   {courses.map((course, i) => (
                     <Card
-                      key={course._id}
+                      key={course._id || course.id}
                       custom={i}
                       initial="hidden"
                       animate="visible"
@@ -369,13 +480,7 @@ export default function Schedule() {
                         <span>•</span>
                         <span>{course.level}</span>
                       </Meta>
-                      <EnrollBtn
-                        type="button"
-                        className="schedule-action-btn"
-                        onClick={() => openEnroll(course)}
-                      >
-                        Enroll Now
-                      </EnrollBtn>
+                      {renderCourseAction(course)}
                     </Card>
                   ))}
                 </Grid>
