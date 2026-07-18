@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -29,7 +29,6 @@ const Form = tw.form`space-y-6`;
 
 const FormGroup = tw.div`flex flex-col space-y-2`;
 const Label = tw.label`text-sm font-semibold text-gray-700`;
-const InputWrapper = tw.div`relative`;
 
 // Custom styling for the Amount Input to match the design
 const AmountInput = styled.input`
@@ -86,7 +85,6 @@ const elementOptions = {
 function PaymentForm() {
   const [amount, setAmount] = useState("");
   const [email, setEmail] = useState("");
-  const [clientSecret, setClientSecret] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [paymentId, setPaymentId] = useState("");
@@ -132,8 +130,6 @@ function PaymentForm() {
       if (!data.clientSecret) {
         throw new Error("No client secret returned from backend");
       }
-
-      setClientSecret(data.clientSecret);
 
       // 2. Confirm Card Payment directly
       const cardElement = elements.getElement(CardNumberElement);
@@ -182,7 +178,6 @@ function PaymentForm() {
           <PayButton onClick={() => {
             setPaymentSuccess(false);
             setAmount("");
-            setClientSecret("");
           }}>
             Make Another Payment
           </PayButton>

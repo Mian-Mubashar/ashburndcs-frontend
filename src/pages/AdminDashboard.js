@@ -599,6 +599,7 @@ export default function AdminDashboard() {
     }
     setUserEmail(auth.email || "");
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const activeCourses = useMemo(

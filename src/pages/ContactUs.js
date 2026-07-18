@@ -49,7 +49,6 @@
 import React from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import tw from "twin.macro";
-import { css } from "styled-components/macro";
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter";
 import ContactUsForm from "components/forms/ContactUsForm";
