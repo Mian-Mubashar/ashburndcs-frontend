@@ -443,9 +443,10 @@ const ENROLLMENT_PAGES = ["pending", "approved", "completed"];
 const PAGE_META = {
   dashboard: { title: "Dashboard", subtitle: "Overview of enrollments, courses & activity" },
   pending: { title: "Pending Enrollments", subtitle: "Applications awaiting admin review" },
-  approved: { title: "Approved Enrollments", subtitle: "Waiting for student registration" },
+  approved: { title: "Approved Enrollments", subtitle: "Legacy approved (new approvals go to Completed)" },
   completed: { title: "Completed Enrollments", subtitle: "Students fully enrolled" },
   schedules: { title: "Class Schedules", subtitle: "Create and manage training sessions" },
+  courses: { title: "Courses", subtitle: "Create and edit training courses shown on the website" },
   materials: { title: "Course Materials", subtitle: "Upload videos, documents & assignments" },
 };
 
@@ -547,6 +548,17 @@ export default function AdminDashboard() {
   const [materialFile, setMaterialFile] = useState(null);
   const [existingMaterialFile, setExistingMaterialFile] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [editingCourseId, setEditingCourseId] = useState(null);
+  const [showCourseForm, setShowCourseForm] = useState(false);
+  const emptyCourseForm = {
+    title: "",
+    description: "",
+    duration: "",
+    level: "Beginner",
+    category: "Data Center",
+    isActive: true,
+  };
+  const [courseForm, setCourseForm] = useState(emptyCourseForm);
   const [materialForm, setMaterialForm] = useState({
     course: "",
     title: "",
@@ -557,16 +569,18 @@ export default function AdminDashboard() {
 
   const load = async () => {
     try {
-      const [s, e, sch, mat] = await Promise.all([
+      const [s, e, sch, mat, crs] = await Promise.all([
         adminApi.getStats(),
         adminApi.getEnrollments(),
         adminApi.getSchedules(),
         adminApi.getMaterials(),
+        adminApi.getCourses(),
       ]);
       setStats(s.data.stats);
       setEnrollments(e.data.enrollments);
       setSchedules(sch.data.schedules);
       setMaterials(mat.data.materials || []);
+      setCourses(crs.data.courses || []);
     } catch {
       Toast({ message: "Admin access required", type: "error" });
       navigate("/");
@@ -585,11 +599,12 @@ export default function AdminDashboard() {
     }
     setUserEmail(auth.email || "");
     load();
-    import("services/enrollmentApi").then(({ enrollmentApi }) =>
-      enrollmentApi.getCourses().then(({ data }) => setCourses(data.courses || []))
-    );
   }, [navigate]);
 
+  const activeCourses = useMemo(
+    () => courses.filter((c) => c.isActive !== false),
+    [courses]
+  );
   const statusData = useMemo(() => getStatusChartData(enrollments), [enrollments]);
   const courseData = useMemo(() => getCourseChartData(enrollments), [enrollments]);
   const monthlyData = useMemo(() => getMonthlyChartData(enrollments), [enrollments]);
@@ -646,11 +661,16 @@ export default function AdminDashboard() {
       )}
       {en.status === "approved" && (
         <Btn $edit type="button" onClick={() => resendEmail(en._id)}>
-          Resend Email
+          Finalize & Resend Email
         </Btn>
       )}
       {en.status === "completed" && (
-        <small style={{ color: "#059669", fontWeight: 600 }}>Fully enrolled</small>
+        <>
+          <small style={{ color: "#059669", fontWeight: 600 }}>Fully enrolled</small>
+          <Btn $edit type="button" onClick={() => resendEmail(en._id)}>
+            Resend Email
+          </Btn>
+        </>
       )}
     </Row>
   );
@@ -659,14 +679,7 @@ export default function AdminDashboard() {
     setApprovingId(id);
     try {
       const { data } = await adminApi.approveEnrollment(id);
-      if (data.emailSent) {
-        Toast({ message: data.message, type: "success" });
-      } else {
-        Toast({ message: data.message, type: "error" });
-        if (data.registrationLink) {
-          window.prompt("SMTP not configured — copy this link and send to student:", data.registrationLink);
-        }
-      }
+      Toast({ message: data.message, type: data.emailSent ? "success" : "error" });
       load();
     } catch (error) {
       Toast({ message: error.response?.data?.error || "Approve failed.", type: "error" });
@@ -679,9 +692,7 @@ export default function AdminDashboard() {
     try {
       const { data } = await adminApi.resendApprovalEmail(id);
       Toast({ message: data.message, type: data.emailSent ? "success" : "error" });
-      if (!data.emailSent && data.registrationLink) {
-        window.prompt("Copy registration link for student:", data.registrationLink);
-      }
+      load();
     } catch (error) {
       Toast({ message: error.response?.data?.error || "Resend failed.", type: "error" });
     }
@@ -690,6 +701,56 @@ export default function AdminDashboard() {
   const reject = async (id) => {
     await adminApi.rejectEnrollment(id, "Not accepted at this time");
     Toast({ message: "Enrollment rejected.", type: "info" });
+    load();
+  };
+
+  const resetCourseForm = () => {
+    setEditingCourseId(null);
+    setCourseForm(emptyCourseForm);
+    setShowCourseForm(false);
+  };
+
+  const openAddCourse = () => {
+    setEditingCourseId(null);
+    setCourseForm(emptyCourseForm);
+    setShowCourseForm(true);
+  };
+
+  const startEditCourse = (course) => {
+    setEditingCourseId(course._id || course.id);
+    setCourseForm({
+      title: course.title || "",
+      description: course.description || "",
+      duration: course.duration || "",
+      level: course.level || "Beginner",
+      category: course.category || "Data Center",
+      isActive: course.isActive !== false,
+    });
+    setShowCourseForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const saveCourse = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingCourseId) {
+        await adminApi.updateCourse(editingCourseId, courseForm);
+        Toast({ message: "Course updated!", type: "success" });
+      } else {
+        await adminApi.createCourse(courseForm);
+        Toast({ message: "Course created!", type: "success" });
+      }
+      resetCourseForm();
+      load();
+    } catch (error) {
+      Toast({ message: error.response?.data?.error || "Failed to save course.", type: "error" });
+    }
+  };
+
+  const deleteCourse = async (id) => {
+    await adminApi.deleteCourse(id);
+    Toast({ message: "Course deleted.", type: "info" });
+    if (editingCourseId === id) resetCourseForm();
     load();
   };
 
@@ -888,6 +949,8 @@ export default function AdminDashboard() {
         await deleteMaterial(confirmDelete.id);
       } else if (confirmDelete.type === "schedule") {
         await deleteSchedule(confirmDelete.id);
+      } else if (confirmDelete.type === "course") {
+        await deleteCourse(confirmDelete.id);
       }
     } catch {
       Toast({ message: "Delete failed.", type: "error" });
@@ -1031,6 +1094,147 @@ export default function AdminDashboard() {
         </Panel>
       )}
 
+      {tab === "courses" && (
+        <Panel initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          <PanelHeader>
+            <div>
+              <h3>
+                {showCourseForm || editingCourseId
+                  ? editingCourseId
+                    ? "Edit Course"
+                    : "Add New Course"
+                  : "All Courses"}
+              </h3>
+              <p>
+                {showCourseForm || editingCourseId
+                  ? "Update course details — changes show on the Schedule page when Active."
+                  : `${courses.length} course${courses.length !== 1 ? "s" : ""} in catalog`}
+              </p>
+            </div>
+            {!showCourseForm && !editingCourseId && (
+              <Btn $primary type="button" onClick={openAddCourse} style={{ padding: "12px 20px" }}>
+                + Add Course
+              </Btn>
+            )}
+          </PanelHeader>
+
+          {(showCourseForm || editingCourseId) && (
+            <Form onSubmit={saveCourse}>
+              <Input
+                placeholder="Course Title"
+                value={courseForm.title}
+                onChange={(e) => setCourseForm({ ...courseForm, title: e.target.value })}
+                required
+              />
+              <Input
+                as="textarea"
+                placeholder="Description"
+                value={courseForm.description}
+                onChange={(e) => setCourseForm({ ...courseForm, description: e.target.value })}
+                required
+                style={{ minHeight: 90, resize: "vertical" }}
+              />
+              <TimeRow>
+                <TimeField>
+                  <label htmlFor="course-duration">Duration</label>
+                  <Input
+                    id="course-duration"
+                    placeholder="e.g. 8 Weeks"
+                    value={courseForm.duration}
+                    onChange={(e) => setCourseForm({ ...courseForm, duration: e.target.value })}
+                  />
+                </TimeField>
+                <TimeField>
+                  <label htmlFor="course-level">Level</label>
+                  <Select
+                    id="course-level"
+                    value={courseForm.level}
+                    onChange={(e) => setCourseForm({ ...courseForm, level: e.target.value })}
+                  >
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                  </Select>
+                </TimeField>
+              </TimeRow>
+              <Input
+                placeholder="Category (e.g. Data Center)"
+                value={courseForm.category}
+                onChange={(e) => setCourseForm({ ...courseForm, category: e.target.value })}
+              />
+              <CheckboxRow>
+                <input
+                  type="checkbox"
+                  checked={courseForm.isActive}
+                  onChange={(e) => setCourseForm({ ...courseForm, isActive: e.target.checked })}
+                />
+                <span>Active — show this course on the public Schedule page</span>
+              </CheckboxRow>
+              <FormActions>
+                <Btn $primary type="submit" style={{ padding: "14px 24px" }}>
+                  {editingCourseId ? "Update Course" : "Create Course"}
+                </Btn>
+                <Btn type="button" onClick={resetCourseForm} style={{ padding: "14px 24px" }}>
+                  Cancel
+                </Btn>
+              </FormActions>
+            </Form>
+          )}
+
+          {courses.length === 0 && !showCourseForm ? (
+            <EmptyState>
+              No courses yet.{" "}
+              <Btn $primary type="button" onClick={openAddCourse} style={{ marginTop: 12 }}>
+                + Add Course
+              </Btn>
+            </EmptyState>
+          ) : (
+            <>
+              {(showCourseForm || editingCourseId) && courses.length > 0 && (
+                <FormTitle style={{ marginTop: 28, marginBottom: 12 }}>Course List</FormTitle>
+              )}
+              {courses.map((c) => (
+                <Row key={c._id || c.id}>
+                  <div>
+                    <strong>{c.title}</strong>
+                    <br />
+                    <small>
+                      {c.category} • {c.duration || "—"} • {c.level}
+                      {" • "}
+                      {c.isActive !== false ? "Active" : "Hidden"}
+                    </small>
+                    {c.description && (
+                      <>
+                        <br />
+                        <small>{c.description}</small>
+                      </>
+                    )}
+                  </div>
+                  <ActionGroup>
+                    <Btn $edit type="button" onClick={() => startEditCourse(c)}>
+                      Edit
+                    </Btn>
+                    <Btn
+                      $danger
+                      type="button"
+                      onClick={() =>
+                        setConfirmDelete({
+                          type: "course",
+                          id: c._id || c.id,
+                          label: c.title,
+                        })
+                      }
+                    >
+                      Delete
+                    </Btn>
+                  </ActionGroup>
+                </Row>
+              ))}
+            </>
+          )}
+        </Panel>
+      )}
+
       {tab === "schedules" && (
         <Panel initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <PanelHeader>
@@ -1059,8 +1263,8 @@ export default function AdminDashboard() {
               <Form onSubmit={addSchedule}>
                 <Select value={scheduleForm.course} onChange={(e) => setScheduleForm({ ...scheduleForm, course: e.target.value })} required>
                   <option value="">Select Course</option>
-                  {courses.map((c) => (
-                    <option key={c._id} value={c._id}>{c.title}</option>
+                  {activeCourses.map((c) => (
+                    <option key={c._id || c.id} value={c._id || c.id}>{c.title}</option>
                   ))}
                 </Select>
                 <Input placeholder="Class Title" value={scheduleForm.title} onChange={(e) => setScheduleForm({ ...scheduleForm, title: e.target.value })} required />
@@ -1163,8 +1367,8 @@ export default function AdminDashboard() {
           <Form onSubmit={addMaterial}>
             <Select value={materialForm.course} onChange={(e) => setMaterialForm({ ...materialForm, course: e.target.value })} required>
               <option value="">Select Course</option>
-              {courses.map((c) => (
-                <option key={c._id} value={c._id}>{c.title}</option>
+              {activeCourses.map((c) => (
+                <option key={c._id || c.id} value={c._id || c.id}>{c.title}</option>
               ))}
             </Select>
             <Input placeholder="Material Title" value={materialForm.title} onChange={(e) => setMaterialForm({ ...materialForm, title: e.target.value })} required />

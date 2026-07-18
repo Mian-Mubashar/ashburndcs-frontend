@@ -105,7 +105,7 @@ export default function StudentDashboard() {
                 <h4>{app.course?.title}</h4>
                 <p>Applied: {new Date(app.createdAt).toLocaleDateString()}</p>
                 {app.status === "pending" && <p>Waiting for admin approval...</p>}
-                {app.status === "approved" && <p>Approved! Check your email to complete registration.</p>}
+                {app.status === "approved" && <p>Approved — you are enrolled. Open your dashboard anytime.</p>}
                 {app.status === "completed" && <p>You are fully enrolled in this course.</p>}
                 {app.status === "rejected" && <p>Application was not approved.</p>}
               </Item>

@@ -54,7 +54,8 @@ export default function AuthModal() {
             onSuccess={closeAuthModal}
             onForgot={() => switchView("forgot")}
             onSignup={() => switchView("signup")}
-            onVerify={(email) => switchView("verify-pending", { email })}
+            onVerify={(email) => switchView("verify-pending", { email, emailSent: false })}
+            initialEmail={modalData.email || ""}
           />
         )}
 
@@ -76,14 +77,17 @@ export default function AuthModal() {
         {view === "verify-pending" && (
           <VerifyPendingForm
             email={modalData.email || ""}
-            token={modalData.token}
             initialEmailSent={modalData.emailSent}
+            onClose={closeAuthModal}
             onLogin={() => switchView("login")}
           />
         )}
 
         {view === "reset" && (
-          <ResetForm token={modalData.token} onDone={() => switchView("login")} />
+          <ResetForm
+            token={modalData.token}
+            onDone={(email) => switchView("login", { token: undefined, email: email || "" })}
+          />
         )}
       </ModalBox>
     </Overlay>
@@ -114,10 +118,14 @@ function PasswordField({ label, value, onChange, placeholder, name }) {
   );
 }
 
-function LoginForm({ onSuccess, onForgot, onSignup, onVerify }) {
+function LoginForm({ onSuccess, onForgot, onSignup, onVerify, initialEmail = "" }) {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: initialEmail, password: "" });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (initialEmail) setForm((prev) => ({ ...prev, email: initialEmail }));
+  }, [initialEmail]);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -286,23 +294,10 @@ function ForgotForm({ onBack }) {
   );
 }
 
-function VerifyPendingForm({ email: initialEmail, token, initialEmailSent, onLogin }) {
+function VerifyPendingForm({ email: initialEmail, initialEmailSent, onClose, onLogin }) {
   const [email, setEmail] = useState(initialEmail);
   const [loading, setLoading] = useState(false);
-  const [verified, setVerified] = useState(false);
   const [emailSent, setEmailSent] = useState(initialEmailSent !== false);
-
-  useEffect(() => {
-    if (!token) return;
-    authApi.verifyEmail(token)
-      .then(({ data }) => {
-        setVerified(true);
-        Toast({ message: data.message, type: "success" });
-      })
-      .catch((error) => {
-        Toast({ message: error.response?.data?.error || "Verification failed.", type: "error" });
-      });
-  }, [token]);
 
   const handleResend = async (e) => {
     e.preventDefault();
@@ -310,48 +305,62 @@ function VerifyPendingForm({ email: initialEmail, token, initialEmailSent, onLog
     setLoading(true);
     try {
       const { data } = await authApi.resendVerification(email);
-      setEmailSent(data.emailSent);
-      Toast({ message: data.message, type: data.emailSent ? "success" : "error" });
+      setEmailSent(Boolean(data.emailSent));
+      Toast({
+        message: data.message,
+        type: data.emailSent ? "success" : "error",
+      });
     } catch (error) {
-      Toast({ message: error.response?.data?.error || "Failed to resend.", type: "error" });
+      const msg = error.response?.data?.error || "Failed to resend.";
+      // Already verified via email link — no need for this modal
+      if (msg.toLowerCase().includes("already verified")) {
+        onClose?.();
+        Toast({ message: "Email already verified. Please sign in.", type: "info" });
+        onLogin?.();
+        return;
+      }
+      Toast({ message: msg, type: "error" });
     } finally {
       setLoading(false);
     }
   };
 
-  if (verified) {
-    return (
-      <>
-        <MessageBox type="success">Your email is verified! You can now sign in.</MessageBox>
-        <PrimaryButton type="button" style={{ marginTop: 16 }} onClick={onLogin}>Log In</PrimaryButton>
-      </>
-    );
-  }
-
   return (
     <>
-      <MessageBox type={emailSent ? "success" : "error"}>
+      <MessageBox type={emailSent ? "success" : "info"}>
         {emailSent ? (
           <>
-            We sent a verification link to <strong>{email}</strong>.
-            Open your Gmail inbox, find the email from ADCS, and click the verify button.
+            We sent a verification link to <strong>{email || "your email"}</strong>.
+            Open that email and click <strong>Verify Email Address</strong>.
+            You will be signed in automatically — no extra step needed.
             Check spam if you don&apos;t see it.
           </>
         ) : (
-          <>Email could not be sent. Ask the admin to configure SMTP, then try resending.</>
+          <>
+            Please verify your email{email ? <> (<strong>{email}</strong>)</> : ""}.
+            Use the link from your signup email, or resend below.
+          </>
         )}
       </MessageBox>
       <ModalForm onSubmit={handleResend} style={{ marginTop: 16 }}>
         <Field>
           <Label>Email address</Label>
-          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email" required />
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
+            required
+          />
         </Field>
         <PrimaryButton type="submit" disabled={loading}>
           {loading ? "Sending..." : "Resend Verification Email"}
         </PrimaryButton>
       </ModalForm>
       <FooterText>
-        <TextLink type="button" onClick={onLogin}>Back to Log In</TextLink>
+        <TextLink type="button" onClick={onLogin}>
+          Back to Log In
+        </TextLink>
       </FooterText>
     </>
   );
@@ -362,6 +371,7 @@ function ResetForm({ token, onDone }) {
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -372,6 +382,7 @@ function ResetForm({ token, onDone }) {
     setLoading(true);
     try {
       const { data } = await authApi.resetPassword({ token, password });
+      setResetEmail(data.email || "");
       setDone(true);
       Toast({ message: data.message, type: "success" });
     } catch (error) {
@@ -385,7 +396,7 @@ function ResetForm({ token, onDone }) {
     return (
       <>
         <MessageBox type="info">Invalid reset link. Please request a new one.</MessageBox>
-        <FooterText><TextLink type="button" onClick={onDone}>Back to Log In</TextLink></FooterText>
+        <FooterText><TextLink type="button" onClick={() => onDone()}>Back to Log In</TextLink></FooterText>
       </>
     );
   }
@@ -393,8 +404,12 @@ function ResetForm({ token, onDone }) {
   if (done) {
     return (
       <>
-        <MessageBox type="success">Password updated successfully!</MessageBox>
-        <PrimaryButton type="button" style={{ marginTop: 16 }} onClick={onDone}>Log In</PrimaryButton>
+        <MessageBox type="success">
+          Password updated! Sign in with your email and new password. No verification needed.
+        </MessageBox>
+        <PrimaryButton type="button" style={{ marginTop: 16 }} onClick={() => onDone(resetEmail)}>
+          Log In
+        </PrimaryButton>
       </>
     );
   }

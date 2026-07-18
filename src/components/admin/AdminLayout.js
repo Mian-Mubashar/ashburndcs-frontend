@@ -15,11 +15,14 @@ import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { ReactComponent as ClockIcon } from "feather-icons/dist/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "feather-icons/dist/icons/check-circle.svg";
 
+import { ReactComponent as BookOpenIcon } from "feather-icons/dist/icons/book-open.svg";
+
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", Icon: LayoutIcon },
   { id: "pending", label: "Pending", Icon: ClockIcon, countKey: "pending" },
   { id: "approved", label: "Approved", Icon: CheckIcon, countKey: "approved" },
   { id: "completed", label: "Completed", Icon: UsersIcon, countKey: "completed" },
+  { id: "courses", label: "Courses", Icon: BookOpenIcon },
   { id: "schedules", label: "Schedules", Icon: CalendarIcon },
   { id: "materials", label: "Materials", Icon: FileIcon },
 ];

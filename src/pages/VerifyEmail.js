@@ -11,7 +11,7 @@ import {
   AuthInput,
   AuthForm,
 } from "components/auth/AuthLayout";
-import { authApi } from "services/authApi";
+import { authApi, getAuthToken, saveAuthToken } from "services/authApi";
 
 export default function VerifyEmailPage() {
   const navigate = useNavigate();
@@ -27,12 +27,34 @@ export default function VerifyEmailPage() {
   useEffect(() => {
     if (!token) return;
 
+    if (getAuthToken()?.token) {
+      navigate("/dashboard", { replace: true });
+      return;
+    }
+
+    const lockKey = `verify:${token}`;
+    if (sessionStorage.getItem(lockKey)) return;
+    sessionStorage.setItem(lockKey, "1");
+
     const verify = async () => {
       try {
         const { data } = await authApi.verifyEmail(token);
+        if (data.token && data.user) {
+          saveAuthToken(data.token, data.user.email, data.user.role);
+          setStatus("success");
+          if (!data.alreadyVerified) {
+            Toast({ message: "Account verified! You are signed in.", type: "success" });
+          }
+          navigate(data.user.role === "admin" ? "/admin" : "/dashboard", { replace: true });
+          return;
+        }
         setStatus("success");
-        Toast({ message: data.message, type: "success" });
       } catch (error) {
+        sessionStorage.removeItem(lockKey);
+        if (getAuthToken()?.token) {
+          navigate("/dashboard", { replace: true });
+          return;
+        }
         setStatus("error");
         Toast({
           message: error.response?.data?.error || "Verification failed.",
@@ -42,7 +64,7 @@ export default function VerifyEmailPage() {
     };
 
     verify();
-  }, [token]);
+  }, [token, navigate]);
 
   const handleResend = async (e) => {
     e.preventDefault();
@@ -56,10 +78,13 @@ export default function VerifyEmailPage() {
       const { data } = await authApi.resendVerification(email);
       Toast({ message: data.message, type: "success" });
     } catch (error) {
-      Toast({
-        message: error.response?.data?.error || "Failed to resend email.",
-        type: "error",
-      });
+      const msg = error.response?.data?.error || "Failed to resend email.";
+      if (msg.toLowerCase().includes("already verified")) {
+        Toast({ message: "Email already verified. Please sign in.", type: "info" });
+        navigate("/login");
+        return;
+      }
+      Toast({ message: msg, type: "error" });
     } finally {
       setLoading(false);
     }
@@ -80,20 +105,15 @@ export default function VerifyEmailPage() {
         )}
 
         {status === "success" && (
-          <>
-            <AuthMessage type="success">
-              Your email has been verified. You can now sign in to your account.
-            </AuthMessage>
-            <AuthButton type="button" tw="mt-6" onClick={() => navigate("/login")}>
-              Sign In Now
-            </AuthButton>
-          </>
+          <AuthMessage type="success">
+            Your email has been verified. Redirecting to your dashboard...
+          </AuthMessage>
         )}
 
         {status === "error" && (
           <>
             <AuthMessage type="info">
-              The verification link is invalid or has expired. Request a new one below.
+              The verification link is invalid or has expired. Sign in, or request a new link below.
             </AuthMessage>
             <ResendForm
               email={email}
@@ -107,7 +127,7 @@ export default function VerifyEmailPage() {
         {status === "pending" && (
           <>
             <AuthMessage type="info">
-              We sent a verification link to your email. Click the link to activate your account.
+              We sent a verification link to your email. Click the button in that email — you will be signed in automatically.
             </AuthMessage>
             <ResendForm
               email={email}
@@ -118,11 +138,13 @@ export default function VerifyEmailPage() {
           </>
         )}
 
-        <p tw="mt-8 text-sm text-gray-600 text-center">
-          <AuthLink type="button" onClick={() => navigate("/login")}>
-            Back to Sign In
-          </AuthLink>
-        </p>
+        {status !== "success" && status !== "verifying" && (
+          <p tw="mt-8 text-sm text-gray-600 text-center">
+            <AuthLink type="button" onClick={() => navigate("/login")}>
+              Back to Sign In
+            </AuthLink>
+          </p>
+        )}
       </AuthPageLayout>
     </AnimationRevealPage>
   );

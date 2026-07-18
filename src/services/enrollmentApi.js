@@ -50,6 +50,7 @@ export const adminApi = {
   approveEnrollment: (id) => adminClient.patch(`/enrollments/${id}/approve`),
   resendApprovalEmail: (id) => adminClient.post(`/enrollments/${id}/resend-email`),
   rejectEnrollment: (id, adminNote) => adminClient.patch(`/enrollments/${id}/reject`, { adminNote }),
+  getCourses: () => adminClient.get("/courses"),
   createCourse: (data) => adminClient.post("/courses", data),
   updateCourse: (id, data) => adminClient.put(`/courses/${id}`, data),
   deleteCourse: (id) => adminClient.delete(`/courses/${id}`),

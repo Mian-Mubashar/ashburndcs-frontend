@@ -23,7 +23,13 @@ export function AuthModalProvider({ children }) {
 
   const switchView = useCallback((nextView, data = {}) => {
     setView(nextView);
-    setModalData((prev) => ({ ...prev, ...data }));
+    setModalData((prev) => {
+      const next = { ...prev, ...data };
+      if (nextView === "login") {
+        delete next.token;
+      }
+      return next;
+    });
   }, []);
 
   return (

@@ -1,3 +1,12 @@
-# https://www.robotstxt.org/robotstxt.html
+# ADCS Tech Solutions — https://ashburndcs.com
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /complete-enrollment
+Disallow: /verify-email
+Disallow: /reset-password
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://ashburndcs.com/sitemap.xml
