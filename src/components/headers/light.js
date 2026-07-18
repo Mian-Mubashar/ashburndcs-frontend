@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -198,8 +198,7 @@ export default ({
   collapseBreakpointClass = "lg",
   navigate = useNavigate(),
 }) => {
-  const [authTick, setAuthTick] = useState(0);
-  const auth = useMemo(() => getAuthToken(), [authTick]);
+  const [auth, setAuth] = useState(() => getAuthToken());
   const trackedEnrollments = getActiveEnrollmentTracks();
   const { openAuthModal } = useAuthModal();
   const nav = useNavigate();
@@ -209,7 +208,7 @@ export default ({
 
   const handleSignOut = () => {
     clearAuthToken();
-    setAuthTick((t) => t + 1);
+    setAuth(null);
     navigateTo("/");
   };
 

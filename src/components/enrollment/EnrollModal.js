@@ -328,6 +328,8 @@ export default function EnrollModal({ course, isOpen, onClose, sessionTitle }) {
     poll();
     const timer = setInterval(poll, 15000);
     return () => clearInterval(timer);
+    // Persist + status updates use enrollment.id only
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enrollment?.id]);
 
   if (!mounted || !isOpen || !course) return null;

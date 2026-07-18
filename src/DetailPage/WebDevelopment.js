@@ -15,10 +15,10 @@ export default () => {
   const paramValue = searchParams.get("type");
   const data =
     paramValue === "service"
-      ? serviceData.filter((a) => a.id == id)
+      ? serviceData.filter((a) => String(a.id) === String(id))
       : paramValue === "Data-service"
-      ? DServiceData.filter((a) => a.id == id)
-      : serviceData.filter((a) => a.id == id); // Default to service data if type is not specified
+      ? DServiceData.filter((a) => String(a.id) === String(id))
+      : serviceData.filter((a) => String(a.id) === String(id)); // Default to service data if type is not specified
   return (
     <AnimationRevealPage>
       <Hero data={data} />
