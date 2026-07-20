@@ -3,9 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { ReactComponent as EyeIcon } from "feather-icons/dist/icons/eye.svg";
 import { ReactComponent as EyeOffIcon } from "feather-icons/dist/icons/eye-off.svg";
+import Swal from "sweetalert2";
 import { Toast } from "helpers/Alert";
 import { useAuthModal } from "context/AuthModalContext";
 import { authApi, saveAuthToken } from "services/authApi";
+
+const showAuthError = (error, fallback = "Something went wrong.") => {
+  const offline =
+    !error.response ||
+    error.code === "ERR_NETWORK" ||
+    error.message?.includes("Network Error");
+  const title = offline ? "Server unavailable" : "Error";
+  const text = offline
+    ? "API is down right now. Please try again in a few minutes."
+    : error.response?.data?.error || fallback;
+
+  Swal.fire({
+    icon: "error",
+    title,
+    text,
+    confirmButtonColor: "#6415ff",
+  });
+};
 import {
   Overlay,
   ModalBox,
@@ -149,7 +168,7 @@ function LoginForm({ onSuccess, onForgot, onSignup, onVerify, initialEmail = "" 
         onVerify(form.email);
         return;
       }
-      Toast({ message: res?.error || "Login failed.", type: "error" });
+      showAuthError(error, "Login failed.");
     } finally {
       setLoading(false);
     }
@@ -197,10 +216,15 @@ function SignupForm({ onLogin, onRegistered, onTerms, onPolicy }) {
         password: form.password,
         name: `${form.firstName} ${form.lastName}`.trim(),
       });
-      Toast({ message: data.message, type: data.emailSent ? "success" : "info" });
+      Swal.fire({
+        icon: data.emailSent ? "success" : "info",
+        title: data.emailSent ? "Check your email" : "Account created",
+        text: data.message || "Please verify your email to continue.",
+        confirmButtonColor: "#6415ff",
+      });
       onRegistered(form.email, data.emailSent);
     } catch (error) {
-      Toast({ message: error.response?.data?.error || "Registration failed.", type: "error" });
+      showAuthError(error, "Registration failed.");
     } finally {
       setLoading(false);
     }
@@ -255,9 +279,14 @@ function ForgotForm({ onBack }) {
     try {
       const { data } = await authApi.forgotPassword(email);
       setSent(true);
-      Toast({ message: data.message, type: "success" });
+      Swal.fire({
+        icon: "success",
+        title: "Email sent",
+        text: data.message || "Check your inbox for the reset link.",
+        confirmButtonColor: "#6415ff",
+      });
     } catch (error) {
-      Toast({ message: error.response?.data?.error || "Failed to send reset link.", type: "error" });
+      showAuthError(error, "Failed to send reset link.");
     } finally {
       setLoading(false);
     }
