@@ -7,24 +7,6 @@ import Swal from "sweetalert2";
 import { Toast } from "helpers/Alert";
 import { useAuthModal } from "context/AuthModalContext";
 import { authApi, saveAuthToken } from "services/authApi";
-
-const showAuthError = (error, fallback = "Something went wrong.") => {
-  const offline =
-    !error.response ||
-    error.code === "ERR_NETWORK" ||
-    error.message?.includes("Network Error");
-  const title = offline ? "Server unavailable" : "Error";
-  const text = offline
-    ? "API is down right now. Please try again in a few minutes."
-    : error.response?.data?.error || fallback;
-
-  Swal.fire({
-    icon: "error",
-    title,
-    text,
-    confirmButtonColor: "#6415ff",
-  });
-};
 import {
   Overlay,
   ModalBox,
@@ -44,6 +26,45 @@ import {
   MessageBox,
   ForgotRow,
 } from "./AuthModalStyles";
+
+const isTechnicalMailError = (msg = "") =>
+  /535|BadCredentials|Invalid login|gsmtp|EAUTH|SMTP|nodemailer/i.test(msg);
+
+const friendlyAuthMessage = (msg, fallback) => {
+  if (!msg || isTechnicalMailError(msg)) {
+    return fallback || "We couldn't send the email right now. Please try again later.";
+  }
+  return msg;
+};
+
+const showAuthError = (error, fallback = "Something went wrong.") => {
+  const offline =
+    !error.response ||
+    error.code === "ERR_NETWORK" ||
+    error.message?.includes("Network Error");
+  const title = offline ? "Server unavailable" : "Couldn't send email";
+  const raw = error.response?.data?.error || error.response?.data?.message || "";
+  const text = offline
+    ? "API is down right now. Please try again in a few minutes."
+    : friendlyAuthMessage(raw, fallback);
+
+  Swal.fire({
+    icon: "error",
+    title,
+    text,
+    confirmButtonColor: "#6415ff",
+  });
+};
+
+const showAuthMessage = ({ ok, message, fallback }) => {
+  const text = friendlyAuthMessage(message, fallback);
+  Swal.fire({
+    icon: ok ? "success" : "error",
+    title: ok ? "Email sent" : "Couldn't send email",
+    text,
+    confirmButtonColor: "#6415ff",
+  });
+};
 
 export default function AuthModal() {
   const { isOpen, view, modalData, closeAuthModal, switchView } = useAuthModal();
@@ -335,20 +356,26 @@ function VerifyPendingForm({ email: initialEmail, initialEmailSent, onClose, onL
     try {
       const { data } = await authApi.resendVerification(email);
       setEmailSent(Boolean(data.emailSent));
-      Toast({
+      showAuthMessage({
+        ok: Boolean(data.emailSent),
         message: data.message,
-        type: data.emailSent ? "success" : "error",
+        fallback: "We couldn't send the email right now. Please try again later.",
       });
     } catch (error) {
       const msg = error.response?.data?.error || "Failed to resend.";
       // Already verified via email link — no need for this modal
       if (msg.toLowerCase().includes("already verified")) {
         onClose?.();
-        Toast({ message: "Email already verified. Please sign in.", type: "info" });
+        Swal.fire({
+          icon: "info",
+          title: "Already verified",
+          text: "Email already verified. Please sign in.",
+          confirmButtonColor: "#6415ff",
+        });
         onLogin?.();
         return;
       }
-      Toast({ message: msg, type: "error" });
+      showAuthError(error, "We couldn't send the email right now. Please try again later.");
     } finally {
       setLoading(false);
     }
