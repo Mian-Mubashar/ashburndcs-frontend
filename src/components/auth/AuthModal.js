@@ -27,6 +27,14 @@ import {
   ForgotRow,
 } from "./AuthModalStyles";
 
+const SwalToast = Swal.mixin({
+  toast: true,
+  position: "top",
+  showConfirmButton: false,
+  timer: 4000,
+  timerProgressBar: true,
+});
+
 const isTechnicalMailError = (msg = "") =>
   /535|BadCredentials|Invalid login|gsmtp|EAUTH|SMTP|nodemailer/i.test(msg);
 
@@ -42,27 +50,19 @@ const showAuthError = (error, fallback = "Something went wrong.") => {
     !error.response ||
     error.code === "ERR_NETWORK" ||
     error.message?.includes("Network Error");
-  const title = offline ? "Server unavailable" : "Couldn't send email";
   const raw = error.response?.data?.error || error.response?.data?.message || "";
   const text = offline
-    ? "API is down right now. Please try again in a few minutes."
+    ? "Server unavailable. Please try again in a few minutes."
     : friendlyAuthMessage(raw, fallback);
 
-  Swal.fire({
-    icon: "error",
-    title,
-    text,
-    confirmButtonColor: "#6415ff",
-  });
+  SwalToast.fire({ icon: "error", title: text });
 };
 
 const showAuthMessage = ({ ok, message, fallback }) => {
   const text = friendlyAuthMessage(message, fallback);
-  Swal.fire({
+  SwalToast.fire({
     icon: ok ? "success" : "error",
-    title: ok ? "Email sent" : "Couldn't send email",
-    text,
-    confirmButtonColor: "#6415ff",
+    title: text,
   });
 };
 
@@ -237,11 +237,14 @@ function SignupForm({ onLogin, onRegistered, onTerms, onPolicy }) {
         password: form.password,
         name: `${form.firstName} ${form.lastName}`.trim(),
       });
-      Swal.fire({
+      SwalToast.fire({
         icon: data.emailSent ? "success" : "info",
-        title: data.emailSent ? "Check your email" : "Account created",
-        text: data.message || "Please verify your email to continue.",
-        confirmButtonColor: "#6415ff",
+        title: friendlyAuthMessage(
+          data.message,
+          data.emailSent
+            ? "Check your email to verify your account."
+            : "Account created. Please verify your email."
+        ),
       });
       onRegistered(form.email, data.emailSent);
     } catch (error) {
@@ -300,11 +303,12 @@ function ForgotForm({ onBack }) {
     try {
       const { data } = await authApi.forgotPassword(email);
       setSent(true);
-      Swal.fire({
+      SwalToast.fire({
         icon: "success",
-        title: "Email sent",
-        text: data.message || "Check your inbox for the reset link.",
-        confirmButtonColor: "#6415ff",
+        title: friendlyAuthMessage(
+          data.message,
+          "Check your inbox for the reset link."
+        ),
       });
     } catch (error) {
       showAuthError(error, "Failed to send reset link.");
@@ -366,11 +370,9 @@ function VerifyPendingForm({ email: initialEmail, initialEmailSent, onClose, onL
       // Already verified via email link — no need for this modal
       if (msg.toLowerCase().includes("already verified")) {
         onClose?.();
-        Swal.fire({
+        SwalToast.fire({
           icon: "info",
-          title: "Already verified",
-          text: "Email already verified. Please sign in.",
-          confirmButtonColor: "#6415ff",
+          title: "Email already verified. Please sign in.",
         });
         onLogin?.();
         return;
