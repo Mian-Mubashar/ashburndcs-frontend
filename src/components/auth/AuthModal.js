@@ -33,6 +33,11 @@ const SwalToast = Swal.mixin({
   showConfirmButton: false,
   timer: 4000,
   timerProgressBar: true,
+  // Auth modal overlay is z-index 9999 + blur — keep toast above it
+  didOpen: (toast) => {
+    const container = toast.closest(".swal2-container");
+    if (container) container.style.zIndex = "100000";
+  },
 });
 
 const isTechnicalMailError = (msg = "") =>

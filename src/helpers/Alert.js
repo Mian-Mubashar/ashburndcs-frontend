@@ -22,6 +22,7 @@ export const Container = () => (
     // pauseOnFocusLoss
     draggable
     pauseOnHover
+    style={{ zIndex: 100000 }}
   />
 );
 
