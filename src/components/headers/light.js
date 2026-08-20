@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
@@ -179,12 +178,13 @@ export const MobileNavLinksContainer = tw.nav`flex flex-1 items-center justify-b
 export const NavToggle = tw.button`
   lg:hidden z-20 focus:outline-none hocus:text-primary-500 transition duration-300 
 `;
-export const MobileNavLinks = motion(styled.div`
+export const MobileNavLinks = styled.div`
   ${tw`lg:hidden z-10 fixed top-0 inset-x-0 mx-4 my-6 p-8 border text-center rounded-lg text-gray-900 bg-white `}
+  ${(props) => (props.$show ? tw`block` : tw`hidden`)}
   ${NavLinks} {
     ${tw`flex flex-col items-center`}
   }
-`);
+`;
 
 export const DesktopNavLinks = tw.nav`
   hidden lg:flex flex-1 justify-between items-center cursor-pointer flex-nowrap
@@ -276,7 +276,9 @@ export default ({
       <ActiveNavLink $active={isActive("/", true)} onClick={() => navigateTo("/")}>
         Home
       </ActiveNavLink>
-      {servicesDropdown}
+      <ActiveNavLink $active={isActive("/about-us")} onClick={() => navigateTo("/about-us")}>
+        About Us
+      </ActiveNavLink>
       <ActiveNavLink $active={isActive("/schedule")} onClick={() => navigateTo("/schedule")}>
         Schedule
       </ActiveNavLink>
@@ -290,8 +292,17 @@ export default ({
           My Enrollment
         </ActiveNavLink>
       )}
-      <ActiveNavLink $active={isActive("/about-us")} onClick={() => navigateTo("/about-us")}>
-        About Us
+      <ActiveNavLink $active={isActive("/career")} onClick={() => navigateTo("/career")}>
+        Career
+      </ActiveNavLink>
+      <ActiveNavLink $active={isActive("/course-outline")} onClick={() => navigateTo("/course-outline")}>
+        Course Outline & FAQ
+      </ActiveNavLink>
+      <ActiveNavLink $active={isActive("/registration")} onClick={() => navigateTo("/registration")}>
+        Registration
+      </ActiveNavLink>
+      <ActiveNavLink $active={isActive("/payment")} onClick={() => navigateTo("/payment")}>
+        Payment
       </ActiveNavLink>
       <ActiveNavLink $active={isActive("/contact-us")} onClick={() => navigateTo("/contact-us")}>
         Contact Us
@@ -332,7 +343,7 @@ export default ({
     </NavLinks>,
   ];
 
-  const { showNavLinks, animation, toggleNavbar } = useAnimatedNavToggler();
+  const { showNavLinks, toggleNavbar } = useAnimatedNavToggler();
   const collapseBreakpointCss =
     collapseBreakPointCssMap[collapseBreakpointClass];
 
@@ -355,11 +366,7 @@ export default ({
         css={collapseBreakpointCss.mobileNavLinksContainer}
       >
         {logoLink}
-        <MobileNavLinks
-          initial={{ x: "150%", display: "none" }}
-          animate={animation}
-          css={collapseBreakpointCss.mobileNavLinks}
-        >
+        <MobileNavLinks $show={showNavLinks} css={collapseBreakpointCss.mobileNavLinks}>
           {links}
         </MobileNavLinks>
         <NavToggle

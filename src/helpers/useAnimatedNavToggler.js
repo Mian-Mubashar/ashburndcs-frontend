@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { useAnimation, useCycle } from "framer-motion";
 
-//Below logic is for toggling the navbar when toggleNavbar is called. It is used on mobile toggling of navbar.
+// Mobile nav toggle — animations removed per client request. Instant
+// show/hide via plain state instead of framer-motion's slide transform.
 export default function useAnimatedNavToggler() {
   const [showNavLinks, setShowNavLinks] = useState(false);
-  const [x, cycleX] = useCycle("0%", "150%");
-  const animation = useAnimation();
 
   const toggleNavbar = () => {
-    setShowNavLinks(!showNavLinks);
-    animation.start({ x: x, display: "block" });
-    cycleX();
+    setShowNavLinks((prev) => !prev);
   };
 
-  return {showNavLinks,animation, toggleNavbar }
+  return { showNavLinks, toggleNavbar };
 }
+

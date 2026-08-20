@@ -83,7 +83,7 @@ export default ({
       
       <ThreeColumnContainer>
         {subheading && <Subheading>{subheading}</Subheading>}
-        <Heading>ADCS <HighlightedText>L2 (Level 2) Tech Support</HighlightedText></Heading>
+        <Heading>Networking <HighlightedText>& Remote Management</HighlightedText></Heading>
         {description && <Description>{description}</Description>}
         <VerticalSpacer />
         {FeatureCardsDataL2?.map((card, i) => (
@@ -105,7 +105,7 @@ export default ({
       </ThreeColumnContainer>
       <ThreeColumnContainer>
         {subheading && <Subheading>{subheading}</Subheading>}
-        <Heading>ADCS <HighlightedText>L3 (Level 3) Tech Support</HighlightedText></Heading>
+        <Heading>Operations <HighlightedText>& Final Assessment</HighlightedText></Heading>
         {description && <Description>{description}</Description>}
         <VerticalSpacer />
         {FeatureCardsDataL3?.map((card, i) => (

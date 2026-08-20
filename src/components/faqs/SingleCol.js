@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import styled from "styled-components";
 import tw from "twin.macro";
 import {
@@ -23,15 +22,16 @@ const FAQSContainer = tw.dl`mt-12 max-w-4xl relative`;
 const FAQ = tw.div`cursor-pointer select-none mt-5 px-8 sm:px-10 py-5 sm:py-4 rounded-lg text-gray-800 hover:text-gray-900 bg-gray-200 hover:bg-gray-300 transition duration-300`;
 const Question = tw.dt`flex justify-between items-center`;
 const QuestionText = tw.span`text-lg lg:text-xl font-semibold`;
-const QuestionToggleIcon = motion(styled.span`
-  ${tw`ml-2 transition duration-300`}
+const QuestionToggleIcon = styled.span`
+  ${tw`ml-2`}
   svg {
     ${tw`w-6 h-6`}
   }
-`);
-const Answer = motion(
-  tw.dd`pointer-events-none text-sm sm:text-base leading-relaxed`
-);
+  &.open {
+    transform: rotate(-180deg);
+  }
+`;
+const Answer = tw.dd`pointer-events-none text-sm sm:text-base leading-relaxed mt-4`;
 
 const DecoratorBlob1 = styled(SvgDecoratorBlob1)`
   ${tw`pointer-events-none -z-20 absolute right-0 top-0 h-56 w-56 opacity-15 transform translate-x-2/3 -translate-y-12 text-teal-400`}
@@ -104,34 +104,11 @@ export default ({
               >
                 <Question>
                   <QuestionText>{faq.question}</QuestionText>
-                  <QuestionToggleIcon
-                    variants={{
-                      collapsed: { rotate: 0 },
-                      open: { rotate: -180 },
-                    }}
-                    initial="collapsed"
-                    animate={
-                      activeQuestionIndex === index ? "open" : "collapsed"
-                    }
-                    transition={{
-                      duration: 0.02,
-                      ease: [0.04, 0.62, 0.23, 0.98],
-                    }}
-                  >
+                  <QuestionToggleIcon className={activeQuestionIndex === index ? "open" : ""}>
                     <ChevronDownIcon />
                   </QuestionToggleIcon>
                 </Question>
-                <Answer
-                  variants={{
-                    open: { opacity: 1, height: "auto", marginTop: "16px" },
-                    collapsed: { opacity: 0, height: 0, marginTop: "0px" },
-                  }}
-                  initial="collapsed"
-                  animate={activeQuestionIndex === index ? "open" : "collapsed"}
-                  transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                >
-                  {faq.answer}
-                </Answer>
+                {activeQuestionIndex === index && <Answer>{faq.answer}</Answer>}
               </FAQ>
             ))}
           </FAQSContainer>

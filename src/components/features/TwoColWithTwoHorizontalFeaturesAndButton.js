@@ -73,7 +73,7 @@ export default ({
   ),
   description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   primaryButtonText = "Learn More",
-  primaryButtonUrl = "",
+  primaryButtonUrl = "/course-outline",
   imageSrc = TeamIllustrationSrc,
   buttonRounded = true,
   imageRounded = true,
@@ -95,16 +95,16 @@ export default ({
   const defaultFeatures = [
     {
       Icon: BriefcaseIcon,
-      title: "Professionalism",
+      title: "Hands-On Labs",
       description:
-        "We have the best professional marketing people across the globe just to work with you.",
+        "Every topic is backed by real lab time on real server hardware, not just slides and theory.",
       iconContainerCss: tw`bg-teal-300 text-teal-800`,
     },
     {
       Icon: MoneyIcon,
-      title: "Affordable",
+      title: "Built for Career Changers",
       description:
-        "We promise to offer you the best rate we can - at par with the industry standard.",
+        "No prior IT experience needed. You get direct instructor support all through the program, starting from the basics.",
       iconContainerCss: tw`bg-red-300 text-red-800`,
     },
   ];

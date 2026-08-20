@@ -125,32 +125,32 @@ export default ({ navigate = useNavigate() }) => {
     <Container>
       <Content>
         <GridContainer>
-          {/* Services Column */}
+          {/* Program Column */}
           <Column>
-            <ColumnTitle>Our Services</ColumnTitle>
+            <ColumnTitle>Server Support BootCamp</ColumnTitle>
             <ServiceItem>
               <ServiceIcon>
                 <FontAwesomeIcon icon={faServer} />
               </ServiceIcon>
-              Data Center Solutions
+              Server Hardware & Troubleshooting
             </ServiceItem>
             <ServiceItem>
               <ServiceIcon>
                 <FontAwesomeIcon icon={faLaptop} />
               </ServiceIcon>
-              Laptop Repair
+              BIOS Configuration & RAID Setup
             </ServiceItem>
             <ServiceItem>
               <ServiceIcon>
                 <FontAwesomeIcon icon={faDesktop} />
               </ServiceIcon>
-              PC Repair & Maintenance
+              VMware, Linux & Windows
             </ServiceItem>
             <ServiceItem>
               <ServiceIcon>
                 <FontAwesomeIcon icon={faPrint} />
               </ServiceIcon>
-              Printer Services
+              Networking & Remote Management
             </ServiceItem>
           </Column>
 
@@ -180,7 +180,7 @@ export default ({ navigate = useNavigate() }) => {
               <ContactIcon>
                 <FontAwesomeIcon icon={faClock} />
               </ContactIcon>
-              24/7 Emergency Service
+              Classes: Wed evenings, Sat/Sun mornings
             </ContactItem>
           </Column>
 
@@ -188,19 +188,21 @@ export default ({ navigate = useNavigate() }) => {
           <Column>
             <ColumnTitle>Quick Links</ColumnTitle>
             <LinkItem onClick={() => navigate("/")}>Home</LinkItem>
-            <LinkItem onClick={() => navigate("/d-services")}>Data Center Services</LinkItem>
-            <LinkItem onClick={() => navigate("/services")}>Our Services</LinkItem>
-            <LinkItem onClick={() => navigate("/about-us")}>About Company</LinkItem>
+            <LinkItem onClick={() => navigate("/about-us")}>About Us</LinkItem>
+            <LinkItem onClick={() => navigate("/course-outline")}>Course Outline & FAQ</LinkItem>
+            <LinkItem onClick={() => navigate("/registration")}>Registration</LinkItem>
+            <LinkItem onClick={() => navigate("/payment")}>Payment</LinkItem>
             <LinkItem onClick={() => navigate("/contact-us")}>Contact Us</LinkItem>
-   
+
           </Column>
 
           {/* Company Info Column */}
           <Column>
-            <ColumnTitle>Tech Solutions Inc.</ColumnTitle>
-            <SatisfactionBadge>100% Satisfaction Guaranteed</SatisfactionBadge>
+            <ColumnTitle>Ashburn Data Center Solutions</ColumnTitle>
+            <SatisfactionBadge>8-Week Hands-On BootCamp</SatisfactionBadge>
             <CompanyText>
-              Professional IT services provided by certified technicians with fast, reliable, and cost-effective solutions for all your business needs.
+              We train data center technicians in Sterling, VA. Hands-on server hardware,
+              networking, and Linux training, taught by working technicians in a real lab.
             </CompanyText>
             <SocialLinksContainer>
               <SocialLink href="https://facebook.com" aria-label="Facebook">
@@ -221,7 +223,7 @@ export default ({ navigate = useNavigate() }) => {
 
         <CopyrightContainer>
           <CopyrightText>
-            &copy; {new Date().getFullYear()} Tech Solutions Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Ashburn Data Center Solutions. All rights reserved.
           </CopyrightText>
         </CopyrightContainer>
       </Content>
