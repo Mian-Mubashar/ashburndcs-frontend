@@ -1,25 +1,13 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 const Headertop = () => {
   return (
     <>
       {/* Full-width background */}
       <div className="headertop-wrapper">
-        {/* Animated & Centered content */}
-        <motion.div
-          className="container headertop-container"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        >
+        <div className="container headertop-container">
           {/* Location */}
-          <motion.div
-            className="header-info"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
-          >
+          <div className="header-info">
             <i className="fas fa-map-marker-alt" style={{ color: '#dc3545' }}></i>
             <a
               href="https://maps.app.goo.gl/H5WSXNNQpUsMNrGa9"
@@ -28,21 +16,16 @@ const Headertop = () => {
             >
               22648 Glenn Dr STE 102, Sterling, VA 20164, United States
             </a>
-          </motion.div>
+          </div>
 
           {/* Phone */}
-          <motion.div
-            className="header-info"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 0.6, ease: 'easeOut' }}
-          >
+          <div className="header-info">
             <i className="fas fa-phone-alt" style={{ color: '#28a745' }}></i>
             <a href="tel:+15715313630">
               +1 (571) 531-3630
             </a>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
       {/* Styles */}

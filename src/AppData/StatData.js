@@ -1,20 +1,20 @@
 export const StatData = {
   subheading: "",
-  heading: "Over 100 Projects Completed",
+  heading: "A Hands-On, Structured BootCamp",
   description:
-    "Successfully executed ADCS Tech project: streamlined infrastructure, optimized connectivity, enhanced security, and vibrant tech ecosystem, resulting in unprecedented innovation and growth.  ",
+    "8 weeks of classroom lessons mixed with real hands-on lab time. You get server hardware, BIOS and RAID setup, Linux, and networking, taught by working data center technicians.",
   stats: [
     {
-      key: "Clients",
-      value: "100+",
+      key: "Weeks",
+      value: "8",
     },
     {
-      key: "Revenue",
-      value: "$1M+",
+      key: "Lab Sessions",
+      value: "12+",
     },
     {
-      key: "Employees",
-      value: "10+",
+      key: "Core Topics Covered",
+      value: "20+",
     },
   ],
 };

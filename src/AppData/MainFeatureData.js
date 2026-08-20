@@ -5,78 +5,78 @@ import SimpleIconImage from "images/simple-icon.svg";
 import SupportIconImage from "images/support-icon.svg";
 import ReliableIconImage from "images/reliable-icon.svg";
 import CustomizeIconImage from "images/customize-icon.svg";
-import serverSecureIllustrationImageSrc from "images/server-secure-illustration.svg";
-import serverRedundancyIllustrationImageSrc from "images/server-redundancy-illustration.svg";
-import dataCenterImage from "images/newImages/data center.jpeg.jpg";
+import serverIllustrationImageSrc from "images/server-illustration.svg";
+import serverIllustration2ImageSrc from "images/server-illustration-2.svg";
+import serverSecurityIllustrationImageSrc from "images/design-illustration-2.svg";
 
 const HighlightedText = tw.span`text-primary-500`;
 
 export const FeatureCardsData = [
   {
     imageSrc: ShieldIconImage,
-    title: "Certified Computer Repair Technicians",
+    title: "Taught by Real Technicians",
     description:
-      "Our team consists of certified computer repair technicians with expertise in laptop repair, PC repair, printer repair, and data center services. Professional computer repair near me with years of experience.",
+      "Our Server Support BootCamp is taught by people who work in data centers every day. You train in a real lab, not just a classroom.",
   },
   {
     imageSrc: SupportIconImage,
-    title: "24/7 Emergency Computer Repair Support",
+    title: "Small Class Sizes",
     description:
-      "Round-the-clock emergency response services for critical computer repair issues, ensuring minimal downtime and maximum reliability. Fast computer repair service when you need it most.",
+      "You get real support from your instructor for all 8 weeks. Lots of lab time to practice on real servers.",
   },
   {
     imageSrc: CustomizeIconImage,
-    title: "Hardware Specialization & Computer Repair",
+    title: "Learn Server Hardware From Scratch",
     description:
-      "Expert knowledge in major computer brands including Dell, HP, Lenovo, Apple, ASUS, and specialized hardware troubleshooting and repair. Professional computer repair shop with certified technicians.",
+      "We teach server hardware, BIOS setup, and RAID configuration from the ground up. These are the skills data centers look for when they hire.",
   },
   {
     imageSrc: ReliableIconImage,
-    title: "Preventive Computer Maintenance",
+    title: "Great for Career Changers",
     description:
-      "Proactive computer maintenance programs to prevent hardware failures, optimize performance, and extend equipment lifespan. Professional computer repair services with warranty.",
+      "You do not need IT experience to start. We teach the basics first, then build up to real data center technician skills.",
   },
   {
     imageSrc: FastIconImage,
-    title: "Rapid Computer Repair Response",
+    title: "8 Weeks, Simple Schedule",
     description:
-      "Quick response times with on-site and remote computer repair support capabilities for immediate issue resolution and system restoration. Same-day computer repair service available.",
+      "Classes are on Wednesday evenings and Saturday and Sunday mornings. Labs are on weekend afternoons. Built for people who work during the day.",
   },
   {
     imageSrc: SimpleIconImage,
-    title: "Infrastructure & Computer Repair Expertise",
+    title: "VMware, Linux, and Networking",
     description:
-      "Comprehensive understanding of computer repair, data center infrastructure including power, cooling, security, and environmental monitoring. Expert computer repair technicians.",
+      "You will finish the program knowing how to install VMware, Linux, and Windows, and how to set up routers and networks.",
   },
 ];
 
 export const MainFeatureData = [
   {
-    heading: "Professional Computer Repair & Data Center Services",
-    subheading: "Computer Repair Near Me - Sterling, VA",
-    imageSrc: dataCenterImage,
-    primaryButtonText: "Our Services",
+    heading: "Server Support BootCamp",
+    subheading: "Data Center Technician Training in Sterling, VA",
+    imageSrc: serverIllustrationImageSrc,
+    primaryButtonText: "View Course Outline",
     textOnLeft: true,
     description:
-      "Ashburn DCS provides comprehensive computer repair services in Sterling, VA including laptop repair, PC repair, printer repair, and data center server technician services. Our certified computer repair technicians are trained in the latest technologies and industry best practices, ensuring your computers and critical infrastructure operate at peak performance with maximum reliability and security. Professional computer repair shop with competitive pricing and warranty on all repairs.",
+      "Ashburn Data Center Solutions trains data center technicians in Sterling, VA. Our 8-week Server Support BootCamp mixes classroom lessons with hands-on lab work. You will learn server hardware, BIOS and RAID setup, Linux, networking, and remote server management, taught by working technicians in a real lab.",
   },
   {
-    heading: "Computer Hardware Repair & Infrastructure",
-    subheading: "Expert Computer Repair Services",
-    imageSrc: serverRedundancyIllustrationImageSrc,
+    heading: "Hands-On Hardware Labs",
+    subheading: "Real Server Hardware, Real Practice",
+    imageSrc: serverIllustration2ImageSrc,
     primaryButtonText: "Learn More",
     textOnLeft: false,
     description:
-      "Professional computer hardware repair and infrastructure management services with precision installation, proper cable management, and optimal space utilization. Our certified computer repair technicians handle everything from laptop repair to server systems, implementing industry standards for computer repair, rack organization, power distribution, and environmental monitoring. Expert computer repair services for all your hardware needs.",
+      "Every week has classroom time and lab time. You will practice racking and cabling, RJ45 crimping, hardware assembly, drive installation, BIOS setup, and full system troubleshooting. You leave with real practice, not just theory.",
   },
   {
-    heading: "Network & Security Solutions",
-    subheading: "Computer Repair & Infrastructure Security",
-    imageSrc: serverSecureIllustrationImageSrc,
+    heading: "Networking and Remote Management",
+    subheading: "IPMI, Routing, and Infrastructure Security",
+    imageSrc: serverSecurityIllustrationImageSrc,
     primaryButtonText: "Learn More",
     textOnLeft: true,
     description:
-      "Comprehensive network infrastructure and computer repair services including switch configuration, routing setup, VLAN management, and security implementation. Our computer repair technicians provide troubleshooting, optimization, and redundancy solutions to ensure high availability and reliable network performance for your computer systems and data center operations. Professional computer repair and IT support services.",
+      "You will learn the difference between routers and switches, how IP addressing works, and how to manage servers remotely with IPMI. These are the exact networking skills that data center employers look for.",
   },
 ];
 
@@ -84,74 +84,74 @@ export const FeatureData = [
   {
     heading: (
       <>
-        Computer Repair <HighlightedText>Services</HighlightedText> & Data Center Expertise
+        Server Support <HighlightedText>BootCamp</HighlightedText>: Data Center Technician Training
       </>
     ),
-    subheading: "Professional Computer Repair Services",
+    subheading: "8-Week Hands-On Program",
     description:
-      "Our certified computer repair technicians provide comprehensive computer repair services including laptop repair, PC repair, printer repair, and infrastructure management to ensure your computers and data center operate at peak efficiency with maximum reliability and security. Professional computer repair near me with fast service and competitive pricing.",
+      "Our instructors train data center technicians through hands-on server hardware, networking, and Linux training. Classroom lessons are paired with real lab sessions so you are ready for real data center work.",
   },
 ];
 
 export const FeatureCardsDataL1 = [
   {
     imageSrc: ReliableIconImage,
-    title: "Computer Hardware Installation",
+    title: "Server Hardware and Troubleshooting",
     description:
-      "Professional computer repair services including laptop repair, PC repair, hardware installation with proper diagnostics and documentation",
+      "Hands-on training in server hardware parts, diagnostics, and troubleshooting, using real equipment in our lab.",
   },
   {
     imageSrc: FastIconImage,
-    title: "Computer Repair & Break-Fix Services",
+    title: "BIOS Configuration and RAID Setup",
     description:
-      "Rapid diagnosis and repair of computer hardware failures with certified computer repair technicians and quality replacement parts",
+      "Learn BIOS and UEFI setup, POST diagnostics, and RAID levels (0, 1, 5, 10) through guided lab practice.",
   },
   {
     imageSrc: SimpleIconImage,
-    title: "Preventive Computer Maintenance",
+    title: "Rack Systems and Cabling",
     description:
-      "Regular computer maintenance schedules to prevent hardware failures and optimize computer performance and reliability",
+      "Practice rack mounting, RJ45 crimping, and cabling standards used in real data centers.",
   },
 ];
 
 export const FeatureCardsDataL2 = [
   {
     imageSrc: ReliableIconImage,
-    title: "Network Infrastructure & Computer Repair",
+    title: "VMware, Linux, and Windows",
     description:
-      "Expert network configuration, troubleshooting, and optimization for reliable computer connectivity and data center operations",
+      "Install and set up VMware, Linux, and Windows Server, with hands-on command line practice all through the program.",
   },
   {
     imageSrc: FastIconImage,
-    title: "Computer Administration & Support",
+    title: "Advanced Network Configuration",
     description:
-      "Comprehensive computer management including OS installation, configuration, security, and performance tuning",
+      "Learn the difference between routers and switches, IP addressing, and network setup through hands-on labs.",
   },
   {
     imageSrc: SimpleIconImage,
-    title: "Infrastructure Monitoring",
+    title: "Remote Server Management",
     description:
-      "24/7 monitoring of computer systems and data center infrastructure including power, cooling, security, and environmental systems",
+      "Learn IPMI setup and remote troubleshooting, key skills for managing data center servers from anywhere.",
   },
 ];
 
 export const FeatureCardsDataL3 = [
   {
     imageSrc: ReliableIconImage,
-    title: "Advanced Computer Troubleshooting",
+    title: "Firmware and Driver Updates",
     description:
-      "Expert-level problem resolution for complex computer hardware and infrastructure issues with strategic solutions",
+      "Practice firmware and driver updates, including remote updates, on real server hardware.",
   },
   {
     imageSrc: FastIconImage,
-    title: "Infrastructure Design",
+    title: "Ticketing and Operations",
     description:
-      "Computer system and data center infrastructure planning, design, and implementation for optimal performance and scalability",
+      "Get an introduction to ticketing systems, parts handling, and logistics, the day to day side of data center work.",
   },
   {
     imageSrc: SimpleIconImage,
-    title: "Technical Consulting",
+    title: "Final Technical Assessment",
     description:
-      "Strategic technical consulting for computer optimization, security enhancement, and technology upgrades",
+      "Finish the BootCamp with a mock ticketing scenario, full system troubleshooting, and a final technical assessment.",
   },
 ];

@@ -2,7 +2,7 @@ import React from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import Header from "../headers/light.js";
-import DesignIllustration from "../../images/newImages/HeaderImage.png";
+import DataCenterIllustration from "../../images/server-illustration.svg";
 import { ReactComponent as SvgDecoratorBlob1 } from "../../images/svg-decorator-blob-1.svg";
 
 const Container = tw.div`relative`;
@@ -25,25 +25,25 @@ export default () => {
         <TwoColumn>
           <LeftColumn>
             <Heading>
-              Professional <HighlightedText>Computer Repair</HighlightedText> & Data Center Services
+              Data Center Technician Training in <HighlightedText>Sterling, VA</HighlightedText>
             </Heading>
             <Paragraph>
-              Expert laptop repair, PC repair, computer repair, and printer repair services with certified technicians. 
-              We provide fast, reliable computer repair services including hardware diagnostics, virus removal, data recovery, 
-              and network troubleshooting. Our data center server technicians ensure your critical infrastructure operates 
-              at peak performance with 24/7 support and emergency response services.
+              Want a career in IT with no office job boredom? Our Server Support BootCamp
+              teaches you real data center skills in just 8 weeks. You will learn server
+              hardware, networking, and Linux the hands-on way, in a real lab, taught by
+              working technicians. No prior IT experience needed.
             </Paragraph>
             <Paragraph>
-              <HighlightedText>Trusted Computer Repair & IT Services in Sterling, VA</HighlightedText>
+              <HighlightedText>Hands-On Data Center Training. Sterling, Virginia.</HighlightedText>
             </Paragraph>
           </LeftColumn>
           <RightColumn>
             <IllustrationContainer>
               <img
                 tw="min-w-0 w-full max-w-lg xl:max-w-3xl"
-                src={DesignIllustration}
-                alt="Computer Repair and Data Center Services"
-                style={{ borderRadius: "16px", height: "80%", width: "80%" }}
+                src={DataCenterIllustration}
+                alt="Data center technician working with server hardware"
+                style={{ height: "80%", width: "80%" }}
               />
             </IllustrationContainer>
           </RightColumn>
@@ -53,3 +53,4 @@ export default () => {
     </>
   );
 };
+
