@@ -13,17 +13,17 @@ import { ReactComponent as SvgDecoratorBlob2 } from "images/svg-decorator-blob-8
 
 const Subheading = tw(SubheadingBase)`mb-4 text-center`;
 const Heading = tw(SectionHeading)`w-full`;
-const Description = tw(SectionDescription)`w-full text-center`;
+const Description = tw(SectionDescription)`w-full max-w-2xl mx-auto text-center`;
 
 const Column = tw.div`flex flex-col items-center`;
-const HeaderContent = tw.div``;
+const HeaderContent = tw.div`w-full text-center`;
 
-const FAQSContainer = tw.dl`mt-12 max-w-4xl relative`;
-const FAQ = tw.div`cursor-pointer select-none mt-5 px-8 sm:px-10 py-5 sm:py-4 rounded-lg text-gray-800 hover:text-gray-900 bg-gray-200 hover:bg-gray-300 transition duration-300`;
+const FAQSContainer = tw.dl`mt-12 w-full max-w-4xl relative`;
+const FAQ = tw.div`w-full cursor-pointer select-none mt-5 px-8 sm:px-10 py-5 sm:py-4 rounded-lg text-gray-800 hover:text-gray-900 bg-gray-200 hover:bg-gray-300 transition duration-300`;
 const Question = tw.dt`flex justify-between items-center`;
-const QuestionText = tw.span`text-lg lg:text-xl font-semibold`;
+const QuestionText = tw.span`text-lg lg:text-xl font-semibold text-left pr-4`;
 const QuestionToggleIcon = styled.span`
-  ${tw`ml-2`}
+  ${tw`ml-2 flex-shrink-0`}
   svg {
     ${tw`w-6 h-6`}
   }
@@ -31,7 +31,7 @@ const QuestionToggleIcon = styled.span`
     transform: rotate(-180deg);
   }
 `;
-const Answer = tw.dd`pointer-events-none text-sm sm:text-base leading-relaxed mt-4`;
+const Answer = tw.dd`pointer-events-none text-sm sm:text-base leading-relaxed mt-4 text-left`;
 
 const DecoratorBlob1 = styled(SvgDecoratorBlob1)`
   ${tw`pointer-events-none -z-20 absolute right-0 top-0 h-56 w-56 opacity-15 transform translate-x-2/3 -translate-y-12 text-teal-400`}
