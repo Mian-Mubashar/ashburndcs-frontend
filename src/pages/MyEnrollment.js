@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import AnimationRevealPage from "helpers/AnimationRevealPage";
 import Header from "components/headers/light";
-import Footer from "components/footers/FiveColumnWithInputForm";
+import Footer from "components/footers/MiniCenteredFooter";
 import { enrollmentApi } from "services/enrollmentApi";
 import { getAuthToken } from "services/authApi";
 import { getTrackedEmail, saveEnrollmentTrack } from "utils/enrollmentStorage";
@@ -119,7 +119,7 @@ const Empty = styled.p`
 `;
 
 const STATUS_HELP = {
-  pending: "Waiting for admin to review your application. Check back here anytime — no need to enroll again.",
+  pending: "Waiting for admin to review your application. Check back here anytime. No need to enroll again.",
   approved: "You're approved and enrolled! Sign in to open your Student Dashboard.",
   completed: "You're fully enrolled! Sign in and open your Student Dashboard.",
   rejected: "This application was not approved. Contact ADCS for help.",
@@ -144,12 +144,12 @@ const showStatusSwal = (list) => {
     pending: {
       icon: "info",
       title: "Status: Pending",
-      text: "Your application is pending. Admin will review it soon — no need to enroll again.",
+      text: "Your application is pending. Admin will review it soon. No need to enroll again.",
     },
     approved: {
       icon: "success",
       title: "Status: Approved",
-      text: "Your application is approved — you are enrolled! Sign in to open your Student Dashboard.",
+      text: "Your application is approved and you are enrolled! Sign in to open your Student Dashboard.",
     },
     completed: {
       icon: "success",
@@ -238,7 +238,7 @@ export default function MyEnrollment() {
         <Title>My Enrollment</Title>
         <Sub>
           Enrolled but left the page? Enter your email anytime to check status.
-          When admin approves, you are fully enrolled — just sign in to your dashboard.
+          When admin approves, you are fully enrolled. Just sign in to your dashboard.
         </Sub>
 
         <SearchBox onSubmit={handleSearch}>

@@ -5,9 +5,13 @@ import SimpleIconImage from "images/simple-icon.svg";
 import SupportIconImage from "images/support-icon.svg";
 import ReliableIconImage from "images/reliable-icon.svg";
 import CustomizeIconImage from "images/customize-icon.svg";
-import serverIllustrationImageSrc from "images/server-illustration.svg";
-import serverIllustration2ImageSrc from "images/server-illustration-2.svg";
-import serverSecurityIllustrationImageSrc from "images/design-illustration-2.svg";
+
+/** Unique image per section — no duplicates with hero */
+const IMG = {
+  bootcamp: "/images/training/section-bootcamp.jpg?v=5",
+  labs: "/images/training/tech-lab.jpg?v=5",
+  network: "/images/training/section-network.jpg?v=5",
+};
 
 const HighlightedText = tw.span`text-primary-500`;
 
@@ -54,29 +58,22 @@ export const MainFeatureData = [
   {
     heading: "Server Support BootCamp",
     subheading: "Data Center Technician Training in Sterling, VA",
-    imageSrc: serverIllustrationImageSrc,
+    imageSrc: IMG.bootcamp,
     primaryButtonText: "View Course Outline",
+    primaryButtonUrl: "/course-outline",
     textOnLeft: true,
     description:
-      "Ashburn Data Center Solutions trains data center technicians in Sterling, VA. Our 8-week Server Support BootCamp mixes classroom lessons with hands-on lab work. You will learn server hardware, BIOS and RAID setup, Linux, networking, and remote server management, taught by working technicians in a real lab.",
+      "Ashburn Data Center Solutions trains data center technicians in Sterling, VA. Our 8-week Server Support BootCamp mixes classroom lessons with hands-on lab work. You will learn server hardware, BIOS and RAID setup, Linux, networking, and remote server management (IPMI), taught by working technicians in a real lab.",
   },
   {
     heading: "Hands-On Hardware Labs",
     subheading: "Real Server Hardware, Real Practice",
-    imageSrc: serverIllustration2ImageSrc,
-    primaryButtonText: "Learn More",
+    imageSrc: IMG.labs,
+    primaryButtonText: "See Full Schedule",
+    primaryButtonUrl: "/schedule",
     textOnLeft: false,
     description:
-      "Every week has classroom time and lab time. You will practice racking and cabling, RJ45 crimping, hardware assembly, drive installation, BIOS setup, and full system troubleshooting. You leave with real practice, not just theory.",
-  },
-  {
-    heading: "Networking and Remote Management",
-    subheading: "IPMI, Routing, and Infrastructure Security",
-    imageSrc: serverSecurityIllustrationImageSrc,
-    primaryButtonText: "Learn More",
-    textOnLeft: true,
-    description:
-      "You will learn the difference between routers and switches, how IP addressing works, and how to manage servers remotely with IPMI. These are the exact networking skills that data center employers look for.",
+      "Every week has classroom time and lab time. You will practice racking and cabling, RJ45 crimping, hardware assembly, drive installation, BIOS setup, networking, and full system troubleshooting. You leave with real practice, not just theory.",
   },
 ];
 

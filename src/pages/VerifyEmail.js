@@ -127,7 +127,7 @@ export default function VerifyEmailPage() {
         {status === "pending" && (
           <>
             <AuthMessage type="info">
-              We sent a verification link to your email. Click the button in that email — you will be signed in automatically.
+              We sent a verification link to your email. Click the button in that email and you will be signed in automatically.
             </AuthMessage>
             <ResendForm
               email={email}

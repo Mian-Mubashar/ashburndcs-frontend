@@ -13,22 +13,6 @@ import logo from "../../images/logo.svg";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
-const ChevronDown = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <polyline points="6 9 12 15 18 9" />
-  </svg>
-);
-
 const Header = tw.header`
   flex justify-between items-center
   max-w-screen-xl mx-auto
@@ -37,7 +21,7 @@ const Header = tw.header`
 export const NavLinks = tw.div`inline-flex flex-col lg:flex-row lg:flex-nowrap lg:items-center`;
 
 export const NavLink = tw.a`
-  text-lg my-2 lg:text-sm lg:mx-3 lg:my-0 lg:whitespace-nowrap
+  text-lg my-2 lg:text-sm lg:mx-2 lg:my-0 lg:whitespace-nowrap
   font-semibold tracking-wide transition duration-300
   pb-1 border-b-2 border-transparent hover:border-primary-500 hocus:text-primary-500
   cursor-pointer
@@ -52,118 +36,6 @@ export const PrimaryLink = tw(NavLink)`
   px-6 py-2 rounded bg-primary-500 text-gray-100
   hocus:bg-primary-700 hocus:text-gray-200 focus:shadow-outline
   border-b-0
-`;
-
-const DropdownWrap = styled.div`
-  position: relative;
-  display: inline-block;
-  ${tw`my-2 lg:my-0 lg:mx-3`}
-
-  @media (min-width: 1024px) {
-    &.open .nav-dropdown,
-    &:focus-within .nav-dropdown {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-  }
-
-  &.open .nav-dropdown {
-    display: block;
-
-    @media (min-width: 1024px) {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-  }
-`;
-
-const DropdownTrigger = styled.button`
-  ${tw`text-lg lg:text-sm font-semibold tracking-wide transition duration-300 text-gray-900`}
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  padding: 0 0 1px;
-  cursor: pointer;
-  white-space: nowrap;
-
-  &:hover,
-  &:focus {
-    ${tw`text-primary-500 border-primary-500`}
-    outline: none;
-  }
-
-  svg {
-    width: 14px;
-    height: 14px;
-    transition: transform 0.2s;
-  }
-
-  ${(p) => p.$open && "svg { transform: rotate(180deg); }"}
-  ${(p) => p.$active && tw`text-primary-500 border-primary-500`}
-`;
-
-const DropdownMenu = styled.div`
-  @media (min-width: 1024px) {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 220px;
-    padding-top: 8px;
-    z-index: 200;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(6px);
-    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
-    pointer-events: none;
-  }
-
-  @media (max-width: 1023px) {
-    display: none;
-    padding: 4px 0 4px 12px;
-  }
-`;
-
-const DropdownMenuPanel = styled.div`
-  @media (min-width: 1024px) {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-    border: 1px solid #f3f4f6;
-    padding: 6px 0;
-    overflow: hidden;
-  }
-`;
-
-const DropdownItem = styled.button`
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 10px 18px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #374151;
-  background: none;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
-
-  &:hover {
-    background: #faf5ff;
-    color: #6415ff;
-  }
-
-  @media (max-width: 1023px) {
-    text-align: center;
-    font-size: 16px;
-    padding: 8px 12px;
-  }
 `;
 
 export const LogoLink = styled(NavLink)`
@@ -204,7 +76,6 @@ export default ({
   const nav = useNavigate();
   const { pathname } = useLocation();
   const navigateTo = navigate || nav;
-  const [servicesOpen, setServicesOpen] = useState(false);
 
   const handleSignOut = () => {
     clearAuthToken();
@@ -217,70 +88,26 @@ export default ({
     return pathname === path || pathname.startsWith(`${path}/`);
   };
 
-  const isServicesActive = ["/services", "/d-services", "/career"].some((path) => isActive(path));
-
-  const go = (path) => {
-    setServicesOpen(false);
-    navigateTo(path);
-  };
-
-  const isDesktopNav = () => window.matchMedia("(min-width: 1024px)").matches;
-
-  const openServicesMenu = () => {
-    if (isDesktopNav()) setServicesOpen(true);
-  };
-
-  const closeServicesMenu = () => {
-    if (isDesktopNav()) setServicesOpen(false);
-  };
-
-  const toggleServicesMenu = () => {
-    setServicesOpen((v) => !v);
-  };
-
-  const servicesDropdown = (
-    <DropdownWrap
-      className={servicesOpen ? "open" : ""}
-      onMouseEnter={openServicesMenu}
-      onMouseLeave={closeServicesMenu}
-    >
-      <DropdownTrigger
-        type="button"
-        $open={servicesOpen}
-        $active={isServicesActive}
-        aria-expanded={servicesOpen}
-        aria-haspopup="true"
-        onClick={toggleServicesMenu}
-      >
-        IT Services
-        <ChevronDown />
-      </DropdownTrigger>
-      <DropdownMenu className="nav-dropdown">
-        <DropdownMenuPanel>
-          <DropdownItem type="button" onClick={() => go("/services")}>
-            IT Services
-          </DropdownItem>
-          <DropdownItem type="button" onClick={() => go("/d-services")}>
-            Data Center Services
-          </DropdownItem>
-          <DropdownItem type="button" onClick={() => go("/career")}>
-            Career
-          </DropdownItem>
-        </DropdownMenuPanel>
-      </DropdownMenu>
-    </DropdownWrap>
-  );
-
   const defaultLinks = [
     <NavLinks key={1}>
+      {/* Journey order: learn → dates → apply → pay → track → jobs → contact */}
       <ActiveNavLink $active={isActive("/", true)} onClick={() => navigateTo("/")}>
         Home
       </ActiveNavLink>
       <ActiveNavLink $active={isActive("/about-us")} onClick={() => navigateTo("/about-us")}>
         About Us
       </ActiveNavLink>
+      <ActiveNavLink $active={isActive("/course-outline")} onClick={() => navigateTo("/course-outline")}>
+        Course Outline
+      </ActiveNavLink>
       <ActiveNavLink $active={isActive("/schedule")} onClick={() => navigateTo("/schedule")}>
         Schedule
+      </ActiveNavLink>
+      <ActiveNavLink $active={isActive("/registration")} onClick={() => navigateTo("/registration")}>
+        Registration
+      </ActiveNavLink>
+      <ActiveNavLink $active={isActive("/payment")} onClick={() => navigateTo("/payment")}>
+        Payment
       </ActiveNavLink>
       {!auth && (
         <ActiveNavLink $active={isActive("/my-enrollment")} onClick={() => navigateTo("/my-enrollment")}>
@@ -294,15 +121,6 @@ export default ({
       )}
       <ActiveNavLink $active={isActive("/career")} onClick={() => navigateTo("/career")}>
         Career
-      </ActiveNavLink>
-      <ActiveNavLink $active={isActive("/course-outline")} onClick={() => navigateTo("/course-outline")}>
-        Course Outline & FAQ
-      </ActiveNavLink>
-      <ActiveNavLink $active={isActive("/registration")} onClick={() => navigateTo("/registration")}>
-        Registration
-      </ActiveNavLink>
-      <ActiveNavLink $active={isActive("/payment")} onClick={() => navigateTo("/payment")}>
-        Payment
       </ActiveNavLink>
       <ActiveNavLink $active={isActive("/contact-us")} onClick={() => navigateTo("/contact-us")}>
         Contact Us

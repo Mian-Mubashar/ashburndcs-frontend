@@ -1,13 +1,12 @@
 import React from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import tw from "twin.macro";
-import styled from "styled-components"; //eslint-disable-line
-import { css } from "styled-components/macro"; //eslint-disable-line
+import styled from "styled-components"; 
+import { css } from "styled-components/macro"; 
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter";
 import MainFeature1 from "components/features/TwoColWithButton.js";
 import Features from "components/features/ThreeColSimple.js";
-
 import SupportIconImage from "images/support-icon.svg";
 import ShieldIconImage from "images/shield-icon.svg";
 import CustomerLoveIconImage from "images/simple-icon.svg";

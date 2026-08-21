@@ -1,5 +1,4 @@
 import tw from "twin.macro";
-import loveIllustrationImageSrc from "images/love-illustration.svg";
 
 const HighlightedText = tw.span`text-primary-500`;
 
@@ -43,10 +42,10 @@ export const TestimonialData = {
       customerTitle: "Class of 2026",
     },
   ],
-  imageSrc: loveIllustrationImageSrc,
+  imageSrc: "/images/training/hero-lab.png?v=3",
   imageRounded: true,
   imageBorder: false,
-  imageShadow: false,
+  imageShadow: true,
   subheading: "Student Testimonials",
   textOnLeft: false,
 };

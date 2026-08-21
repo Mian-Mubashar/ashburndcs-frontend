@@ -1,390 +1,339 @@
-import React, { useState } from "react";
+import React from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter";
-import {
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
-import axios from "axios";
-import { Toast } from "helpers/Alert";
 import zelleQr from "images/payment/zelle-qr.png";
 import venmoQr from "images/payment/venmo-qr.jpg";
 
-const elementOptions = {
-  style: {
-    base: {
-      fontSize: "16px",
-      color: "#1F2937",
-      fontFamily: "Inter, sans-serif",
-      "::placeholder": { color: "#9CA3AF" },
-      iconColor: "#6415ff",
-    },
-    invalid: { color: "#EF4444", iconColor: "#EF4444" },
+/** Contact from client flyer. payment confirmations */
+const PAY_EMAIL = "adcstrainingcenter@gmail.com";
+const PAY_PHONE = "(571) 228-5050";
+const PAY_PHONE_TEL = "+15712285050";
+
+const METHODS = [
+  {
+    id: "zelle",
+    name: "Zelle",
+    badge: "Preferred · no fee",
+    desc: "Pay for ADCS training with Zelle. Preferred method with no fee. Send to LTeamHomes, LLC and put your name in the memo.",
+    qr: zelleQr,
+    alt: "Zelle QR code for LTeamHomes, LLC",
   },
-};
-
-function StripeBackupForm() {
-  const [amount, setAmount] = useState("");
-  const [email, setEmail] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
-  const [paymentId, setPaymentId] = useState("");
-
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const handleAmountChange = (e) => {
-    const value = e.target.value;
-    if (value === "" || /^\d*\.?\d*$/.test(value)) setAmount(value);
-  };
-
-  const handlePay = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements) return;
-
-    if (!amount || Number(amount) <= 0) {
-      Toast({ message: "Please enter a valid amount", type: "error" });
-      return;
-    }
-    if (!email) {
-      Toast({ message: "Please enter your email", type: "error" });
-      return;
-    }
-
-    setIsProcessing(true);
-
-    try {
-      const backendUrl = (process.env.REACT_APP_BACKEND_URL || "http://localhost:5000/").replace(/\/$/, "");
-
-      const { data } = await axios.post(
-        `${backendUrl}/create-payment-intent`,
-        { amount: Number(amount), email },
-        { headers: { "Content-Type": "application/json" } }
-      );
-
-      if (!data.clientSecret) throw new Error("No client secret returned from backend");
-
-      const cardElement = elements.getElement(CardNumberElement);
-      const result = await stripe.confirmCardPayment(data.clientSecret, {
-        payment_method: { card: cardElement, billing_details: { email } },
-      });
-
-      if (result.error) {
-        Toast({ message: result.error.message, type: "error" });
-        setIsProcessing(false);
-      } else if (result.paymentIntent?.status === "succeeded") {
-        setPaymentSuccess(true);
-        setPaymentId(result.paymentIntent.id);
-        Toast({ message: "Payment Successful!", type: "success" });
-        setIsProcessing(false);
-      }
-    } catch (err) {
-      let msg = "Payment failed. Please try again.";
-      if (err.response) msg = err.response.data?.error || "Server error";
-      else if (err.message === "Network Error") msg = "Cannot connect to server. Ensure backend is running.";
-      Toast({ message: msg, type: "error" });
-      setIsProcessing(false);
-    }
-  };
-
-  if (paymentSuccess) {
-    return (
-      <div className="stripe-success">
-        <p className="stripe-success-check">✓</p>
-        <h3>Payment Successful</h3>
-        <p>Transaction ID: {paymentId}</p>
-        <p>
-          Thank you for your payment of <b>${amount}</b>. A confirmation email has been sent to {email}.
-        </p>
-        <button type="button" className="btn-secondary" onClick={() => { setPaymentSuccess(false); setAmount(""); }}>
-          Make Another Payment
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <form className="stripe-form" onSubmit={handlePay}>
-      <label>
-        Email Address
-        <input type="email" placeholder="you@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={isProcessing} />
-      </label>
-
-      <label>
-        Amount (USD)
-        <input type="text" placeholder="0.00" value={amount} onChange={handleAmountChange} required disabled={isProcessing} />
-      </label>
-
-      <label>
-        Card Number
-        <div className="stripe-element-wrap"><CardNumberElement options={{ ...elementOptions, showIcon: true }} /></div>
-      </label>
-
-      <div className="stripe-row">
-        <label>
-          Expiry
-          <div className="stripe-element-wrap"><CardExpiryElement options={elementOptions} /></div>
-        </label>
-        <label>
-          CVC
-          <div className="stripe-element-wrap"><CardCvcElement options={elementOptions} /></div>
-        </label>
-      </div>
-
-      <button type="submit" className="btn-primary" disabled={!stripe || isProcessing}>
-        {isProcessing ? "Processing..." : `Pay ${amount ? `$${amount}` : "Now"}`}
-      </button>
-    </form>
-  );
-}
-
-// Card payment (Stripe) is hidden per client request, QR codes only for now.
-// Flip to true to bring the "Prefer to pay by card instead?" option back.
-const SHOW_CARD_PAYMENT_OPTION = false;
+  {
+    id: "venmo",
+    name: "Venmo",
+    badge: "2% fee applies",
+    desc: "Pay for ADCS training with Venmo (@LTeamHomes). A 2% fee applies, so include your name in the memo.",
+    qr: venmoQr,
+    alt: "Venmo QR code for @LTeamHomes",
+  },
+];
 
 export default function PaymentPage() {
-  const [showStripe, setShowStripe] = useState(false);
-  const [selectedMethod, setSelectedMethod] = useState("zelle");
-
   return (
     <AnimationRevealPage>
       <Header />
-      <main className="payment-page">
-        <div className="payment-header">
-          <h1>Pay Tuition</h1>
-        </div>
+      <main className="pay">
+        <header className="pay-hero">
+          <p className="eyebrow">8-Week Server Support BootCamp</p>
+          <h1>
+            Pricing &amp; <span>payment</span>
+          </h1>
+          <p className="lede">
+            Scan a QR below to pay ADCS BootCamp tuition. Use Zelle or Venmo, then confirm with us
+            by email or phone.
+          </p>
+        </header>
 
-        <p className="payment-intro">
-          Use the Zelle QR code to pay with Zelle. Use the Venmo QR code to pay with Venmo.
-        </p>
-
-        <div className="qr-grid" role="radiogroup" aria-label="Payment method">
-          <button
-            type="button"
-            className={`qr-card${selectedMethod === "zelle" ? " selected" : ""}`}
-            onClick={() => setSelectedMethod("zelle")}
-            role="radio"
-            aria-checked={selectedMethod === "zelle"}
-          >
-            <p className="qr-label">Zelle (Preferred, no fee)</p>
-            <img src={zelleQr} alt="Zelle QR code for LTeamHomes, LLC" />
-          </button>
-
-          <button
-            type="button"
-            className={`qr-card${selectedMethod === "venmo" ? " selected" : ""}`}
-            onClick={() => setSelectedMethod("venmo")}
-            role="radio"
-            aria-checked={selectedMethod === "venmo"}
-          >
-            <p className="qr-label">Venmo (2% fee applies)</p>
-            <img src={venmoQr} alt="Venmo QR code, @LTeamHomes" />
-          </button>
-        </div>
-
-        {/* Card payment backup hidden per client request. Re-enable by
-            setting SHOW_CARD_PAYMENT_OPTION back to true at the top of
-            this file. */}
-        {SHOW_CARD_PAYMENT_OPTION && (
-          <div className="stripe-toggle-wrap">
-            {!showStripe ? (
-              <button type="button" className="btn-secondary" onClick={() => setShowStripe(true)}>
-                Prefer to pay by card instead?
-              </button>
-            ) : (
-              <div className="stripe-backup">
-                <h2>Pay by Card</h2>
-                <StripeBackupForm />
-              </div>
-            )}
+        <div className="price-strip" aria-label="Tuition pricing">
+          <div>
+            <span className="pl">Per month</span>
+            <strong>$1,400</strong>
+            <em>2 monthly payments</em>
           </div>
-        )}
-      </main>
+          <div className="featured">
+            <span className="pl">Pay in full</span>
+            <strong>$2,650</strong>
+            <em>Includes $150 discount</em>
+          </div>
+          <div>
+            <span className="pl">Total cost</span>
+            <strong>$2,800</strong>
+            <em>Before full-pay discount</em>
+          </div>
+        </div>
 
+        <div className="qr-flex">
+          {METHODS.map((m) => (
+            <article key={m.id} className={`qr-card${m.id === "zelle" ? " preferred" : ""}`}>
+              <div className="qr-top">
+                <div className="qr-title-row">
+                  <h2>{m.name}</h2>
+                  <span className="badge">{m.badge}</span>
+                </div>
+                <p>{m.desc}</p>
+              </div>
+              <img src={m.qr} alt={m.alt} />
+            </article>
+          ))}
+        </div>
+
+        <div className="pay-contact">
+          <p>
+            After you pay, confirm with the training team so we can match your payment to enrollment.
+          </p>
+          <div className="contact-links">
+            <a href={`mailto:${PAY_EMAIL}`}>{PAY_EMAIL}</a>
+            <span className="dot" aria-hidden="true">·</span>
+            <a href={`tel:${PAY_PHONE_TEL}`}>{PAY_PHONE}</a>
+          </div>
+        </div>
+      </main>
       <Footer />
 
       <style>{`
-        .payment-page {
-          max-width: 780px;
+        .pay {
+          --navy: #0a1628;
+          --gold: #f5c518;
+          --ink: #0f1c2e;
+          --muted: #4a5568;
+          --line: #e2e8f0;
+          max-width: 980px;
           margin: 0 auto;
-          padding: 48px 20px 60px;
+          padding: 40px 16px 56px;
+          color: var(--ink);
         }
 
-        .payment-header h1 {
-          font-size: 30px;
-          font-weight: 900;
-          color: #111827;
-          margin: 0 0 6px;
-        }
-
-        .payment-header p {
-          color: #6b7280;
-          font-size: 15px;
-          margin: 0 0 32px;
-        }
-
-        .payment-intro {
+        .pay-hero {
           text-align: center;
-          font-size: 15px;
-          color: #4b5563;
-          margin: 0 0 24px;
+          max-width: 620px;
+          margin: 0 auto 28px;
         }
 
-        .qr-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
+        .eyebrow {
+          display: inline-block;
+          margin: 0 0 12px;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #1e3a5f;
+          background: rgba(30, 58, 95, 0.08);
+          padding: 6px 12px;
+          border-radius: 999px;
+        }
+
+        .pay-hero h1 {
+          margin: 0 0 12px;
+          font-size: clamp(1.9rem, 3.2vw, 2.55rem);
+          font-weight: 900;
+          letter-spacing: -0.02em;
+          color: var(--navy);
+          line-height: 1.15;
+        }
+
+        .pay-hero h1 span {
+          color: #c9a227;
+        }
+
+        .lede {
+          margin: 0;
+          font-size: 1rem;
+          line-height: 1.7;
+          color: var(--muted);
+        }
+
+        .price-strip {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          justify-content: center;
+          margin-bottom: 28px;
+        }
+
+        .price-strip > div {
+          flex: 1 1 160px;
+          max-width: 220px;
+          text-align: center;
+          padding: 16px 14px;
+          border-radius: 12px;
+          background: #f7fafc;
+          border: 1px solid var(--line);
+        }
+
+        .price-strip > div.featured {
+          background: linear-gradient(160deg, #0a1628 0%, #1a365d 100%);
+          border-color: transparent;
+          color: #fff;
+          box-shadow: 0 14px 32px rgba(10, 22, 40, 0.22);
+        }
+
+        .price-strip .pl {
+          display: block;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #64748b;
+          margin-bottom: 6px;
+        }
+
+        .price-strip .featured .pl {
+          color: var(--gold);
+        }
+
+        .price-strip strong {
+          display: block;
+          font-size: 1.65rem;
+          font-weight: 900;
+          letter-spacing: -0.02em;
+          color: var(--navy);
+          margin-bottom: 4px;
+        }
+
+        .price-strip .featured strong {
+          color: #fff;
+        }
+
+        .price-strip em {
+          font-style: normal;
+          font-size: 12px;
+          font-weight: 600;
+          color: #64748b;
+        }
+
+        .price-strip .featured em {
+          color: rgba(255, 255, 255, 0.75);
+        }
+
+        .qr-flex {
+          display: flex;
+          flex-wrap: wrap;
           gap: 20px;
-          margin-bottom: 20px;
+          justify-content: center;
+          margin-bottom: 28px;
         }
 
         .qr-card {
-          border: 1px solid #e5e7eb;
-          border-radius: 14px;
-          padding: 22px;
-          text-align: center;
+          flex: 1 1 280px;
+          max-width: 440px;
           background: #fff;
-          font-family: inherit;
-          cursor: pointer;
-          transition: border-color 0.15s, box-shadow 0.15s;
+          border: 1px solid var(--line);
+          border-radius: 16px;
+          padding: 22px 20px 24px;
+          text-align: center;
+          box-shadow: 0 12px 32px rgba(15, 28, 46, 0.06);
         }
 
-        .qr-card.selected {
-          border-color: #6415ff;
-          box-shadow: 0 0 0 2px #6415ff inset;
+        .qr-card.preferred {
+          border-color: #1a365d;
+          box-shadow: 0 14px 36px rgba(10, 22, 40, 0.12);
         }
 
-        .qr-card:hover:not(.selected) {
-          border-color: #d1d5db;
+        .qr-top {
+          margin-bottom: 16px;
+          text-align: left;
         }
 
-        .qr-card:focus-visible {
-          outline: 2px solid #6415ff;
-          outline-offset: 2px;
+        .qr-title-row {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 8px 10px;
+          margin-bottom: 10px;
         }
 
-        .qr-label {
+        .qr-top h2 {
+          margin: 0;
+          font-size: 1.25rem;
+          font-weight: 900;
+          color: var(--navy);
+        }
+
+        .badge {
+          font-size: 10px;
           font-weight: 800;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: #78350f;
+          background: #fef3c7;
+          padding: 4px 10px;
+          border-radius: 999px;
+        }
+
+        .qr-card.preferred .badge {
+          color: #0a1628;
+          background: var(--gold);
+        }
+
+        .qr-top p {
+          margin: 0;
           font-size: 14px;
-          color: #111827;
-          margin: 0 0 14px;
+          line-height: 1.55;
+          color: var(--muted);
         }
 
         .qr-card img {
           width: 100%;
-          max-width: 220px;
-          border-radius: 8px;
-        }
-
-        .stripe-toggle-wrap {
-          border-top: 1px solid #e5e7eb;
-          padding-top: 28px;
-          text-align: center;
-        }
-
-        .btn-secondary {
-          background: transparent;
-          color: #111827;
-          border: 1.5px solid #d1d5db;
-          font-weight: 700;
-          font-size: 14px;
-          padding: 12px 22px;
-          border-radius: 8px;
-          cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-          border-color: #111827;
-        }
-
-        .stripe-backup {
-          max-width: 420px;
+          max-width: 236px;
+          border-radius: 12px;
+          border: 1px solid var(--line);
+          display: block;
           margin: 0 auto;
-          text-align: left;
         }
 
-        .stripe-backup h2 {
-          font-size: 18px;
-          font-weight: 800;
-          color: #111827;
-          margin: 0 0 16px;
+        .pay-contact {
           text-align: center;
+          max-width: 520px;
+          margin: 0 auto;
+          padding: 20px 18px;
+          border-radius: 12px;
+          background: #f7fafc;
+          border: 1px solid var(--line);
         }
 
-        .stripe-form {
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-        }
-
-        .stripe-form label {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          font-size: 13px;
-          font-weight: 700;
-          color: #374151;
-        }
-
-        .stripe-form input {
-          padding: 10px 12px;
-          border-radius: 8px;
-          border: 1px solid #d1d5db;
+        .pay-contact p {
+          margin: 0 0 12px;
           font-size: 14px;
+          line-height: 1.55;
+          color: var(--muted);
         }
 
-        .stripe-element-wrap {
-          padding: 10px 12px;
-          border-radius: 8px;
-          border: 1px solid #d1d5db;
-        }
-
-        .stripe-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 14px;
-        }
-
-        .btn-primary {
-          background: #6415ff;
-          color: #fff;
-          border: none;
-          font-weight: 800;
+        .contact-links {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 8px 10px;
           font-size: 15px;
-          padding: 14px 26px;
-          border-radius: 8px;
-          cursor: pointer;
+          font-weight: 700;
         }
 
-        .btn-primary:hover {
-          background: #5a13e6;
+        .contact-links a {
+          color: #0a1628;
+          text-decoration: none;
         }
 
-        .btn-primary:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
+        .contact-links a:hover {
+          color: #c9a227;
         }
 
-        .stripe-success {
-          text-align: center;
-          padding: 20px 0;
+        .contact-links .dot {
+          color: #cbd5e1;
         }
 
-        .stripe-success-check {
-          font-size: 32px;
-          color: #059669;
-        }
-
-        @media (max-width: 600px) {
-          .qr-grid {
-            grid-template-columns: 1fr;
+        @media (max-width: 640px) {
+          .qr-flex {
+            flex-direction: column;
+            align-items: stretch;
           }
 
-          .stripe-row {
-            grid-template-columns: 1fr;
+          .qr-card {
+            max-width: none;
+          }
+
+          .price-strip > div {
+            max-width: none;
           }
         }
       `}</style>

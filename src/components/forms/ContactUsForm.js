@@ -1,44 +1,95 @@
 import React, { useState } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
-import {
-  SectionHeading,
-  Subheading as SubheadingBase,
-} from "components/misc/Headings.js";
-import EmailIllustrationSrc from "images/email-illustration.svg";
 import { Toast } from "helpers/Alert";
 import axios from "axios";
 
-const Container = tw.div`relative`;
-const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-20 md:py-24`;
-const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
-const ImageColumn = tw(Column)`md:w-5/12 flex-shrink-0 h-80 md:h-auto`;
-const TextColumn = styled(Column)((props) => [
-  tw`md:w-7/12 mt-16 md:mt-0`,
-  props.textOnLeft
-    ? tw`md:mr-12 lg:mr-16 md:order-first`
-    : tw`md:ml-12 lg:ml-16 md:order-last`,
-]);
+const MAP_EMBED_SRC =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3101.0910922701123!2d-77.42639602535358!3d38.99041734121231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b639c9b42f6fb7%3A0x4ee85b0a7f47cb34!2sAshburn%20Data%20Center%20Solutions!5e0!3m2!1sen!2s!4v1754300995830!5m2!1sen!2s";
 
-const Image = styled.div((props) => [
-  `background-image: url("${props.imageSrc}");`,
-  tw`rounded bg-contain bg-no-repeat bg-center h-full`,
-]);
-const TextContent = tw.div`lg:py-8 text-center md:text-left`;
+const Container = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 12px 20px;
+  width: 100%;
+`;
 
-const Subheading = tw(SubheadingBase)`text-center md:text-left`;
-const Heading = tw(
-  SectionHeading
-)`mt-4 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
-const Description = tw.p`mt-4 text-center md:text-left text-sm md:text-base lg:text-lg font-medium leading-relaxed text-secondary-100`;
+const PageHeader = styled.div`
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 36px;
+`;
+
+const Eyebrow = styled.p`
+  display: inline-block;
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #243e63;
+  background: rgba(36, 62, 99, 0.08);
+  padding: 6px 12px;
+  border-radius: 999px;
+`;
+
+const Heading = styled.h1`
+  margin: 0 0 14px;
+  font-size: clamp(1.85rem, 3.2vw, 2.65rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #0f1c2e;
+  letter-spacing: -0.02em;
+`;
+
+const Description = styled.p`
+  margin: 0 auto 22px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #4a5568;
+  max-width: 38rem;
+`;
+
+const TrustRow = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 18px;
+`;
+
+const TrustItem = styled.li`
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+
+  span {
+    color: #16a34a;
+    margin-right: 6px;
+  }
+`;
+
+const FormMapGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: stretch;
+
+  @media (min-width: 960px) {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 28px;
+  }
+`;
 
 const FormCard = styled.div`
-  ${tw`mt-8 md:mt-10 max-w-xl mx-auto md:mx-0`}
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 28px 24px;
-  box-shadow: 0 12px 40px rgba(100, 21, 255, 0.08);
+  box-shadow: 0 16px 40px rgba(15, 28, 46, 0.07);
+  height: 100%;
 
   @media (min-width: 768px) {
     padding: 32px;
@@ -46,23 +97,105 @@ const FormCard = styled.div`
 `;
 
 const FormCardHeader = styled.div`
-  margin-bottom: 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #f3f4f6;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #edf2f7;
 
-  h3 {
+  h2 {
     margin: 0 0 6px;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 800;
-    color: #111827;
+    color: #0f1c2e;
   }
 
   p {
     margin: 0;
     font-size: 14px;
-    color: #6b7280;
-    line-height: 1.5;
+    color: #64748b;
+    line-height: 1.55;
   }
+`;
+
+const MapPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(15, 28, 46, 0.07);
+  min-height: 480px;
+
+  @media (min-width: 960px) {
+    min-height: 100%;
+  }
+`;
+
+const MapFrame = styled.div`
+  flex: 1 1 auto;
+  min-height: 260px;
+  position: relative;
+  background: #cbd5e1;
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+`;
+
+const MapDetails = styled.div`
+  padding: 20px 22px 22px;
+  border-top: 1px solid #e2e8f0;
+  background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+`;
+
+const MapTitle = styled.h3`
+  margin: 0 0 14px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f1c2e;
+`;
+
+const DetailList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+`;
+
+const DetailItem = styled.li`
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+
+  strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 2px;
+  }
+
+  a {
+    color: #0f1c2e;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #6415ff;
+  }
+`;
+
+const ModalWrap = styled.div`
+  width: 100%;
 `;
 
 const Form = tw.form`flex flex-col gap-5`;
@@ -85,8 +218,7 @@ const Field = styled.div`
 const Label = styled.label`
   font-size: 13px;
   font-weight: 700;
-  color: #374151;
-  letter-spacing: 0.02em;
+  color: #334155;
 `;
 
 const inputStyles = `
@@ -94,22 +226,22 @@ const inputStyles = `
   padding: 12px 14px;
   font-size: 15px;
   font-weight: 500;
-  color: #111827;
-  background: #f9fafb;
-  border: 1.5px solid #e5e7eb;
+  color: #0f1c2e;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
   border-radius: 10px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 
   &::placeholder {
-    color: #9ca3af;
+    color: #94a3b8;
     font-weight: 400;
   }
 
   &:focus {
     background: #fff;
-    border-color: #6415ff;
-    box-shadow: 0 0 0 3px rgba(100, 21, 255, 0.12);
+    border-color: #243e63;
+    box-shadow: 0 0 0 3px rgba(36, 62, 99, 0.12);
   }
 
   &:disabled {
@@ -121,35 +253,27 @@ const inputStyles = `
 const Input = styled.input`${inputStyles}`;
 const Textarea = styled.textarea`
   ${inputStyles}
-  min-height: 120px;
+  min-height: 110px;
   resize: vertical;
   line-height: 1.6;
 `;
 
 const SubmitButton = styled.button`
   width: 100%;
-  margin-top: 8px;
+  margin-top: 4px;
   padding: 14px 20px;
   border: none;
-  border-radius: 12px;
-  background-color: #6415ff;
-  background-image: linear-gradient(90deg, #6415ff, #430ce5);
-  color: #ffffff;
-  font-size: 16px;
+  border-radius: 10px;
+  background: #1a202c;
+  color: #fff;
+  font-size: 15px;
   font-weight: 700;
   font-family: inherit;
-  line-height: 1.25;
   cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+  transition: background 0.2s;
 
   &:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(100, 21, 255, 0.35);
-    color: #ffffff;
-    background-color: #430ce5;
-    background-image: linear-gradient(90deg, #6415ff, #430ce5);
+    background: #2d3748;
   }
 
   &:disabled {
@@ -160,65 +284,60 @@ const SubmitButton = styled.button`
 
 const WhatsAppButton = styled.button`
   width: 100%;
-  margin-top: 12px;
-  padding: 14px 20px;
-  border: none;
-  border-radius: 12px;
-  background-color: #16a34a;
-  background-image: linear-gradient(90deg, #22c55e, #16a34a);
-  color: #ffffff;
-  font-size: 16px;
+  margin-top: 10px;
+  padding: 13px 20px;
+  border: 2px solid #16a34a;
+  border-radius: 10px;
+  background: #fff;
+  color: #15803d;
+  font-size: 15px;
   font-weight: 700;
   font-family: inherit;
-  line-height: 1.25;
   cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: background 0.2s, color 0.2s;
 
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.35);
-    color: #ffffff;
-    background-color: #15803d;
-    background-image: linear-gradient(90deg, #22c55e, #16a34a);
+    background: #f0fdf4;
   }
 `;
 
 const SuccessButton = styled(SubmitButton)`
-  margin-top: 24px;
-  max-width: 280px;
-  background-color: #ffffff;
-  background-image: none;
+  margin: 24px auto 0;
+  max-width: 260px;
+  background: #fff;
   color: #15803d;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 
   &:hover:not(:disabled) {
-    background-color: #f0fdf4;
-    background-image: none;
-    color: #166534;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background: #f0fdf4;
   }
 `;
 
 const SuccessCard = styled.div`
-  ${tw`mt-8 p-8 text-center max-w-xl mx-auto md:mx-0`}
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  padding: 40px 28px;
+  text-align: center;
+  height: 100%;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(145deg, #0f1c2e 0%, #1a365d 100%);
   border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(34, 197, 94, 0.25);
+  box-shadow: 0 16px 40px rgba(15, 28, 46, 0.2);
 
   h3 {
-    margin: 0 0 8px;
-    font-size: 26px;
-    font-weight: 800;
+    margin: 0 0 10px;
+    font-size: 1.6rem;
+    font-weight: 900;
     color: #fff;
   }
 
   p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.95);
+    max-width: 28rem;
+    color: rgba(255, 255, 255, 0.88);
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 `;
 
@@ -238,104 +357,99 @@ const ContactFormFields = ({
   submitButtonText,
 }) => {
   const openWhatsAppChat = () => {
-    window.open("https://wa.me/+15715313630", "_blank");
+    window.open(
+      "https://wa.me/15715313630?text=" +
+        encodeURIComponent("Hi ADCS. I have a question about the Server Support BootCamp."),
+      "_blank"
+    );
   };
 
   return (
-  <Form onSubmit={onSubmit}>
-    <FieldRow>
-      <Field>
-        <Label htmlFor="contact-name">Full Name *</Label>
-        <Input
-          type="text"
-          name="name"
-          id="contact-name"
-          required
-          value={data.name}
-          onChange={handleChange}
-          placeholder="John Doe"
-          disabled={isSubmitting}
-        />
-      </Field>
-      <Field>
-        <Label htmlFor="contact-email">Email Address *</Label>
-        <Input
-          type="email"
-          name="email"
-          id="contact-email"
-          required
-          value={data.email}
-          onChange={handleChange}
-          placeholder="you@example.com"
-          disabled={isSubmitting}
-        />
-      </Field>
-    </FieldRow>
+    <Form onSubmit={onSubmit}>
+      <FieldRow>
+        <Field>
+          <Label htmlFor="contact-name">Full Name *</Label>
+          <Input
+            type="text"
+            name="name"
+            id="contact-name"
+            required
+            value={data.name}
+            onChange={handleChange}
+            placeholder="Your full name"
+            disabled={isSubmitting}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor="contact-email">Email *</Label>
+          <Input
+            type="email"
+            name="email"
+            id="contact-email"
+            required
+            value={data.email}
+            onChange={handleChange}
+            placeholder="you@email.com"
+            disabled={isSubmitting}
+          />
+        </Field>
+      </FieldRow>
 
-    <FieldRow>
+      <FieldRow>
+        <Field>
+          <Label htmlFor="contact-phone">Phone *</Label>
+          <Input
+            type="tel"
+            name="phone"
+            id="contact-phone"
+            required
+            value={data.phone}
+            onChange={handleChange}
+            placeholder="(571) 555-0123"
+            disabled={isSubmitting}
+          />
+        </Field>
+        <Field>
+          <Label htmlFor="contact-subject">Subject *</Label>
+          <Input
+            type="text"
+            name="subject"
+            id="contact-subject"
+            required
+            value={data.subject}
+            onChange={handleChange}
+            placeholder="Enrollment, schedule, tuition…"
+            disabled={isSubmitting}
+          />
+        </Field>
+      </FieldRow>
+
       <Field>
-        <Label htmlFor="contact-phone">Phone Number *</Label>
-        <Input
-          type="tel"
-          name="phone"
-          id="contact-phone"
+        <Label htmlFor="contact-message">Message *</Label>
+        <Textarea
+          name="message"
+          id="contact-message"
           required
-          value={data.phone}
+          value={data.message}
           onChange={handleChange}
-          placeholder="(703) 555-0123"
+          placeholder="Ask about the BootCamp, next cohort dates, payment options, or visiting the Sterling lab…"
           disabled={isSubmitting}
         />
       </Field>
-      <Field>
-        <Label htmlFor="contact-subject">Subject *</Label>
-        <Input
-          type="text"
-          name="subject"
-          id="contact-subject"
-          required
-          value={data.subject}
-          onChange={handleChange}
-          placeholder="How can we help?"
-          disabled={isSubmitting}
-        />
-      </Field>
-    </FieldRow>
 
-    <Field>
-      <Label htmlFor="contact-message">Your Message *</Label>
-      <Textarea
-        name="message"
-        id="contact-message"
-        required
-        value={data.message}
-        onChange={handleChange}
-        placeholder="Tell us about your IT needs, questions, or project..."
-        disabled={isSubmitting}
-      />
-    </Field>
-
-    <SubmitButton type="submit" className="contact-send-btn" disabled={isSubmitting}>
-      {isSubmitting ? "Sending..." : submitButtonText}
-    </SubmitButton>
-    <WhatsAppButton type="button" className="contact-whatsapp-btn" onClick={openWhatsAppChat}>
-      Chat on WhatsApp
-    </WhatsAppButton>
-  </Form>
+      <SubmitButton type="submit" className="contact-send-btn" disabled={isSubmitting}>
+        {isSubmitting ? "Sending…" : submitButtonText}
+      </SubmitButton>
+      <WhatsAppButton type="button" className="contact-whatsapp-btn" onClick={openWhatsAppChat}>
+        Prefer WhatsApp? Message us
+      </WhatsAppButton>
+    </Form>
   );
 };
 
 export default ({
   modal = false,
-  subheading = "Contact Us",
-  heading = (
-    <>
-      Feel free to <span tw="text-primary-500">get in touch</span>
-      <wbr /> with us.
-    </>
-  ),
-  description = "Connect with ADCS's dedicated tech experts for reliable solutions. Reach out now for prompt assistance with your technical needs",
   submitButtonText = "Send Message",
-  textOnLeft = true,
 }) => {
   const [data, setData] = useState(emptyForm);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -357,7 +471,7 @@ export default ({
       const response = await axios.post(`${apiUrl}api/contact`, data);
 
       if (response.data.success) {
-        Toast({ message: "Thank you! Your message has been sent successfully.", type: "success" });
+        Toast({ message: "Message sent. We’ll reply within one business day.", type: "success" });
         setIsSubmitted(true);
         setData(emptyForm);
       } else {
@@ -376,8 +490,11 @@ export default ({
 
   const successView = (
     <SuccessCard>
-      <h3>Thank You!</h3>
-      <p>Your message has been sent successfully. We&apos;ll get back to you soon.</p>
+      <h3>Message received</h3>
+      <p>
+        Thanks for reaching out. A member of the ADCS training team will reply within one
+        business day, usually sooner.
+      </p>
       <SuccessButton type="button" onClick={() => setIsSubmitted(false)}>
         Send Another Message
       </SuccessButton>
@@ -387,8 +504,11 @@ export default ({
   const formView = (
     <FormCard>
       <FormCardHeader>
-        <h3>Send us a message</h3>
-        <p>Fill out the form below and our team will respond within 24 hours.</p>
+        <h2>Write to the training team</h2>
+        <p>
+          Enrollment questions, schedule fit, tuition, or a facility visit: tell us what you need
+          and we will respond within one business day.
+        </p>
       </FormCardHeader>
       <ContactFormFields
         data={data}
@@ -400,33 +520,70 @@ export default ({
     </FormCard>
   );
 
-  const pageContent = (
-    <TextContent>
-      {subheading && <Subheading>{subheading}</Subheading>}
-      <Heading>{heading}</Heading>
-      {description && <Description>{description}</Description>}
-      {isSubmitted ? successView : formView}
-    </TextContent>
-  );
-
   if (modal) {
-    return (
-      <TextColumn textOnLeft={textOnLeft}>
-        {pageContent}
-      </TextColumn>
-    );
+    return <ModalWrap>{isSubmitted ? successView : formView}</ModalWrap>;
   }
 
   return (
     <Container>
-      <TwoColumn>
-        <ImageColumn>
-          <Image imageSrc={EmailIllustrationSrc} />
-        </ImageColumn>
-        <TextColumn textOnLeft={textOnLeft}>
-          {pageContent}
-        </TextColumn>
-      </TwoColumn>
+      <PageHeader>
+        <Eyebrow>Contact ADCS</Eyebrow>
+        <Heading>Talk with the people who run the BootCamp.</Heading>
+        <Description>
+          Whether you are comparing schedules, checking tuition, or ready to enroll, reach the
+          Sterling training team directly. No ticket bots. Real answers about the Server Support
+          BootCamp.
+        </Description>
+        <TrustRow>
+          <TrustItem>
+            <span>✓</span>Reply within 1 business day
+          </TrustItem>
+          <TrustItem>
+            <span>✓</span>Sterling, VA training facility
+          </TrustItem>
+          <TrustItem>
+            <span>✓</span>(571) 531-3630
+          </TrustItem>
+        </TrustRow>
+      </PageHeader>
+
+      <FormMapGrid>
+        {isSubmitted ? successView : formView}
+        <MapPanel>
+          <MapFrame>
+            <iframe
+              title="Ashburn Data Center Solutions training facility map"
+              src={MAP_EMBED_SRC}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </MapFrame>
+          <MapDetails>
+            <MapTitle>Visit the training facility</MapTitle>
+            <DetailList>
+              <DetailItem>
+                <strong>Address</strong>
+                <a
+                  href="https://maps.app.goo.gl/98fpBNcLerhM2hoQ8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  22648 Glenn Dr, STE 102, Sterling, VA 20164
+                </a>
+              </DetailItem>
+              <DetailItem>
+                <strong>Phone</strong>
+                <a href="tel:+15715313630">+1 (571) 531-3630</a>
+              </DetailItem>
+              <DetailItem>
+                <strong>Email</strong>
+                <a href="mailto:ashburndcsolutions@gmail.com">ashburndcsolutions@gmail.com</a>
+              </DetailItem>
+            </DetailList>
+          </MapDetails>
+        </MapPanel>
+      </FormMapGrid>
     </Container>
   );
 };

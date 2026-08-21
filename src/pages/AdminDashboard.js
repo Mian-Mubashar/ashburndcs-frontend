@@ -627,7 +627,7 @@ export default function AdminDashboard() {
   const renderEnrollmentRow = (en) => (
     <Row key={en._id}>
       <div>
-        <strong>{en.fullName}</strong> — {en.course?.title}
+        <strong>{en.fullName}</strong>. {en.course?.title}
         <br />
         <small>{en.email} • {en.phone}</small>
         <br />
@@ -1108,7 +1108,7 @@ export default function AdminDashboard() {
               </h3>
               <p>
                 {showCourseForm || editingCourseId
-                  ? "Update course details — changes show on the Schedule page when Active."
+                  ? "Update course details. Changes show on the Schedule page when Active."
                   : `${courses.length} course${courses.length !== 1 ? "s" : ""} in catalog`}
               </p>
             </div>
@@ -1169,7 +1169,7 @@ export default function AdminDashboard() {
                   checked={courseForm.isActive}
                   onChange={(e) => setCourseForm({ ...courseForm, isActive: e.target.checked })}
                 />
-                <span>Active — show this course on the public Schedule page</span>
+                <span>Active: show this course on the public Schedule page</span>
               </CheckboxRow>
               <FormActions>
                 <Btn $primary type="submit" style={{ padding: "14px 24px" }}>
@@ -1200,7 +1200,7 @@ export default function AdminDashboard() {
                     <strong>{c.title}</strong>
                     <br />
                     <small>
-                      {c.category} • {c.duration || "—"} • {c.level}
+                      {c.category} • {c.duration || ". "} • {c.level}
                       {" • "}
                       {c.isActive !== false ? "Active" : "Hidden"}
                     </small>
@@ -1243,7 +1243,7 @@ export default function AdminDashboard() {
               <h3>{showScheduleForm || editingScheduleId ? (editingScheduleId ? "Edit Class Schedule" : "Add New Schedule") : "Class Schedules"}</h3>
               <p>
                 {showScheduleForm || editingScheduleId
-                  ? "Fill in the details below — new sessions appear in the list underneath."
+                  ? "Fill in the details below. New sessions appear in the list underneath."
                   : `${schedules.length} schedule${schedules.length !== 1 ? "s" : ""} published`}
               </p>
             </div>
@@ -1258,7 +1258,7 @@ export default function AdminDashboard() {
             <>
               {!editingScheduleId && (
                 <p style={{ margin: "0 0 16px", fontSize: 13, color: "#64748b" }}>
-                  Pick any date — create one session or use repeat weekly for the rest of the month.
+                  Pick any date. Create one session or use repeat weekly for the rest of the month.
                 </p>
               )}
               <Form onSubmit={addSchedule}>
@@ -1334,7 +1334,7 @@ export default function AdminDashboard() {
               {schedules.map((s) => (
                 <Row key={s._id}>
                   <div>
-                    <strong>{s.title}</strong> — {s.course?.title}
+                    <strong>{s.title}</strong>. {s.course?.title}
                     <br />
                     <small>
                       {new Date(s.date).toLocaleDateString()} • {s.startTime}-{s.endTime} • {s.instructor}
@@ -1462,7 +1462,7 @@ export default function AdminDashboard() {
             materials.map((m) => (
               <Row key={m._id}>
                 <div>
-                  <strong>{m.title}</strong> — {m.course?.title || "Course"}
+                  <strong>{m.title}</strong>. {m.course?.title || "Course"}
                   <br />
                   <small>
                     {m.type}

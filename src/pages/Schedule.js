@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import AnimationRevealPage from "helpers/AnimationRevealPage";
 import Header from "components/headers/light";
-import Footer from "components/footers/FiveColumnWithInputForm";
+import Footer from "components/footers/MiniCenteredFooter";
 import { enrollmentApi } from "services/enrollmentApi";
 import EnrollModal from "components/enrollment/EnrollModal";
 import { useNavigate } from "react-router-dom";
@@ -337,7 +337,7 @@ export default function Schedule() {
     const already = statusForCourse(course);
     if (already) {
       if (already.status === "pending") {
-        Toast({ message: "You already applied for this course — status is Pending.", type: "info" });
+        Toast({ message: "You already applied for this course. Status is Pending.", type: "info" });
         navigate("/my-enrollment");
         return;
       }
@@ -450,7 +450,7 @@ export default function Schedule() {
                         <Meta>
                           <span>{formatSessionDate(session.date)}</span>
                           <span>
-                            {session.startTime} – {session.endTime}
+                            {session.startTime} to {session.endTime}
                           </span>
                           <span>Instructor: {session.instructor}</span>
                         </Meta>

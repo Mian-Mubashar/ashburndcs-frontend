@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter";
-import { COURSE_SCHEDULE, COURSE_DATE_RANGE, PRICING, FAQ_ITEMS } from "AppData/CourseScheduleData";
+import { COURSE_SCHEDULE, PRICING, FAQ_ITEMS } from "AppData/CourseScheduleData";
 
 export default function CourseOutline() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function CourseOutline() {
       <main className="outline-page">
         <div className="outline-header">
           <h1>Course Outline & FAQ</h1>
-          <p>{PRICING.title} · {COURSE_DATE_RANGE}</p>
+          <p>{PRICING.title}</p>
         </div>
 
         {/* Schedule */}
@@ -356,3 +356,4 @@ export default function CourseOutline() {
     </AnimationRevealPage>
   );
 }
+

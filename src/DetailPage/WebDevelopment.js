@@ -4,7 +4,7 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Hero from "./HeroHeader";
 import Features from "components/features/VerticalWithAlternateImageAndText.js";
 
-import Footer from "components/footers/SimpleFiveColumn.js";
+import Footer from "components/footers/MiniCenteredFooter";
 import { useParams, useSearchParams } from "react-router-dom";
 import { serviceData } from "AppData/ServiceData";
 import { DServiceData } from "AppData/Data-Service";

@@ -24,9 +24,17 @@ const TextColumn = styled(Column)((props) => [
 ]);
 
 const Image = styled.img((props) => [
-  props.imageRounded && tw`rounded`,
+  tw`w-full object-cover`,
+  css`
+    max-height: 420px;
+    aspect-ratio: 4 / 3;
+  `,
+  props.imageRounded && tw`rounded-2xl`,
   props.imageBorder && tw`border`,
-  props.imageShadow && tw`shadow`,
+  props.imageShadow &&
+    css`
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.16);
+    `,
 ]);
 
 const DecoratorBlob = tw(

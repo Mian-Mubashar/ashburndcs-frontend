@@ -2,7 +2,6 @@ import React from "react";
 import tw from "twin.macro";
 import Hero from "components/hero/HeaderHero";
 import FAQ from "components/faqs/SingleCol.js";
-import Banner from "components/testimonials/MainBanner";
 import { TestimonialData } from "AppData/TestimonialData";
 import GetStarted from "components/cta/GetStartedLight.js";
 import FeatureStats from "components/features/StatFeature";
@@ -12,6 +11,7 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Features from "components/features/ThreeColWithSideImage.js";
 import { FeatureData, MainFeatureData } from "AppData/MainFeatureData";
 import MainFeature from "components/features/TwoColWithTwoHorizontalFeaturesAndButton.js";
+import HomePricing from "components/home/HomePricing";
 
 const HighlightedText = tw.span`text-primary-500`;
 
@@ -38,7 +38,8 @@ const HOME_FAQS = [
   },
   {
     question: "Where are classes held?",
-    answer: "Classes and labs are held at our training facility at 22648 Glenn Dr, STE 102, Sterling, VA 20164.",
+    answer:
+      "Classes and labs are held at our training facility at 22648 Glenn Dr, STE 102, Sterling, VA 20164.",
   },
   {
     question: "Do I need my own equipment?",
@@ -47,11 +48,15 @@ const HOME_FAQS = [
   },
 ];
 
-export default () => {
+/**
+ * Homepage IA (SEO + conversion):
+ * Hero (H1 + CTA) → Overview → Stats → Deep features → Pricing → Reviews → FAQ → CTA
+ */
+export default function MainLandingPage() {
   return (
     <AnimationRevealPage>
-      <Hero roundedHeaderButton={true} />
-      <Banner data={MainFeatureData} />
+      <Hero />
+
       {FeatureData.map((value, i) => (
         <Features
           key={i}
@@ -62,6 +67,7 @@ export default () => {
       ))}
 
       <FeatureStats />
+
       {MainFeatureData.map((value, i) => (
         <MainFeature
           key={i}
@@ -71,8 +77,13 @@ export default () => {
           textOnLeft={value.textOnLeft}
           description={value.description}
           primaryButtonText={value.primaryButtonText}
+          primaryButtonUrl={value.primaryButtonUrl || "/course-outline"}
+          imageRounded
+          imageShadow
         />
       ))}
+
+      <HomePricing />
 
       <Testimonial
         heading={TestimonialData.heading}
@@ -85,15 +96,17 @@ export default () => {
         testimonials={TestimonialData.testimonials}
         imageRounded={TestimonialData.imageRounded}
       />
+
       <FAQ
         heading={
           <>
-            Any <HighlightedText>Questions ?</HighlightedText>
+            Frequently Asked <HighlightedText>Questions</HighlightedText>
           </>
         }
-        description="Frequently asked questions about data center technician training in Sterling, VA"
+        description="Common questions about data center technician training, schedule, tuition, and enrollment in Sterling, VA."
         faqs={HOME_FAQS}
       />
+
       <GetStarted
         subheading="Ready to Start Your Data Center Career?"
         heading="Join the Server Support BootCamp"
@@ -102,7 +115,8 @@ export default () => {
         secondaryLinkText="View Course Outline"
         secondaryLinkUrl="/course-outline"
       />
+
       <Footer />
     </AnimationRevealPage>
   );
-};
+}
