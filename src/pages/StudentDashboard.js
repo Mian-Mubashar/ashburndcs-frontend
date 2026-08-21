@@ -105,7 +105,7 @@ export default function StudentDashboard() {
                 <h4>{app.course?.title}</h4>
                 <p>Applied: {new Date(app.createdAt).toLocaleDateString()}</p>
                 {app.status === "pending" && <p>Waiting for admin approval...</p>}
-                {app.status === "approved" && <p>Approved — you are enrolled. Open your dashboard anytime.</p>}
+                {app.status === "approved" && <p>Approved. You are enrolled. Open your dashboard anytime.</p>}
                 {app.status === "completed" && <p>You are fully enrolled in this course.</p>}
                 {app.status === "rejected" && <p>Application was not approved.</p>}
               </Item>
@@ -157,7 +157,7 @@ export default function StudentDashboard() {
                       )}
                       {m.url && !materialUrl && (
                         <p style={{ fontSize: 13, color: "#9ca3af", margin: "8px 0 0" }}>
-                          Link not available — ask admin for a valid URL (must start with https://)
+                          Link not available. Ask admin for a valid URL (must start with https://)
                         </p>
                       )}
                     </>

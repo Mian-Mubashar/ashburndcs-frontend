@@ -48,7 +48,7 @@ export default function VerifyingEmailPage() {
 
     const lockKey = `verify:${token}`;
     if (sessionStorage.getItem(lockKey)) {
-      // Another pass already in flight — wait briefly then check session
+      // Another pass already in flight. wait briefly then check session
       const t = setTimeout(() => {
         const auth = getAuthToken();
         if (auth?.token) {
@@ -112,7 +112,7 @@ export default function VerifyingEmailPage() {
         <Brand>ADCS</Brand>
         <Spinner aria-hidden />
         <Title>Verifying your email…</Title>
-        <Sub>Please wait — we are signing you in.</Sub>
+        <Sub>Please wait. We are signing you in.</Sub>
       </Card>
     </Screen>
   );

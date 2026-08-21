@@ -269,7 +269,7 @@ const initialForm = { fullName: "", email: "", phone: "", education: "", message
 const STATUS_STEPS = [
   { key: "submitted", label: "Application Submitted", desc: "Your form was received" },
   { key: "pending", label: "Pending Review", desc: "Admin is reviewing your request" },
-  { key: "completed", label: "Enrolled", desc: "Approved — full access to student dashboard" },
+  { key: "completed", label: "Enrolled", desc: "Approved, with full access to student dashboard" },
 ];
 
 const stepIndex = (status) => {
@@ -408,7 +408,7 @@ export default function EnrollModal({ course, isOpen, onClose, sessionTitle }) {
                 <CheckIcon className="main-icon" />
                 <h3>You&apos;re Enrolled!</h3>
                 <p>
-                  <strong>{enrollment.fullName}</strong> — {enrollment.courseTitle}
+                  <strong>{enrollment.fullName}</strong>. {enrollment.courseTitle}
                 </p>
                 <div style={{ marginTop: 14 }}>
                   <StatusBadge $status={status}>
@@ -446,7 +446,7 @@ export default function EnrollModal({ course, isOpen, onClose, sessionTitle }) {
               {(status === "approved" || status === "completed") && (
                 <InfoBox style={{ background: "#ecfdf5", borderColor: "#a7f3d0" }}>
                   <strong style={{ color: "#065f46" }}>Approved & enrolled!</strong> You are fully
-                  enrolled. Sign in and open your Student Dashboard — no extra password step.
+                  enrolled. Sign in and open your Student Dashboard. No extra password step.
                 </InfoBox>
               )}
 

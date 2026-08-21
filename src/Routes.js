@@ -46,6 +46,13 @@ function AppContent() {
   const hideMobileRegisterBar = hideSiteHeader;
 
   useEffect(() => {
+    // React Router keeps scroll position across navigations; always land at top
+    // unless the URL has a hash (in-page anchor).
+    if (location.hash) return;
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
     const styleId = "hide-whatsapp-admin";
     if (hideWhatsApp) {
       let style = document.getElementById(styleId);

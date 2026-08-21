@@ -1,7 +1,7 @@
 {
-  "short_name": "ADCS Tech",
-  "name": "ADCS Tech Solutions — Laptop Repair & Data Center Training",
-  "description": "Laptop repair, IT services, and Data Center Server Training in Sterling, VA.",
+  "short_name": "ADCS",
+  "name": "ADCS — Data Center Technician Training",
+  "description": "8-week Server Support BootCamp and data center technician training in Sterling, VA.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -11,8 +11,8 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#6415ff",
+  "theme_color": "#0b1a3a",
   "background_color": "#ffffff",
   "lang": "en-US",
-  "categories": ["business", "education", "productivity"]
+  "categories": ["education", "business"]
 }

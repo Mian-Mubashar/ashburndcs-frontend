@@ -3,50 +3,45 @@ import { useNavigate } from "react-router-dom";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter";
-import teamIllustration from "images/team-illustration-2.svg";
-import serverIllustration from "images/server-illustration.svg";
-import ShieldIconImage from "images/shield-icon.svg";
-import SupportIconImage from "images/support-icon.svg";
-import ReliableIconImage from "images/reliable-icon.svg";
-import CustomizeIconImage from "images/customize-icon.svg";
 
-const PLACEHOLDER_TEAM = [
-  { name: "Instructor Name", role: "Lead Instructor" },
-  { name: "Instructor Name", role: "Instructor" },
-  { name: "Team Member Name", role: "Program Coordinator" },
-];
-
-const VALUES = [
-  {
-    icon: ShieldIconImage,
-    title: "Taught by Real Technicians",
-    description:
-      "Our Server Support BootCamp is taught by working data center technicians. You get classroom lessons plus hands-on lab time in a real training facility.",
-  },
-  {
-    icon: SupportIconImage,
-    title: "Small Classes, Real Support",
-    description:
-      "You get direct instructor support for the full 8-week program, with plenty of lab time to practice on real server hardware.",
-  },
-  {
-    icon: CustomizeIconImage,
-    title: "Server Hardware Fundamentals",
-    description:
-      "We start from the basics. Server hardware, BIOS configuration, and RAID setup are the core skills data centers look for when hiring.",
-  },
-  {
-    icon: ReliableIconImage,
-    title: "Built for Career Changers",
-    description:
-      "No prior IT experience needed. The BootCamp starts from the fundamentals and builds up to job-ready data center technician skills.",
-  },
-];
+const IMG = {
+  hero: "/images/training/facility-front-door.jpg?v=1",
+  facility: "/images/training/tech-lab.jpg?v=6",
+  labs: "/images/training/server-hardware.jpg?v=6",
+};
 
 const STATS = [
-  { value: "8", label: "Week Program" },
-  { value: "1:1", label: "Instructor Support" },
-  { value: "100%", label: "Hands-On Labs" },
+  { value: "8", label: "Weeks to job-ready skills" },
+  { value: "Sterling, VA", label: "Training in the DC corridor" },
+  { value: "Real hardware", label: "Labs on live equipment" },
+];
+
+const PILLARS = [
+  {
+    title: "Instructors who work the floor",
+    body: "You learn from technicians who rack, cable, and troubleshoot servers for a living, not from a slide deck alone. Classroom instruction is paired with lab time every week.",
+  },
+  {
+    title: "Hardware first, then systems",
+    body: "We start with server hardware, BIOS, RAID, and physical infrastructure, then move into Linux, networking, and remote management (IPMI). That order matches how data centers actually hire.",
+  },
+  {
+    title: "Built for working adults",
+    body: "Wednesday evenings plus weekend mornings and afternoon labs. You do not need prior IT experience. We teach fundamentals first, then push into production skills.",
+  },
+  {
+    title: "Small cohorts, serious practice",
+    body: "Limited class size means more time on the hardware and direct feedback from your instructor. Theory without rack time does not get you hired.",
+  },
+];
+
+const SKILLS = [
+  "Server hardware & teardown",
+  "BIOS / UEFI & RAID",
+  "Racking, cabling & RJ45",
+  "Linux & Windows Server",
+  "Networking & IPMI",
+  "Power, PDU & diagnostics",
 ];
 
 export default () => {
@@ -55,315 +50,584 @@ export default () => {
   return (
     <AnimationRevealPage>
       <Header />
-      <main className="about-page">
-        {/* Intro / mission */}
+      <main className="about">
+        {/* Hero */}
         <section className="about-hero">
-          <div className="about-hero-text">
-            <p className="eyebrow">About Ashburn Data Center Solutions</p>
-            <h1>We train data center technicians in Sterling, VA.</h1>
+          <div className="about-hero-copy">
+            <p className="eyebrow">Ashburn Data Center Solutions</p>
+            <h1>
+              We build data center technicians,{" "}
+              <span className="accent">not spectators.</span>
+            </h1>
             <p className="lede">
-              We run a hands-on Server Support BootCamp that takes you from server hardware
-              basics to job-ready data center skills. You get classroom lessons plus real lab
-              time on real equipment. We built this program because data centers need
-              technicians who have actually worked with the hardware, not just read about it.
+              In Sterling, VA, ADCS runs an 8-week Server Support BootCamp for people who want
+              real floor skills: hardware, cabling, BIOS and RAID, Linux, networking, and remote
+              server management. Data centers hire people who have touched the equipment. That is
+              who we train.
             </p>
-            <button type="button" className="btn-primary" onClick={() => navigate("/course-outline")}>
-              See the Course Outline
-            </button>
+            <div className="btn-row">
+              <button type="button" className="btn-dark" onClick={() => navigate("/course-outline")}>
+                View Course Outline
+              </button>
+              <button type="button" className="btn-ghost" onClick={() => navigate("/schedule")}>
+                See Schedule &amp; Enroll
+              </button>
+            </div>
           </div>
-          <div className="about-hero-illustration">
-            <img src={serverIllustration} alt="Data center technician working with server hardware" />
+          <div className="about-hero-media">
+            <img
+              src={IMG.hero}
+              alt="ADCS Suite 102 training facility entrance in Sterling, VA"
+            />
           </div>
         </section>
 
-        {/* Stats row */}
-        <section className="about-stats">
-          {STATS.map((stat, i) => (
-            <div className="stat-card" key={i}>
+        {/* Mission band */}
+        <section className="mission-band">
+          <p className="mission-label">Our mission</p>
+          <h2>
+            Close the gap between “I studied IT” and “I can work a live rack.”
+          </h2>
+          <p>
+            Northern Virginia’s data center corridor needs technicians who can install, cable,
+            configure, and troubleshoot under real conditions. We designed the BootCamp around that
+            demand, with classroom clarity plus mandatory lab hours on real hardware at our Sterling facility.
+          </p>
+        </section>
+
+        {/* Stats */}
+        <section className="about-stats" aria-label="Program highlights">
+          {STATS.map((stat) => (
+            <div className="stat" key={stat.label}>
               <p className="stat-value">{stat.value}</p>
               <p className="stat-label">{stat.label}</p>
             </div>
           ))}
         </section>
 
-        {/* Values / why train with us */}
-        <section className="about-values-section">
-          <h2>Why Train With Us</h2>
-          <div className="values-grid">
-            {VALUES.map((item, i) => (
-              <div className="value-card" key={i}>
-                <img src={item.icon} alt="" className="value-icon" />
+        {/* Pillars */}
+        <section className="pillars">
+          <div className="section-head">
+            <p className="eyebrow">Why ADCS</p>
+            <h2>Training that mirrors the job</h2>
+            <p className="section-sub">
+              Every part of the program is built for one outcome: you leave ready to support
+              servers in a production environment.
+            </p>
+          </div>
+          <div className="pillars-grid">
+            {PILLARS.map((item) => (
+              <article className="pillar" key={item.title}>
                 <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
+                <p>{item.body}</p>
+              </article>
             ))}
           </div>
         </section>
 
-        {/* Team */}
-        <section className="about-team-section">
-          <div className="about-header">
-            <h2>Meet the Team</h2>
-            <p>The instructors and staff behind the BootCamp.</p>
+        {/* Facility + skills */}
+        <section className="facility">
+          <div className="facility-media">
+            <img
+              src={IMG.facility}
+              alt="High-density network cabling and switch gear used in ADCS labs"
+            />
           </div>
-
-          <div className="about-placeholder-note">
-            Team headshots and bios are being finalized and will be added here shortly.
+          <div className="facility-copy">
+            <p className="eyebrow">The lab</p>
+            <h2>Practice where the work happens</h2>
+            <p>
+              Classes and labs meet at{" "}
+              <strong>22648 Glenn Dr, Suite 102, Sterling, VA 20164</strong>. You train on
+              physical servers, switches, and cabling, not simulations alone. Racking, drive installs,
+              BIOS work, OS installs, and IPMI are part of the weekly rhythm.
+            </p>
+            <ul className="skill-list">
+              {SKILLS.map((skill) => (
+                <li key={skill}>{skill}</li>
+              ))}
+            </ul>
+            <button type="button" className="btn-dark" onClick={() => navigate("/registration")}>
+              Start Registration
+            </button>
           </div>
+        </section>
 
-          <div className="illustration-wrap">
-            <img src={teamIllustration} alt="" />
+        {/* Secondary visual strip */}
+        <section className="visual-strip">
+          <img
+            src={IMG.labs}
+            alt="Server storage hardware and status indicators in a data center environment"
+          />
+          <div className="visual-strip-copy">
+            <h2>From first cable to remote management</h2>
+            <p>
+              Week by week you move from foundations (cabling, racks, power) into hardware deep dives,
+              storage and RAID, firmware, operating systems, networking, and remote troubleshooting.
+              The schedule is published. The expectations are clear.
+            </p>
+            <button type="button" className="btn-light" onClick={() => navigate("/schedule")}>
+              Open Full Schedule
+            </button>
           </div>
+        </section>
 
-          <div className="team-grid">
-            {PLACEHOLDER_TEAM.map((member, i) => (
-              <div className="team-card" key={i}>
-                <div className="team-photo-placeholder">Photo</div>
-                <h3>{member.name}</h3>
-                <p className="team-role">{member.role}</p>
-                <p className="team-bio-placeholder">Bio coming soon.</p>
-              </div>
-            ))}
+        {/* Team: strong, no fake names */}
+        <section className="team">
+          <div className="section-head">
+            <p className="eyebrow">Instructors</p>
+            <h2>Led by working technicians</h2>
+            <p className="section-sub">
+              Your instructors bring floor experience from live data center environments into every
+              class and lab. Detailed headshots and bios will be published here as the next cohort
+              materials are finalized.
+            </p>
+          </div>
+          <div className="team-note">
+            <p>
+              Want to meet the team before you enroll? Call{" "}
+              <a href="tel:+15715313630">(571) 531-3630</a> or reach us on the contact page. We are
+              happy to walk you through the program and the facility.
+            </p>
+            <button type="button" className="btn-ghost" onClick={() => navigate("/contact-us")}>
+              Contact Us
+            </button>
+          </div>
+        </section>
+
+        {/* Closing CTA */}
+        <section className="about-cta">
+          <h2>Ready to train for the floor?</h2>
+          <p>
+            Review the outline, check the next cohort dates, and reserve your seat. If you have
+            questions about fit or schedule, talk to us before you enroll.
+          </p>
+          <div className="btn-row center">
+            <button type="button" className="btn-dark" onClick={() => navigate("/course-outline")}>
+              Course Outline &amp; FAQ
+            </button>
+            <button type="button" className="btn-ghost-on-dark" onClick={() => navigate("/schedule")}>
+              Schedule &amp; Enroll
+            </button>
           </div>
         </section>
       </main>
       <Footer />
 
       <style>{`
-        .about-page {
-          max-width: 1100px;
-          margin: 0 auto;
-          padding: 48px 20px 20px;
+        .about {
+          --navy: #0f1c2e;
+          --ink: #1a202c;
+          --muted: #4a5568;
+          --line: #e2e8f0;
+          --gold: #c9a227;
+          --bg-soft: #f7fafc;
+          color: var(--ink);
         }
 
         .about-hero {
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 56px 20px 48px;
           display: grid;
-          grid-template-columns: 1.1fr 1fr;
-          gap: 40px;
+          grid-template-columns: 1.05fr 0.95fr;
+          gap: 48px;
           align-items: center;
-          margin-bottom: 56px;
         }
 
         .eyebrow {
+          display: inline-block;
+          margin: 0 0 14px;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
-          letter-spacing: 0.08em;
-          font-size: 12px;
-          font-weight: 700;
-          color: #6415ff;
-          margin: 0 0 12px;
+          color: #243e63;
+          background: rgba(36, 62, 99, 0.08);
+          padding: 6px 12px;
+          border-radius: 999px;
         }
 
-        .about-hero-text h1 {
-          font-size: 32px;
-          line-height: 1.2;
+        .about-hero-copy h1 {
+          margin: 0 0 18px;
+          font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+          line-height: 1.15;
           font-weight: 900;
-          color: #111827;
-          margin: 0 0 16px;
+          color: var(--navy);
+          letter-spacing: -0.02em;
+        }
+
+        .about-hero-copy .accent {
+          color: #6415ff;
         }
 
         .lede {
-          font-size: 16px;
-          line-height: 1.7;
-          color: #4b5563;
-          margin: 0 0 24px;
+          margin: 0 0 28px;
+          font-size: 1.05rem;
+          line-height: 1.75;
+          color: var(--muted);
+          max-width: 36rem;
         }
 
-        .btn-primary {
-          background: #6415ff;
-          color: #fff;
-          border: none;
-          font-weight: 800;
-          font-size: 15px;
-          padding: 14px 26px;
+        .btn-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        .btn-row.center {
+          justify-content: center;
+        }
+
+        .btn-dark,
+        .btn-ghost,
+        .btn-light,
+        .btn-ghost-on-dark {
+          font-size: 0.875rem;
+          font-weight: 700;
+          letter-spacing: 0.02em;
+          padding: 14px 22px;
           border-radius: 8px;
           cursor: pointer;
+          transition: background 0.2s, border-color 0.2s, color 0.2s;
         }
 
-        .btn-primary:hover {
-          background: #5a13e6;
+        .btn-dark {
+          background: var(--ink);
+          color: #fff;
+          border: none;
         }
 
-        .about-hero-illustration img {
+        .btn-dark:hover {
+          background: #2d3748;
+        }
+
+        .btn-ghost {
+          background: #fff;
+          color: var(--ink);
+          border: 2px solid var(--line);
+        }
+
+        .btn-ghost:hover {
+          border-color: #243e63;
+        }
+
+        .btn-light {
+          background: #fff;
+          color: var(--ink);
+          border: none;
+        }
+
+        .btn-light:hover {
+          background: #edf2f7;
+        }
+
+        .btn-ghost-on-dark {
+          background: transparent;
+          color: #fff;
+          border: 2px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .btn-ghost-on-dark:hover {
+          border-color: #fff;
+        }
+
+        .about-hero-media img {
           width: 100%;
-          max-width: 420px;
-          margin: 0 auto;
+          aspect-ratio: 4 / 3;
+          object-fit: cover;
+          object-position: center 35%;
+          border-radius: 16px;
+          box-shadow: 0 28px 56px rgba(15, 28, 46, 0.18);
           display: block;
         }
 
+        .mission-band {
+          max-width: 820px;
+          margin: 0 auto 40px;
+          padding: 0 20px 8px;
+          text-align: center;
+        }
+
+        .mission-label {
+          margin: 0 0 10px;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--gold);
+        }
+
+        .mission-band h2 {
+          margin: 0 0 16px;
+          font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+          line-height: 1.3;
+          font-weight: 800;
+          color: var(--navy);
+        }
+
+        .mission-band p {
+          margin: 0;
+          font-size: 1rem;
+          line-height: 1.75;
+          color: var(--muted);
+        }
+
         .about-stats {
+          max-width: 1180px;
+          margin: 0 auto 64px;
+          padding: 28px 20px;
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 16px;
-          margin-bottom: 56px;
-          padding: 28px 0;
-          border-top: 1px solid #e5e7eb;
-          border-bottom: 1px solid #e5e7eb;
+          border-top: 1px solid var(--line);
+          border-bottom: 1px solid var(--line);
         }
 
-        .stat-card {
+        .stat {
           text-align: center;
+          padding: 8px 12px;
         }
 
         .stat-value {
-          font-size: 30px;
+          margin: 0 0 6px;
+          font-size: 1.55rem;
           font-weight: 900;
-          color: #6415ff;
-          margin: 0 0 4px;
+          color: var(--navy);
+          letter-spacing: -0.02em;
         }
 
         .stat-label {
-          font-size: 13px;
-          font-weight: 600;
-          color: #6b7280;
           margin: 0;
+          font-size: 0.8125rem;
+          font-weight: 600;
+          color: var(--muted);
+          line-height: 1.4;
         }
 
-        .about-values-section {
-          margin-bottom: 64px;
+        .pillars {
+          max-width: 1180px;
+          margin: 0 auto 72px;
+          padding: 0 20px;
         }
 
-        .about-values-section h2 {
-          font-size: 24px;
-          font-weight: 800;
-          color: #111827;
+        .section-head {
+          max-width: 640px;
+          margin: 0 auto 36px;
           text-align: center;
-          margin: 0 0 32px;
         }
 
-        .values-grid {
+        .section-head h2 {
+          margin: 0 0 12px;
+          font-size: clamp(1.5rem, 2.5vw, 2rem);
+          font-weight: 900;
+          color: var(--navy);
+          letter-spacing: -0.02em;
+        }
+
+        .section-sub {
+          margin: 0;
+          font-size: 1rem;
+          line-height: 1.7;
+          color: var(--muted);
+        }
+
+        .pillars-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 24px;
+          gap: 20px;
         }
 
-        .value-card {
-          border: 1px solid #e5e7eb;
-          border-radius: 12px;
-          padding: 24px;
+        .pillar {
+          padding: 28px 26px;
+          background: var(--bg-soft);
+          border-left: 3px solid var(--gold);
+          border-radius: 0 12px 12px 0;
         }
 
-        .value-icon {
-          width: 40px;
-          height: 40px;
-          margin-bottom: 14px;
-        }
-
-        .value-card h3 {
-          font-size: 16px;
+        .pillar h3 {
+          margin: 0 0 10px;
+          font-size: 1.05rem;
           font-weight: 800;
-          color: #111827;
-          margin: 0 0 8px;
+          color: var(--navy);
         }
 
-        .value-card p {
-          font-size: 14px;
-          line-height: 1.6;
-          color: #6b7280;
+        .pillar p {
           margin: 0;
+          font-size: 0.9375rem;
+          line-height: 1.7;
+          color: var(--muted);
         }
 
-        .about-team-section {
-          margin-bottom: 40px;
-        }
-
-        .about-header {
-          text-align: center;
-          max-width: 640px;
-          margin: 0 auto 32px;
-        }
-
-        .about-header h2 {
-          font-size: 26px;
-          font-weight: 800;
-          color: #111827;
-          margin: 0 0 8px;
-        }
-
-        .about-header p {
-          color: #6b7280;
-          font-size: 16px;
-          margin: 0;
-        }
-
-        .about-placeholder-note {
-          max-width: 640px;
-          margin: 0 auto 40px;
-          background: #fffbeb;
-          border: 1px dashed #f5b700;
-          color: #92400e;
-          font-size: 14px;
-          font-weight: 600;
-          padding: 14px 24px;
-          border-radius: 8px;
-          text-align: center;
-        }
-
-        .illustration-wrap {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 48px;
-        }
-
-        .illustration-wrap img {
-          width: 100%;
-          max-width: 360px;
-        }
-
-        .team-grid {
+        .facility {
+          max-width: 1180px;
+          margin: 0 auto 72px;
+          padding: 0 20px;
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
-        }
-
-        .team-card {
-          background: #fff;
-          border: 1px solid #e5e7eb;
-          border-radius: 12px;
-          padding: 24px;
-          text-align: center;
-          box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-        }
-
-        .team-photo-placeholder {
-          width: 112px;
-          height: 112px;
-          border-radius: 50%;
-          background: #f3f4f6;
-          color: #9ca3af;
-          display: flex;
+          grid-template-columns: 1fr 1fr;
+          gap: 48px;
           align-items: center;
-          justify-content: center;
-          font-size: 13px;
+        }
+
+        .facility-media img {
+          width: 100%;
+          aspect-ratio: 1;
+          object-fit: cover;
+          border-radius: 16px;
+          box-shadow: 0 20px 40px rgba(15, 28, 46, 0.14);
+          display: block;
+        }
+
+        .facility-copy h2 {
+          margin: 0 0 14px;
+          font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+          font-weight: 900;
+          color: var(--navy);
+          letter-spacing: -0.02em;
+        }
+
+        .facility-copy > p {
+          margin: 0 0 20px;
+          font-size: 1rem;
+          line-height: 1.75;
+          color: var(--muted);
+        }
+
+        .facility-copy strong {
+          color: var(--ink);
+        }
+
+        .skill-list {
+          list-style: none;
+          margin: 0 0 28px;
+          padding: 0;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px 16px;
+        }
+
+        .skill-list li {
+          position: relative;
+          padding-left: 18px;
+          font-size: 0.875rem;
           font-weight: 600;
-          margin: 0 auto 16px;
+          color: var(--ink);
         }
 
-        .team-card h3 {
-          font-size: 16px;
-          font-weight: 800;
-          color: #111827;
-          margin: 0 0 4px;
+        .skill-list li::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0.45em;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: var(--gold);
         }
 
-        .team-role {
-          font-size: 13px;
-          color: #6b7280;
-          margin: 0;
+        .visual-strip {
+          position: relative;
+          max-width: 1180px;
+          margin: 0 auto 72px;
+          padding: 0 20px;
         }
 
-        .team-bio-placeholder {
-          margin-top: 10px;
-          font-style: italic;
-          color: #9ca3af;
-          font-size: 13px;
+        .visual-strip img {
+          width: 100%;
+          height: 340px;
+          object-fit: cover;
+          border-radius: 16px;
+          display: block;
+          filter: brightness(0.72);
         }
 
-        @media (max-width: 800px) {
-          .about-hero {
+        .visual-strip-copy {
+          position: absolute;
+          left: 44px;
+          right: 44px;
+          bottom: 36px;
+          max-width: 520px;
+          color: #fff;
+        }
+
+        .visual-strip-copy h2 {
+          margin: 0 0 10px;
+          font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+          font-weight: 900;
+          letter-spacing: -0.02em;
+        }
+
+        .visual-strip-copy p {
+          margin: 0 0 18px;
+          font-size: 0.95rem;
+          line-height: 1.65;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .team {
+          max-width: 720px;
+          margin: 0 auto 64px;
+          padding: 0 20px;
+        }
+
+        .team-note {
+          margin-top: 8px;
+          padding: 28px 28px 24px;
+          background: var(--bg-soft);
+          border-radius: 12px;
+          text-align: center;
+        }
+
+        .team-note p {
+          margin: 0 0 18px;
+          font-size: 0.975rem;
+          line-height: 1.7;
+          color: var(--muted);
+        }
+
+        .team-note a {
+          color: #6415ff;
+          font-weight: 700;
+          text-decoration: none;
+        }
+
+        .team-note a:hover {
+          text-decoration: underline;
+        }
+
+        .about-cta {
+          max-width: 1180px;
+          margin: 0 auto 48px;
+          padding: 48px 28px;
+          background: linear-gradient(135deg, #0f1c2e 0%, #1a365d 100%);
+          border-radius: 16px;
+          text-align: center;
+          color: #fff;
+        }
+
+        .about-cta h2 {
+          margin: 0 0 12px;
+          font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+          font-weight: 900;
+          letter-spacing: -0.02em;
+        }
+
+        .about-cta > p {
+          margin: 0 auto 24px;
+          max-width: 34rem;
+          font-size: 1rem;
+          line-height: 1.7;
+          color: rgba(255, 255, 255, 0.85);
+        }
+
+        @media (max-width: 900px) {
+          .about-hero,
+          .facility {
             grid-template-columns: 1fr;
+            gap: 32px;
           }
 
-          .about-hero-illustration {
+          .about-hero-media {
             order: -1;
           }
 
@@ -372,12 +636,38 @@ export default () => {
             gap: 20px;
           }
 
-          .values-grid {
+          .pillars-grid {
             grid-template-columns: 1fr;
           }
 
-          .team-grid {
+          .skill-list {
             grid-template-columns: 1fr;
+          }
+
+          .visual-strip img {
+            height: 420px;
+          }
+
+          .visual-strip-copy {
+            left: 36px;
+            right: 36px;
+            bottom: 28px;
+          }
+        }
+
+        @media (max-width: 560px) {
+          .about-hero {
+            padding-top: 36px;
+          }
+
+          .visual-strip img {
+            height: 460px;
+          }
+
+          .about-cta {
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 36px 20px;
           }
         }
       `}</style>

@@ -33,7 +33,7 @@ const SwalToast = Swal.mixin({
   showConfirmButton: false,
   timer: 4000,
   timerProgressBar: true,
-  // Auth modal overlay is z-index 9999 + blur — keep toast above it
+  // Auth modal overlay is z-index 9999 + blur. keep toast above it
   didOpen: (toast) => {
     const container = toast.closest(".swal2-container");
     if (container) container.style.zIndex = "100000";
@@ -372,7 +372,7 @@ function VerifyPendingForm({ email: initialEmail, initialEmailSent, onClose, onL
       });
     } catch (error) {
       const msg = error.response?.data?.error || "Failed to resend.";
-      // Already verified via email link — no need for this modal
+      // Already verified via email link. no need for this modal
       if (msg.toLowerCase().includes("already verified")) {
         onClose?.();
         SwalToast.fire({
@@ -395,7 +395,7 @@ function VerifyPendingForm({ email: initialEmail, initialEmailSent, onClose, onL
           <>
             We sent a verification link to <strong>{email || "your email"}</strong>.
             Open that email and click <strong>Verify Email Address</strong>.
-            You will be signed in automatically — no extra step needed.
+            You will be signed in automatically. No extra step needed.
             Check spam if you don&apos;t see it.
           </>
         ) : (
