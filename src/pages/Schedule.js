@@ -20,7 +20,7 @@ const courseIdOf = (course) => course?._id || course?.id || null;
 
 const Page = styled.div`
   min-height: 80vh;
-  background: linear-gradient(180deg, #faf5ff 0%, #fff 40%);
+  background: #fff;
 `;
 
 const Hero = styled(motion.div)`
