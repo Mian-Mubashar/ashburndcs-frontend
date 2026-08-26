@@ -70,7 +70,9 @@ export const MainFeatureData = [
     subheading: "Real Server Hardware, Real Practice",
     imageSrc: IMG.labs,
     primaryButtonText: "See Full Schedule",
-    primaryButtonUrl: "/schedule",
+    // Schedule page disabled per client request (Aug 2026) — Course Outline
+    // now holds the full class schedule.
+    primaryButtonUrl: "/course-outline",
     textOnLeft: false,
     description:
       "Every week has classroom time and lab time. You will practice racking and cabling, RJ45 crimping, hardware assembly, drive installation, BIOS setup, networking, and full system troubleshooting. You leave with real practice, not just theory.",

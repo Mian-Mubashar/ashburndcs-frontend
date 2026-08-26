@@ -64,13 +64,15 @@ export default function StudentDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Schedule page disabled per client request (Aug 2026) — bounce
+    // unauthenticated/failed dashboard loads to the homepage instead.
     const auth = getAuthToken();
-    if (!auth) { navigate("/schedule"); return; }
+    if (!auth) { navigate("/"); return; }
     if (auth.role === "admin") { navigate("/admin", { replace: true }); return; }
 
     enrollmentApi.getDashboard()
       .then(({ data: d }) => setData(d))
-      .catch(() => navigate("/schedule"))
+      .catch(() => navigate("/"))
       .finally(() => setLoading(false));
   }, [navigate]);
 
@@ -109,7 +111,7 @@ export default function StudentDashboard() {
                 {app.status === "completed" && <p>You are fully enrolled in this course.</p>}
                 {app.status === "rejected" && <p>Application was not approved.</p>}
               </Item>
-            )) : <Empty>No enrollment applications yet. <LinkBtn href="/schedule">Browse courses</LinkBtn></Empty>
+            )) : <Empty>No enrollment applications yet. <LinkBtn href="/course-outline">Browse courses</LinkBtn></Empty>
           )}
 
           {tab === "courses" && (

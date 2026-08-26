@@ -100,16 +100,17 @@ export default ({
       <ActiveNavLink $active={isActive("/course-outline")} onClick={() => navigateTo("/course-outline")}>
         Course Outline
       </ActiveNavLink>
-      <ActiveNavLink $active={isActive("/schedule")} onClick={() => navigateTo("/schedule")}>
+      {/* Schedule and My Enrollment nav links disabled per client request (Aug 2026) */}
+      {/* <ActiveNavLink $active={isActive("/schedule")} onClick={() => navigateTo("/schedule")}>
         Schedule
-      </ActiveNavLink>
+      </ActiveNavLink> */}
       <ActiveNavLink $active={isActive("/registration")} onClick={() => navigateTo("/registration")}>
         Registration
       </ActiveNavLink>
       <ActiveNavLink $active={isActive("/payment")} onClick={() => navigateTo("/payment")}>
         Payment
       </ActiveNavLink>
-      {!auth && (
+      {/* {!auth && (
         <ActiveNavLink $active={isActive("/my-enrollment")} onClick={() => navigateTo("/my-enrollment")}>
           My Enrollment
         </ActiveNavLink>
@@ -118,7 +119,7 @@ export default ({
         <ActiveNavLink $active={isActive("/my-enrollment")} onClick={() => navigateTo("/my-enrollment")}>
           My Enrollment
         </ActiveNavLink>
-      )}
+      )} */}
       <ActiveNavLink $active={isActive("/career")} onClick={() => navigateTo("/career")}>
         Career
       </ActiveNavLink>

@@ -18,13 +18,19 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { Email } from "Email";
 import ThankYou from "components/myComponent/Thanks";
 import Career from "pages/Career";
-import Schedule from "pages/Schedule";
+// Schedule page is disabled per client request (Aug 2026) — the browse/enroll
+// flow now lives on Course Outline + Registration. Code kept, route/imports
+// commented out below.
+// import Schedule from "pages/Schedule";
 import CourseOutline from "pages/CourseOutline.js";
 import Registration from "pages/Registration.js";
 import StudentDashboard from "pages/StudentDashboard";
 import AdminDashboard from "pages/AdminDashboard";
 import CompleteEnrollment from "pages/CompleteEnrollment";
-import MyEnrollment from "pages/MyEnrollment";
+// My Enrollment page is disabled per client request (Aug 2026), alongside
+// Schedule. Code kept, route/import commented out below.
+// import MyEnrollment from "pages/MyEnrollment";
+import Blog from "pages/Blog";
 import Headertop from "./components/Headertop";
 import MobileRegisterBar from "./components/MobileRegisterBar";
 import { AuthModalProvider } from "context/AuthModalContext";
@@ -123,10 +129,12 @@ function AppContent() {
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/contact-us" element={<ContactUsPage />} />
             <Route path="/payment" element={<PaymentPage />} />
-            <Route path="/schedule" element={<Schedule />} />
+            {/* Schedule and My Enrollment pages disabled per client request (Aug 2026) — see commented imports above */}
+            {/* <Route path="/schedule" element={<Schedule />} /> */}
             <Route path="/course-outline" element={<CourseOutline />} />
             <Route path="/registration" element={<Registration />} />
-            <Route path="/my-enrollment" element={<MyEnrollment />} />
+            {/* <Route path="/my-enrollment" element={<MyEnrollment />} /> */}
+            <Route path="/blog" element={<Blog />} />
             <Route path="/dashboard" element={<StudentDashboard />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/complete-enrollment" element={<CompleteEnrollment />} />

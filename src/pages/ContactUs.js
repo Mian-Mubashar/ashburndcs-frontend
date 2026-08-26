@@ -95,12 +95,15 @@ const NEXT_STEPS = [
     body: "See what you learn week by week, tuition options, and answers to common questions.",
     to: "/course-outline",
   },
-  {
-    label: "Dates",
-    title: "Schedule & Enroll",
-    body: "Check the next cohort calendar and start your enrollment when you are ready.",
-    to: "/schedule",
-  },
+  // "Schedule & Enroll" step disabled per client request (Aug 2026) — the
+  // Schedule page it linked to is disabled; Course Outline and Registration
+  // below cover the same journey.
+  // {
+  //   label: "Dates",
+  //   title: "Schedule & Enroll",
+  //   body: "Check the next cohort calendar and start your enrollment when you are ready.",
+  //   to: "/schedule",
+  // },
   {
     label: "Apply",
     title: "Registration",

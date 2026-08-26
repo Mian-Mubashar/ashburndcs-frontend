@@ -69,8 +69,10 @@ export default () => {
               <button type="button" className="btn-dark" onClick={() => navigate("/course-outline")}>
                 View Course Outline
               </button>
-              <button type="button" className="btn-ghost" onClick={() => navigate("/schedule")}>
-                See Schedule &amp; Enroll
+              {/* Was "See Schedule & Enroll" -> /schedule; Schedule page disabled
+                  per client request (Aug 2026), pointed to Registration instead. */}
+              <button type="button" className="btn-ghost" onClick={() => navigate("/registration")}>
+                Apply Now
               </button>
             </div>
           </div>
@@ -166,7 +168,9 @@ export default () => {
               storage and RAID, firmware, operating systems, networking, and remote troubleshooting.
               The schedule is published. The expectations are clear.
             </p>
-            <button type="button" className="btn-light" onClick={() => navigate("/schedule")}>
+            {/* Schedule page disabled per client request (Aug 2026) — Course
+                Outline now holds the full class schedule. */}
+            <button type="button" className="btn-light" onClick={() => navigate("/course-outline")}>
               Open Full Schedule
             </button>
           </div>
@@ -206,8 +210,10 @@ export default () => {
             <button type="button" className="btn-dark" onClick={() => navigate("/course-outline")}>
               Course Outline &amp; FAQ
             </button>
-            <button type="button" className="btn-ghost-on-dark" onClick={() => navigate("/schedule")}>
-              Schedule &amp; Enroll
+            {/* Was "Schedule & Enroll" -> /schedule; Schedule page disabled
+                per client request (Aug 2026), pointed to Registration instead. */}
+            <button type="button" className="btn-ghost-on-dark" onClick={() => navigate("/registration")}>
+              Apply Now
             </button>
           </div>
         </section>

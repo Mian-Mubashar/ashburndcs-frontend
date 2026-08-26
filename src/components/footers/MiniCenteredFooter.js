@@ -79,10 +79,12 @@ export default function MiniCenteredFooter() {
             <LinkItem type="button" onClick={() => navigate("/")}>Home</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/about-us")}>About Us</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/course-outline")}>Course Outline</LinkItem>
-            <LinkItem type="button" onClick={() => navigate("/schedule")}>Schedule</LinkItem>
+            {/* Schedule and My Enrollment links disabled per client request (Aug 2026) */}
+            {/* <LinkItem type="button" onClick={() => navigate("/schedule")}>Schedule</LinkItem> */}
             <LinkItem type="button" onClick={() => navigate("/registration")}>Registration</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/payment")}>Payment</LinkItem>
-            <LinkItem type="button" onClick={() => navigate("/my-enrollment")}>My Enrollment</LinkItem>
+            {/* <LinkItem type="button" onClick={() => navigate("/my-enrollment")}>My Enrollment</LinkItem> */}
+            <LinkItem type="button" onClick={() => navigate("/blog")}>Blog</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/career")}>Career</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/contact-us")}>Contact Us</LinkItem>
           </Column>
