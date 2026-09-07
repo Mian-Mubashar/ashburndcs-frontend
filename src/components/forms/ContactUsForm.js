@@ -471,7 +471,12 @@ export default ({
       const response = await axios.post(apiUrl("api/contact"), data);
 
       if (response.data.success) {
-        Toast({ message: "Message sent. We’ll reply within one business day.", type: "success" });
+        Toast({
+          message: response.data.confirmationSentTo
+            ? `Message sent. Confirmation emailed to ${response.data.confirmationSentTo}`
+            : "Message sent. We’ll reply within one business day.",
+          type: "success",
+        });
         setIsSubmitted(true);
         setData(emptyForm);
       } else {
