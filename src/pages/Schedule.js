@@ -338,7 +338,7 @@ export default function Schedule() {
     if (already) {
       if (already.status === "pending") {
         Toast({ message: "You already applied for this course. Status is Pending.", type: "info" });
-        navigate("/my-enrollment");
+        // navigate("/my-enrollment");
         return;
       }
       Toast({ message: "You are already enrolled in this course.", type: "info" });
@@ -363,9 +363,9 @@ export default function Schedule() {
       return (
         <>
           <StatusNote $status="pending">Application pending admin approval</StatusNote>
-          <EnrollBtn $outline type="button" onClick={() => navigate("/my-enrollment")}>
+          {/* <EnrollBtn $outline type="button" onClick={() => navigate("/my-enrollment")}>
             Track Enrollment
-          </EnrollBtn>
+          </EnrollBtn> */}
         </>
       );
     }
@@ -416,9 +416,9 @@ export default function Schedule() {
                     </>
                   )}
                 </span>
-                <TrackBtn type="button" onClick={() => navigate("/my-enrollment")}>
+                {/* <TrackBtn type="button" onClick={() => navigate("/my-enrollment")}>
                   Track My Enrollment
-                </TrackBtn>
+                </TrackBtn> */}
               </TrackBanner>
             )}
             {auth?.role === "student" && (

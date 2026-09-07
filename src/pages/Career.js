@@ -7,8 +7,7 @@ import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter";
 import { SectionHeading } from "components/misc/Headings";
 import { PrimaryButton } from "components/misc/Buttons";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toast } from "helpers/Alert";
 import Modal from "react-modal";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { ReactComponent as SvgDecoratorBlob1 } from "images/svg-decorator-blob-5.svg";
@@ -264,6 +263,40 @@ const inputBase = `
 const Input = styled.input`${inputBase}`;
 const Select = styled.select`${inputBase}`;
 
+const PhoneWrap = styled.div`
+  display: flex;
+  align-items: center;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  overflow: hidden;
+
+  &:focus-within {
+    border-color: rgba(100, 21, 255, 0.7);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(100, 21, 255, 0.12);
+  }
+`;
+
+const PhonePrefix = styled.span`
+  flex-shrink: 0;
+  padding: 12px 10px 12px 12px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #374151;
+  border-right: 1px solid #e5e7eb;
+  background: #eef2ff;
+`;
+
+const PhoneInput = styled.input`
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 12px;
+  font-size: 14px;
+  outline: none;
+`;
+
 const TextArea = styled.textarea`
   ${inputBase}
   min-height: 120px;
@@ -309,6 +342,13 @@ const positions = [
   },
 ];
 
+const formatUSPhone = (digits) => {
+  const d = digits.replace(/\D/g, "").slice(0, 10);
+  if (d.length <= 3) return d.length ? `(${d}` : "";
+  if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+};
+
 Modal.setAppElement("#root");
 
 /* -------------------- Component -------------------- */
@@ -338,9 +378,18 @@ export default function Career() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handlePhoneChange = (e) => {
+    const digits = e.target.value.replace(/\D/g, "").slice(0, 10);
+    setFormData({ ...formData, user_phone: digits });
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.user_phone.length !== 10) {
+      Toast({ message: "Enter a valid 10-digit US phone number.", type: "error" });
+      return;
+    }
     setLoading(true);
 
     try {
@@ -349,13 +398,21 @@ export default function Career() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          user_phone: `+1${formData.user_phone}`,
+        }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        toast.success("Build your future! Application sent successfully.");
+        Toast({
+          message: data.confirmationSentTo
+            ? `Application sent. Confirmation emailed to ${data.confirmationSentTo}`
+            : "Build your future! Application sent successfully.",
+          type: "success",
+        });
 
         setFormData({
           user_name: "",
@@ -366,11 +423,11 @@ export default function Career() {
         });
         closeModal();
       } else {
-        toast.error(data.error || "Something went wrong. Please try again.");
+        Toast({ message: data.error || "Something went wrong. Please try again.", type: "error" });
       }
     } catch (error) {
       console.error("Error submitting application:", error);
-      toast.error("Network error. Please try again later.");
+      Toast({ message: "Network error. Please try again later.", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -423,7 +480,7 @@ export default function Career() {
             shouldCloseOnEsc
             style={{
               overlay: {
-                backgroundColor: "rgba(0,0,0,0.55)",
+                backgroundColor: "transparent",
                 zIndex: 50,
                 display: "flex",
                 alignItems: "center",
@@ -482,13 +539,20 @@ export default function Career() {
 
                     <Field>
                       <Label>Phone Number</Label>
-                      <Input
-                        type="text"
-                        name="user_phone"
-                        value={formData.user_phone}
-                        onChange={handleChange}
-                        placeholder="+1 (555) 000-0000"
-                      />
+                      <PhoneWrap>
+                        <PhonePrefix>+1</PhonePrefix>
+                        <PhoneInput
+                          type="tel"
+                          name="user_phone"
+                          inputMode="numeric"
+                          autoComplete="tel-national"
+                          value={formatUSPhone(formData.user_phone)}
+                          onChange={handlePhoneChange}
+                          placeholder="(555) 123-4567"
+                          maxLength={14}
+                          required
+                        />
+                      </PhoneWrap>
                     </Field>
                   </Grid2>
 
@@ -532,7 +596,6 @@ export default function Career() {
       </Container>
 
       <Footer />
-      <ToastContainer position="bottom-right" />
     </AnimationRevealPage>
   );
 }

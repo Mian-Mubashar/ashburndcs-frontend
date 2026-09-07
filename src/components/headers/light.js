@@ -3,9 +3,9 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuthModal } from "context/AuthModalContext";
+// import { useAuthModal } from "context/AuthModalContext";
 import { getAuthToken, clearAuthToken } from "services/authApi";
-import { getActiveEnrollmentTracks } from "utils/enrollmentStorage";
+// import { getActiveEnrollmentTracks } from "utils/enrollmentStorage";
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
 
@@ -71,8 +71,8 @@ export default ({
   navigate = useNavigate(),
 }) => {
   const [auth, setAuth] = useState(() => getAuthToken());
-  const trackedEnrollments = getActiveEnrollmentTracks();
-  const { openAuthModal } = useAuthModal();
+  // const trackedEnrollments = getActiveEnrollmentTracks();
+  // const { openAuthModal } = useAuthModal();
   const nav = useNavigate();
   const { pathname } = useLocation();
   const navigateTo = navigate || nav;
@@ -100,16 +100,16 @@ export default ({
       <ActiveNavLink $active={isActive("/course-outline")} onClick={() => navigateTo("/course-outline")}>
         Course Outline
       </ActiveNavLink>
-      <ActiveNavLink $active={isActive("/schedule")} onClick={() => navigateTo("/schedule")}>
+      {/* <ActiveNavLink $active={isActive("/schedule")} onClick={() => navigateTo("/schedule")}>
         Schedule
-      </ActiveNavLink>
+      </ActiveNavLink> */}
       <ActiveNavLink $active={isActive("/registration")} onClick={() => navigateTo("/registration")}>
         Registration
       </ActiveNavLink>
       <ActiveNavLink $active={isActive("/payment")} onClick={() => navigateTo("/payment")}>
         Payment
       </ActiveNavLink>
-      {!auth && (
+      {/* {!auth && (
         <ActiveNavLink $active={isActive("/my-enrollment")} onClick={() => navigateTo("/my-enrollment")}>
           My Enrollment
         </ActiveNavLink>
@@ -118,7 +118,7 @@ export default ({
         <ActiveNavLink $active={isActive("/my-enrollment")} onClick={() => navigateTo("/my-enrollment")}>
           My Enrollment
         </ActiveNavLink>
-      )}
+      )} */}
       <ActiveNavLink $active={isActive("/career")} onClick={() => navigateTo("/career")}>
         Career
       </ActiveNavLink>
@@ -128,7 +128,7 @@ export default ({
 
       {!auth ? (
         <>
-          <NavLink onClick={() => openAuthModal("login")} tw="lg:ml-4!">
+          {/* <NavLink onClick={() => openAuthModal("login")} tw="lg:ml-4!">
             Login
           </NavLink>
           <PrimaryLink
@@ -136,7 +136,7 @@ export default ({
             onClick={() => openAuthModal("signup")}
           >
             Sign Up
-          </PrimaryLink>
+          </PrimaryLink> */}
         </>
       ) : (
         <>

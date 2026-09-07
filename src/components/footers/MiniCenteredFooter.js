@@ -5,7 +5,6 @@ import { Container as ContainerBase } from "components/misc/Layouts.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
-  faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faServer,
@@ -79,10 +78,10 @@ export default function MiniCenteredFooter() {
             <LinkItem type="button" onClick={() => navigate("/")}>Home</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/about-us")}>About Us</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/course-outline")}>Course Outline</LinkItem>
-            <LinkItem type="button" onClick={() => navigate("/schedule")}>Schedule</LinkItem>
+            {/* <LinkItem type="button" onClick={() => navigate("/schedule")}>Schedule</LinkItem> */}
             <LinkItem type="button" onClick={() => navigate("/registration")}>Registration</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/payment")}>Payment</LinkItem>
-            <LinkItem type="button" onClick={() => navigate("/my-enrollment")}>My Enrollment</LinkItem>
+            {/* <LinkItem type="button" onClick={() => navigate("/my-enrollment")}>My Enrollment</LinkItem> */}
             <LinkItem type="button" onClick={() => navigate("/career")}>Career</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/contact-us")}>Contact Us</LinkItem>
           </Column>
@@ -94,12 +93,12 @@ export default function MiniCenteredFooter() {
               plus real lab practice for your IT career.
             </CompanyText>
             <SocialLinksContainer>
-              <SocialLink href="https://www.facebook.com/ADCSLLCTrainingCenter" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <SocialLink href="https://www.facebook.com/ashburn.dcs" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={faFacebook} />
               </SocialLink>
-              <SocialLink href="https://www.linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+              {/* <SocialLink href="https://www.linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={faLinkedin} />
-              </SocialLink>
+              </SocialLink> */}
             </SocialLinksContainer>
           </Column>
         </GridContainer>

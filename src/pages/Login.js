@@ -20,7 +20,9 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (getAuthToken()) navigate("/");
+    const auth = getAuthToken();
+    if (auth?.role === "admin") navigate("/admin", { replace: true });
+    else if (auth?.token) navigate("/", { replace: true });
   }, [navigate]);
 
   const handleChange = (e) => {
@@ -33,9 +35,9 @@ export default function LoginPage() {
 
     try {
       const { data } = await authApi.login(form);
-      saveAuthToken(data.token, data.user.email);
+      saveAuthToken(data.token, data.user.email, data.user.role);
       Toast({ message: "Login successful!" });
-      navigate("/");
+      navigate(data.user.role === "admin" ? "/admin" : "/", { replace: true });
     } catch (error) {
       const res = error.response?.data;
 
@@ -84,12 +86,12 @@ export default function LoginPage() {
           </AuthButton>
         </AuthForm>
 
-        <p tw="mt-8 text-sm text-gray-600 text-center">
+        {/* <p tw="mt-8 text-sm text-gray-600 text-center">
           Don't have an account?{" "}
           <AuthLink type="button" onClick={() => navigate("/register")}>
             Sign Up
           </AuthLink>
-        </p>
+        </p> */}
       </AuthPageLayout>
     </AnimationRevealPage>
   );

@@ -40,7 +40,7 @@ const CardGrid = styled.div`
   grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
@@ -91,16 +91,16 @@ const CardBody = styled.span`
 const NEXT_STEPS = [
   {
     label: "Curriculum",
-    title: "Course Outline & FAQ",
-    body: "See what you learn week by week, tuition options, and answers to common questions.",
+    title: "Course Outline",
+    body: "See the 8-week master schedule and what you learn week by week.",
     to: "/course-outline",
   },
-  {
-    label: "Dates",
-    title: "Schedule & Enroll",
-    body: "Check the next cohort calendar and start your enrollment when you are ready.",
-    to: "/schedule",
-  },
+  // {
+  //   label: "Dates",
+  //   title: "Schedule & Enroll",
+  //   body: "Check the next cohort calendar and start your enrollment when you are ready.",
+  //   to: "/schedule",
+  // },
   {
     label: "Apply",
     title: "Registration",
@@ -119,7 +119,7 @@ export default () => {
       <NextSection>
         <SectionHead>
           <h2>Already know what you need?</h2>
-          <p>Skip the form and go straight to the outline, schedule, or registration.</p>
+          <p>Skip the form and go straight to the outline or registration.</p>
         </SectionHead>
         <CardGrid>
           {NEXT_STEPS.map((item) => (

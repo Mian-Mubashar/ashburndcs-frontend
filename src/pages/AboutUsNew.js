@@ -44,6 +44,27 @@ const SKILLS = [
   "Power, PDU & diagnostics",
 ];
 
+const TEAM = [
+  {
+    name: "Muhammad Tahir",
+    role: "Instructor",
+    initials: "MT",
+    bio: "Full bio coming soon.",
+  },
+  {
+    name: "Abdul",
+    role: "Instructor",
+    initials: "A",
+    bio: "Full bio coming soon.",
+  },
+  {
+    name: "Mike Lefevere",
+    role: "Instructor",
+    initials: "ML",
+    bio: "Full bio coming soon.",
+  },
+];
+
 export default () => {
   const navigate = useNavigate();
 
@@ -67,10 +88,10 @@ export default () => {
             </p>
             <div className="btn-row">
               <button type="button" className="btn-dark" onClick={() => navigate("/course-outline")}>
-                View Course Outline
+                Course Outline
               </button>
-              <button type="button" className="btn-ghost" onClick={() => navigate("/schedule")}>
-                See Schedule &amp; Enroll
+              <button type="button" className="btn-ghost" onClick={() => navigate("/registration")}>
+                Enrollment
               </button>
             </div>
           </div>
@@ -79,6 +100,7 @@ export default () => {
               src={IMG.hero}
               alt="ADCS Suite 102 training facility entrance in Sterling, VA"
             />
+            <p className="photo-note">Authentic lab photos coming soon</p>
           </div>
         </section>
 
@@ -132,6 +154,7 @@ export default () => {
               src={IMG.facility}
               alt="High-density network cabling and switch gear used in ADCS labs"
             />
+            <p className="photo-note">Authentic lab photos coming soon</p>
           </div>
           <div className="facility-copy">
             <p className="eyebrow">The lab</p>
@@ -148,7 +171,7 @@ export default () => {
               ))}
             </ul>
             <button type="button" className="btn-dark" onClick={() => navigate("/registration")}>
-              Start Registration
+              Enrollment
             </button>
           </div>
         </section>
@@ -166,22 +189,33 @@ export default () => {
               storage and RAID, firmware, operating systems, networking, and remote troubleshooting.
               The schedule is published. The expectations are clear.
             </p>
-            <button type="button" className="btn-light" onClick={() => navigate("/schedule")}>
-              Open Full Schedule
+            <button type="button" className="btn-light" onClick={() => navigate("/course-outline")}>
+              Course Outline
             </button>
           </div>
+          <p className="photo-note visual-photo-note">Authentic lab photos coming soon</p>
         </section>
 
-        {/* Team: strong, no fake names */}
         <section className="team">
           <div className="section-head">
             <p className="eyebrow">Instructors</p>
-            <h2>Led by working technicians</h2>
+            <h2>Meet the team</h2>
             <p className="section-sub">
-              Your instructors bring floor experience from live data center environments into every
-              class and lab. Detailed headshots and bios will be published here as the next cohort
-              materials are finalized.
+              Muhammad Tahir, Abdul, and Mike Lefevere lead the BootCamp. Headshots and full bios
+              will be added here as soon as they are provided.
             </p>
+          </div>
+          <div className="team-grid">
+            {TEAM.map((member) => (
+              <article className="team-card" key={member.name}>
+                <div className="team-photo" aria-hidden="true">
+                  {member.initials}
+                </div>
+                <h3>{member.name}</h3>
+                <p className="team-role">{member.role}</p>
+                <p>{member.bio}</p>
+              </article>
+            ))}
           </div>
           <div className="team-note">
             <p>
@@ -189,9 +223,14 @@ export default () => {
               <a href="tel:+15715313630">(571) 531-3630</a> or reach us on the contact page. We are
               happy to walk you through the program and the facility.
             </p>
-            <button type="button" className="btn-ghost" onClick={() => navigate("/contact-us")}>
-              Contact Us
-            </button>
+            <div className="btn-row center">
+              <button type="button" className="btn-dark" onClick={() => navigate("/course-outline")}>
+                Course Outline
+              </button>
+              <button type="button" className="btn-ghost" onClick={() => navigate("/registration")}>
+                Enrollment
+              </button>
+            </div>
           </div>
         </section>
 
@@ -204,10 +243,10 @@ export default () => {
           </p>
           <div className="btn-row center">
             <button type="button" className="btn-dark" onClick={() => navigate("/course-outline")}>
-              Course Outline &amp; FAQ
+              Course Outline
             </button>
-            <button type="button" className="btn-ghost-on-dark" onClick={() => navigate("/schedule")}>
-              Schedule &amp; Enroll
+            <button type="button" className="btn-ghost-on-dark" onClick={() => navigate("/registration")}>
+              Enrollment
             </button>
           </div>
         </section>
@@ -340,6 +379,19 @@ export default () => {
           border-radius: 16px;
           box-shadow: 0 28px 56px rgba(15, 28, 46, 0.18);
           display: block;
+        }
+
+        .photo-note {
+          margin: 10px 0 0;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: #718096;
+        }
+
+        .visual-photo-note {
+          margin-top: 12px;
         }
 
         .mission-band {
@@ -565,9 +617,59 @@ export default () => {
         }
 
         .team {
-          max-width: 720px;
+          max-width: 1180px;
           margin: 0 auto 64px;
           padding: 0 20px;
+        }
+
+        .team-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+          margin-bottom: 28px;
+        }
+
+        .team-card {
+          padding: 24px 22px 22px;
+          background: var(--bg-soft);
+          border-radius: 12px;
+          text-align: center;
+        }
+
+        .team-photo {
+          width: 84px;
+          height: 84px;
+          margin: 0 auto 16px;
+          border-radius: 50%;
+          background: #e2e8f0;
+          color: #243e63;
+          display: grid;
+          place-items: center;
+          font-size: 1.35rem;
+          font-weight: 800;
+        }
+
+        .team-card h3 {
+          margin: 0 0 4px;
+          font-size: 1.1rem;
+          font-weight: 800;
+          color: var(--navy);
+        }
+
+        .team-role {
+          margin: 0 0 10px;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #6415ff;
+        }
+
+        .team-card p:last-child {
+          margin: 0;
+          font-size: 0.9rem;
+          line-height: 1.6;
+          color: var(--muted);
         }
 
         .team-note {
@@ -636,7 +738,8 @@ export default () => {
             gap: 20px;
           }
 
-          .pillars-grid {
+          .pillars-grid,
+          .team-grid {
             grid-template-columns: 1fr;
           }
 

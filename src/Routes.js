@@ -24,12 +24,13 @@ import Registration from "pages/Registration.js";
 import StudentDashboard from "pages/StudentDashboard";
 import AdminDashboard from "pages/AdminDashboard";
 import CompleteEnrollment from "pages/CompleteEnrollment";
-import MyEnrollment from "pages/MyEnrollment";
+// import MyEnrollment from "pages/MyEnrollment";
 import Headertop from "./components/Headertop";
 import MobileRegisterBar from "./components/MobileRegisterBar";
 import { AuthModalProvider } from "context/AuthModalContext";
-import AuthModal from "components/auth/AuthModal";
-import AuthModalRouteHandler from "components/auth/AuthModalRouteHandler";
+// import AuthModal from "components/auth/AuthModal";
+// import AuthModalRouteHandler from "components/auth/AuthModalRouteHandler";
+import LoginPage from "pages/Login";
 import VerifyingEmailPage from "pages/VerifyingEmail";
 
 function AppContent() {
@@ -106,11 +107,11 @@ function AppContent() {
     <>
       {!hideMobileRegisterBar && <MobileRegisterBar />}
       {!hideSiteHeader && <Headertop />}
-      <AuthModalRouteHandler />
-      <AuthModal />
+      {/* <AuthModalRouteHandler /> */}
+      {/* <AuthModal /> */}
       <Routes tw="cursor-pointer">
             <Route path="/" element={<MainLandingPage />} />
-            <Route path="/login" element={<MainLandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<MainLandingPage />} />
             <Route path="/forgot-password" element={<MainLandingPage />} />
             <Route path="/verify-email" element={<MainLandingPage />} />
@@ -126,7 +127,7 @@ function AppContent() {
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/course-outline" element={<CourseOutline />} />
             <Route path="/registration" element={<Registration />} />
-            <Route path="/my-enrollment" element={<MyEnrollment />} />
+            {/* <Route path="/my-enrollment" element={<MyEnrollment />} /> */}
             <Route path="/dashboard" element={<StudentDashboard />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/complete-enrollment" element={<CompleteEnrollment />} />

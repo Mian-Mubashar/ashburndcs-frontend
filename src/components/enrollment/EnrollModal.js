@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
@@ -280,7 +279,6 @@ const stepIndex = (status) => {
 };
 
 export default function EnrollModal({ course, isOpen, onClose, sessionTitle }) {
-  const navigate = useNavigate();
   const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
   const [enrollment, setEnrollment] = useState(null);
@@ -439,7 +437,7 @@ export default function EnrollModal({ course, isOpen, onClose, sessionTitle }) {
                 <InfoBox>
                   <ClockIcon style={{ width: 14, height: 14, display: "inline", marginRight: 6 }} />
                   Your enrollment is <strong>Pending</strong>. Admin will review it soon. You can close this and
-                  check anytime on <strong>My Enrollment</strong>.
+                  we will follow up with next steps.
                 </InfoBox>
               )}
 
@@ -459,16 +457,6 @@ export default function EnrollModal({ course, isOpen, onClose, sessionTitle }) {
               <RefreshBtn type="button" onClick={refreshStatus}>
                 Refresh Status
               </RefreshBtn>
-              <SubmitBtn
-                type="button"
-                onClick={() => {
-                  onClose();
-                  navigate("/my-enrollment");
-                }}
-                style={{ marginTop: 12 }}
-              >
-                Track My Enrollment
-              </SubmitBtn>
               <RefreshBtn type="button" onClick={onClose} style={{ marginTop: 8 }}>
                 Close
               </RefreshBtn>
