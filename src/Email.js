@@ -1,6 +1,7 @@
 import { Toast } from "helpers/Alert";
 
 import { getAuthToken } from "services/authApi";
+import { apiUrl } from "utils/apiBase";
 
 export const Email = (intent) => {
   const data = getAuthToken();
@@ -12,9 +13,7 @@ export const Email = (intent) => {
     return;
   }
 
-  const apiUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000/";
-
-  fetch(`${apiUrl}myemail`, {
+  fetch(apiUrl("myemail"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

@@ -3,6 +3,7 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import { Toast } from "helpers/Alert";
 import axios from "axios";
+import { apiUrl } from "utils/apiBase";
 
 const MAP_EMBED_SRC =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3101.0910922701123!2d-77.42639602535358!3d38.99041734121231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b639c9b42f6fb7%3A0x4ee85b0a7f47cb34!2sAshburn%20Data%20Center%20Solutions!5e0!3m2!1sen!2s!4v1754300995830!5m2!1sen!2s";
@@ -467,8 +468,7 @@ export default ({
 
     setIsSubmitting(true);
     try {
-      const apiUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000/";
-      const response = await axios.post(`${apiUrl}api/contact`, data);
+      const response = await axios.post(apiUrl("api/contact"), data);
 
       if (response.data.success) {
         Toast({ message: "Message sent. We’ll reply within one business day.", type: "success" });

@@ -1,3 +1,5 @@
+import { getApiBaseUrl } from "./apiBase";
+
 /** Returns a safe external URL or null if the value is not a valid link. */
 export const getSafeExternalUrl = (url) => {
   if (!url?.trim()) return null;
@@ -17,7 +19,7 @@ export const getSafeExternalUrl = (url) => {
 
 export const isValidExternalUrl = (url) => Boolean(getSafeExternalUrl(url));
 
-const API_BASE = (process.env.REACT_APP_BACKEND_URL || "http://localhost:5000/").replace(/\/$/, "");
+const API_BASE = getApiBaseUrl().replace(/\/$/, "");
 
 export const getBackendAssetUrl = (path) => {
   if (!path?.trim()) return null;

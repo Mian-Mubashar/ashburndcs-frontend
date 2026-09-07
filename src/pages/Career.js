@@ -8,6 +8,7 @@ import Footer from "components/footers/MiniCenteredFooter";
 import { SectionHeading } from "components/misc/Headings";
 import { PrimaryButton } from "components/misc/Buttons";
 import { Toast } from "helpers/Alert";
+import { apiUrl } from "utils/apiBase";
 import Modal from "react-modal";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { ReactComponent as SvgDecoratorBlob1 } from "images/svg-decorator-blob-5.svg";
@@ -393,7 +394,7 @@ export default function Career() {
     setLoading(true);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}api/career`, {
+      const response = await fetch(apiUrl("api/career"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
