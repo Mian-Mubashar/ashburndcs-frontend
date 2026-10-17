@@ -1,86 +1,86 @@
-// ADCS Master Course Schedule — Saturday, September 19, 2026 to Wednesday, November 11, 2026
-export const COURSE_DATE_RANGE = "September 19, 2026 to November 11, 2026";
+// ADCS Master Course Schedule — Saturday, October 24, 2026 to Wednesday, December 16, 2026
+export const COURSE_DATE_RANGE = "October 24, 2026 to December 16, 2026";
 
 export const COURSE_SCHEDULE = [
   {
     week: "Week 1",
     title: "Foundation & Connectivity",
     sessions: [
-      { date: "Saturday, September 19, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Overview of data centers and Cloud significance." },
-      { date: "Sunday, September 20, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Data center cabling design and connectivity basics." },
-      { date: "Wednesday, September 23, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Introduction to single-mode and multi-mode fiber, including common connectors (LC, SC, MPO)." },
+      { date: "Saturday, October 24, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Overview of data centers and Cloud significance." },
+      { date: "Sunday, October 25, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Data center cabling design and connectivity basics." },
+      { date: "Wednesday, October 28, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Introduction to single-mode and multi-mode fiber, including common connectors (LC, SC, MPO)." },
     ],
   },
   {
     week: "Week 2",
     title: "Cabling Standards & Physical Architecture",
     sessions: [
-      { date: "Saturday, September 26, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Ethernet cabling standards and RJ45 connector awareness." },
-      { date: "Sunday, September 27, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Rack systems and server form factors (tower, rack-mounted, blade servers). Power and cooling requirements in server environments." },
-      { date: "Sunday, September 27, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "RJ45 crimping and rack mounting basics." },
-      { date: "Wednesday, September 30, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Fundamentals of electrical circuits, breaker systems and PDU (Power Distribution Unit) connectivity knowledge | simulation." },
+      { date: "Saturday, October 31, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Ethernet cabling standards and RJ45 connector awareness." },
+      { date: "Sunday, November 1, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Rack systems and server form factors (tower, rack-mounted, blade servers). Power and cooling requirements in server environments." },
+      { date: "Sunday, November 1, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "RJ45 crimping and rack mounting basics." },
+      { date: "Wednesday, November 4, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Fundamentals of electrical circuits, breaker systems and PDU (Power Distribution Unit) connectivity knowledge | simulation." },
     ],
   },
   {
     week: "Week 3",
     title: "Power Systems & Hardware Core",
     sessions: [
-      { date: "Saturday, October 3, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Server hardware component: Motherboard." },
-      { date: "Sunday, October 4, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Server hardware component: CPU, memory, storage devices, NICs, backplane, SAS cables, TPM, riser cards." },
-      { date: "Sunday, October 4, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "Pending Lab Activity." },
-      { date: "Wednesday, October 7, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Power supplies, PDU setup and power redundancy. (Part 1)." },
+      { date: "Saturday, November 7, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Server hardware component: Motherboard." },
+      { date: "Sunday, November 8, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Server hardware component: CPU, memory, storage devices, NICs, backplane, SAS cables, TPM, riser cards." },
+      { date: "Sunday, November 8, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "Pending Lab Activity." },
+      { date: "Wednesday, November 11, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Power supplies, PDU setup and power redundancy. (Part 1)." },
     ],
   },
   {
     week: "Week 4",
     title: "Hardware Deep Dive & Storage (Intensive Lab Week)",
     sessions: [
-      { date: "Saturday, October 10, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Server hardware components: motherboard, CPU, memory, storage devices, NICs, backplane, SAS cables, TPM, riser cards, and power supplies. (Feedback and revision Part 2)." },
-      { date: "Saturday, October 10, 2026", time: "1:00 PM – 3:00 PM", type: "Bonus Lab", topic: "Server teardown and component identification." },
-      { date: "Sunday, October 11, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Storage drive technologies: HDD, SSD, SAS, SATA, and NVMe." },
-      { date: "Sunday, October 11, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "Hardware assembly and drive installations." },
-      { date: "Wednesday, October 14, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "RAID levels (0, 1, 5, 10) and setup concepts." },
+      { date: "Saturday, November 14, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Server hardware components: motherboard, CPU, memory, storage devices, NICs, backplane, SAS cables, TPM, riser cards, and power supplies. (Feedback and revision Part 2)." },
+      { date: "Saturday, November 14, 2026", time: "1:00 PM – 3:00 PM", type: "Bonus Lab", topic: "Server teardown and component identification." },
+      { date: "Sunday, November 15, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Storage drive technologies: HDD, SSD, SAS, SATA, and NVMe." },
+      { date: "Sunday, November 15, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "Hardware assembly and drive installations." },
+      { date: "Wednesday, November 18, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "RAID levels (0, 1, 5, 10) and setup concepts." },
     ],
   },
   {
     week: "Week 5",
     title: "BIOS, Firmware & Diagnostics",
     sessions: [
-      { date: "Saturday, October 17, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "BIOS/UEFI configuration essentials." },
-      { date: "Sunday, October 18, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Power-On Self-Test (POST) process and hardware diagnoses." },
-      { date: "Sunday, October 18, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "BIOS/UEFI configuration and POST error troubleshooting." },
-      { date: "Wednesday, October 21, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Performing firmware and driver updates. (Part 1)." },
+      { date: "Saturday, November 21, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "BIOS/UEFI configuration essentials." },
+      { date: "Sunday, November 22, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Power-On Self-Test (POST) process and hardware diagnoses." },
+      { date: "Sunday, November 22, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "BIOS/UEFI configuration and POST error troubleshooting." },
+      { date: "Wednesday, November 25, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Performing firmware and driver updates. (Part 1)." },
     ],
   },
   {
     week: "Week 6",
     title: "Operating Systems & Linux",
     sessions: [
-      { date: "Saturday, October 24, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Installing operating systems (Windows Server, Linux)." },
-      { date: "Sunday, October 25, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Basic Linux command-line operation." },
-      { date: "Sunday, October 25, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "OS installation and Linux command line practice." },
-      { date: "Wednesday, October 28, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Understanding IP addressing (IPv4)." },
+      { date: "Saturday, November 28, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Installing operating systems (Windows Server, Linux)." },
+      { date: "Sunday, November 29, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Basic Linux command-line operation." },
+      { date: "Sunday, November 29, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "OS installation and Linux command line practice." },
+      { date: "Wednesday, December 2, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Understanding IP addressing (IPv4)." },
     ],
   },
   {
     week: "Week 7",
     title: "Networking & Remote Management (Intensive Lab Week)",
     sessions: [
-      { date: "Saturday, October 31, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Understand difference between router and switch." },
-      { date: "Saturday, October 31, 2026", time: "1:00 PM – 3:00 PM", type: "Bonus Lab", topic: "Network Router, switch and PC connectivity, configuration, and IPs assignment." },
-      { date: "Sunday, November 1, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Remote server management via IPMI." },
-      { date: "Sunday, November 1, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "IPMI configuration and remote troubleshooting." },
-      { date: "Wednesday, November 4, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Performing firmware and driver updates. (Part 2 - Remote Execution Focus)." },
+      { date: "Saturday, December 5, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Understand difference between router and switch." },
+      { date: "Saturday, December 5, 2026", time: "1:00 PM – 3:00 PM", type: "Bonus Lab", topic: "Network Router, switch and PC connectivity, configuration, and IPs assignment." },
+      { date: "Sunday, December 6, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Remote server management via IPMI." },
+      { date: "Sunday, December 6, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "IPMI configuration and remote troubleshooting." },
+      { date: "Wednesday, December 9, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Performing firmware and driver updates. (Part 2 - Remote Execution Focus)." },
     ],
   },
   {
     week: "Week 8",
     title: "Operations, Logistics & Final Review",
     sessions: [
-      { date: "Saturday, November 7, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Introduction to ticketing systems." },
-      { date: "Sunday, November 8, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Parts handling and logistics guidance." },
-      { date: "Sunday, November 8, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "Mock ticketing scenario and full system troubleshooting (Final Practical)." },
-      { date: "Wednesday, November 11, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Course wrap-up, final Q&A, and technical assessment." },
+      { date: "Saturday, December 12, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Introduction to ticketing systems." },
+      { date: "Sunday, December 13, 2026", time: "10:00 AM – 11:30 AM", type: "Classroom", topic: "Parts handling and logistics guidance." },
+      { date: "Sunday, December 13, 2026", time: "1:00 PM – 3:00 PM", type: "Lab", topic: "Mock ticketing scenario and full system troubleshooting (Final Practical)." },
+      { date: "Wednesday, December 16, 2026", time: "7:00 PM – 8:30 PM", type: "Classroom", topic: "Course wrap-up, final Q&A, and technical assessment." },
     ],
   },
 ];

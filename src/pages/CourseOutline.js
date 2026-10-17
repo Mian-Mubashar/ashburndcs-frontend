@@ -18,7 +18,7 @@ export default function CourseOutline() {
       <main className="outline-page">
         <div className="outline-header">
           <h1>Course Outline</h1>
-          <p>8-Week Master Schedule · Starts Saturday, September 19, 2026 · {COURSE_DATE_RANGE}</p>
+          <p>8-Week Master Schedule · Starts Saturday, October 24, 2026 · {COURSE_DATE_RANGE}</p>
         </div>
 
         <section className="outline-section" aria-labelledby="curriculum-heading">
