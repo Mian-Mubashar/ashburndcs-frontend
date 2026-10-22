@@ -468,7 +468,7 @@ export default ({
 
     setIsSubmitting(true);
     try {
-      const response = await axios.post(apiUrl("api/contact"), data);
+      const response = await axios.post(apiUrl("api/contact/"), data);
 
       if (response.data.success) {
         Toast({

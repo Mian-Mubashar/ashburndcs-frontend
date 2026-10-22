@@ -394,7 +394,7 @@ export default function Career() {
     setLoading(true);
 
     try {
-      const response = await fetch(apiUrl("api/career"), {
+      const response = await fetch(apiUrl("api/career/"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
