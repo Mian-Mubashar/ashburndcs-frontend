@@ -32,6 +32,8 @@ import { AuthModalProvider } from "context/AuthModalContext";
 // import AuthModalRouteHandler from "components/auth/AuthModalRouteHandler";
 import LoginPage from "pages/Login";
 import VerifyingEmailPage from "pages/VerifyingEmail";
+import Blogs from "pages/Blogs";
+import BlogDetail from "pages/BlogDetail";
 
 function AppContent() {
   const location = useLocation();
@@ -132,6 +134,10 @@ function AppContent() {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/complete-enrollment" element={<CompleteEnrollment />} />
             <Route path="/career" element={<Career />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blog" element={<Blogs />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
+            <Route path="/blogs/:slug" element={<BlogDetail />} />
             <Route path="/policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms" element={<TermsOfServicePage />} />
             {/* <Route path="/services/:id" element={<WebDevelopment />} /> */}

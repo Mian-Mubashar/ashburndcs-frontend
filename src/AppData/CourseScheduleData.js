@@ -1,5 +1,5 @@
 // ADCS Master Course Schedule — Sunday, November 8, 2026 to Wednesday, December 30, 2026
-export const COURSE_DATE_RANGE = "November 8, 2026 to December 30, 2026";
+export const COURSE_DATE_RANGE = "November 8, 2026 to January 8, 2027";
 
 export const COURSE_SCHEDULE = [
   {

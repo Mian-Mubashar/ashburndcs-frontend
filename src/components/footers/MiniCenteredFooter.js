@@ -83,6 +83,7 @@ export default function MiniCenteredFooter() {
             <LinkItem type="button" onClick={() => navigate("/payment")}>Payment</LinkItem>
             {/* <LinkItem type="button" onClick={() => navigate("/my-enrollment")}>My Enrollment</LinkItem> */}
             <LinkItem type="button" onClick={() => navigate("/career")}>Career</LinkItem>
+            <LinkItem type="button" onClick={() => navigate("/blogs")}>Blogs & Articles</LinkItem>
             <LinkItem type="button" onClick={() => navigate("/contact-us")}>Contact Us</LinkItem>
           </Column>
 
@@ -105,7 +106,7 @@ export default function MiniCenteredFooter() {
 
         <CopyrightContainer>
           <CopyrightText>
-            &copy; {new Date().getFullYear()} ADCS Training Center. All rights reserved.
+            &copy; {new Date().getFullYear()} ADCS Training Center. All rights reserved. • Hands-On & Online Data Center Training Serving Ashburn, Sterling, Reston, Herndon, Leesburg, Manassas, Fairfax & Nationwide.
           </CopyrightText>
         </CopyrightContainer>
       </Content>
