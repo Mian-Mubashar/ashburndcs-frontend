@@ -122,9 +122,6 @@ export default ({
       <ActiveNavLink $active={isActive("/career")} onClick={() => navigateTo("/career")}>
         Career
       </ActiveNavLink>
-      <ActiveNavLink $active={isActive("/blogs")} onClick={() => navigateTo("/blogs")}>
-        Blogs
-      </ActiveNavLink>
       <ActiveNavLink $active={isActive("/contact-us")} onClick={() => navigateTo("/contact-us")}>
         Contact Us
       </ActiveNavLink>
