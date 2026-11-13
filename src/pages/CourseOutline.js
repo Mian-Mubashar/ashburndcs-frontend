@@ -18,13 +18,13 @@ export default function CourseOutline() {
       <main className="outline-page">
         <div className="outline-header">
           <h1>Course Outline</h1>
-          <p>8-Week Master Schedule · Starts Sunday, November 8, 2026 · {COURSE_DATE_RANGE}</p>
+          <p>8-Week Master Schedule · Starts Saturday, November 7, 2026 · {COURSE_DATE_RANGE}</p>
         </div>
 
         <section className="outline-section" aria-labelledby="curriculum-heading">
           <h2 id="curriculum-heading">Curriculum</h2>
           <p className="section-sub">
-            Classroom lessons are paired with real lab sessions so you are ready for data center work.
+            Format: Virtual Live Instruction on Zoom + Hands-On In-Person Labs at Our Sterling, VA Facility. 90-minute classes on Wednesday evenings and Saturday/Sunday mornings, with 2-hour practical labs on Saturday/Sunday afternoons.
           </p>
           {CURRICULUM_BLOCKS.map((block) => (
             <div className="curriculum-block" key={block.title}>
@@ -58,7 +58,7 @@ export default function CourseOutline() {
                         <td className="col-date">{s.date}</td>
                         <td className="col-time">{s.time}</td>
                         <td>
-                          <span className={`type-badge type-${s.type.toLowerCase().replace(" ", "-")}`}>
+                          <span className={`type-badge type-${s.type.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}>
                             {s.type}
                           </span>
                         </td>
@@ -204,9 +204,21 @@ export default function CourseOutline() {
           white-space: nowrap;
         }
 
-        .type-classroom { background: #eef2ff; color: #3730a3; }
-        .type-lab { background: #ecfdf5; color: #065f46; }
-        .type-bonus-lab { background: #fffbeb; color: #92400e; }
+        .type-virtual-zoom,
+        .type-virtual,
+        .type-classroom {
+          background: #eef2ff;
+          color: #3730a3;
+        }
+        .type-in-person-lab,
+        .type-lab {
+          background: #ecfdf5;
+          color: #065f46;
+        }
+        .type-bonus-lab {
+          background: #fffbeb;
+          color: #92400e;
+        }
 
         @media (max-width: 700px) {
           .curriculum-grid {
